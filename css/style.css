@@ -11,14 +11,39 @@ button{font-family:inherit;cursor:pointer}
 .wrap{max-width:1020px;margin:0 auto;padding:16px}
 /* HUD */
 header.hud{position:sticky;top:0;z-index:10;background:var(--ink);color:#fff;border-bottom:3px solid var(--red)}
-.hud .wrap{display:flex;align-items:center;gap:16px;padding:10px 16px;flex-wrap:wrap}
+.plan-picker{background:var(--paper);border:1px solid var(--ink);margin:18px 0}
+.plan-picker>.hd{background:var(--ink);color:#fff;font-family:Rajdhani;font-weight:700;letter-spacing:.12em;padding:7px 12px}
+.plan-picker .plan-intro{margin:10px 12px;color:var(--mut);font-size:13px}
+.plan-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;padding:0 12px 12px}
+.plan-option{background:var(--bg);color:var(--ink);border:1px solid var(--line);padding:10px 12px;text-align:left;font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.08em}
+.plan-option:hover,.plan-option.active{border-color:var(--red);box-shadow:3px 3px 0 var(--red)}
+.plan-option.active{background:#fff1ef;color:var(--red)}
+.plan-option small{display:block;margin-top:4px;color:var(--mut);font-weight:400;letter-spacing:0}
+.selected-plan{margin:0;border-top:1px solid var(--line)}
+.board-page{margin:18px 0 32px}
+.board-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.board-head h2{font-family:Rajdhani;font-size:30px;line-height:1.05;margin:0}
+.board-head p{margin:4px 0 0;color:var(--mut);font-size:13px}
+.board-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px;background:var(--ink);border:2px solid var(--red);margin-bottom:10px}
+.board-tools button{background:#171717;color:#fff;border:1px solid #555;padding:7px 10px;font:11px 'JetBrains Mono';cursor:pointer}
+.board-tools button.active,.board-tools button:hover{border-color:var(--red);background:var(--red)}
+.board-tools label{display:flex;align-items:center;gap:7px;color:#fff;font:11px 'JetBrains Mono';letter-spacing:.08em}
+.board-tools input[type=color]{width:36px;height:30px;padding:2px;background:#222;border:1px solid #666}
+.board-tools input[type=range]{width:95px;accent-color:var(--red)}
+.board-tools .board-spacer{flex:1}
+.board-ai{margin:10px 0 14px;padding:10px 12px;border:1px dashed var(--red);background:#fff;color:var(--mut);font-size:13px}
+.board-ai b{display:block;color:var(--red);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.07em;margin-bottom:3px}
+.board-paper{height:min(68vh,720px);min-height:440px;position:relative;overflow:hidden;border:2px solid var(--ink);background-color:#fff;background-image:linear-gradient(#e8e8e3 1px,transparent 1px),linear-gradient(90deg,#e8e8e3 1px,transparent 1px);background-size:32px 32px;box-shadow:6px 6px 0 var(--line)}
+#boardcanvas{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;display:block;touch-action:none;cursor:crosshair}
+@media(max-width:600px){.board-head{align-items:flex-start;flex-direction:column}.board-paper{height:62vh;min-height:360px}.board-tools .board-spacer{display:none}}
+.hud .wrap{display:flex;align-items:center;gap:10px;padding:10px 16px;flex-wrap:wrap}
 .logo{font-family:Rajdhani;font-weight:700;font-size:20px;letter-spacing:.12em;cursor:pointer;white-space:nowrap}
 .logo b{color:var(--red2)}
-.xpbox{flex:1;min-width:180px}
+.xpbox{flex:1;min-width:140px}
 .xpbar{height:8px;background:#222;overflow:hidden;clip-path:polygon(0 0,100% 0,calc(100% - 6px) 100%,0 100%)}
 .xpbar>div{height:100%;background:var(--red);transition:width .5s}
 .xplabel{font-family:'JetBrains Mono';font-size:10px;color:#aaa;margin-top:4px;display:flex;justify-content:space-between;letter-spacing:.08em}
-.sw{font-family:'JetBrains Mono';font-size:11px;color:#ddd;display:flex;align-items:center;gap:6px;border:1px solid #444;padding:6px 10px}
+.sw{font-family:'JetBrains Mono';font-size:11px;color:#ddd;display:flex;align-items:center;gap:6px;border:1px solid #444;padding:5px 8px}
 .sw input{accent-color:var(--red)}
 /* HERO */
 .hero{background:var(--ink);color:#fff;margin:18px 0;padding:26px 24px;position:relative;clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,28px 100%,0 calc(100% - 28px))}
@@ -266,6 +291,36 @@ canvas{width:100%;height:auto;background:#fff;border:1px solid var(--ink);displa
 .cells{font-family:'JetBrains Mono';font-size:18px;letter-spacing:4px}
 .cells i{font-style:normal;color:var(--red)}
 .timer{font-family:'JetBrains Mono';font-size:22px;font-weight:700}
+/* EVALUACIÓN CON PIZARRÓN EN PARALELO */
+.quiz-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:14px;align-items:start}
+.quiz-board{position:sticky;top:78px;min-width:0;background:var(--paper);border:1px solid var(--ink);padding:10px}
+.quiz-board-title{display:flex;flex-direction:column;margin-bottom:8px}
+.quiz-board-title b{font-family:Rajdhani;font-size:19px;letter-spacing:.08em}
+.quiz-board-title small{font-size:12px;color:var(--mut)}
+.quiz-board .board-tools{padding:7px;gap:6px;margin-bottom:8px}
+.quiz-board .board-tools button{font-size:10px;padding:6px 7px}
+.quiz-board .board-tools input[type=range]{width:68px}
+.quiz-board .board-spacer{display:none}
+.quiz-paper{height:min(60vh,560px);min-height:340px}
+.quiz-left{min-width:0}
+.quiz-left-head{display:flex;align-items:center;gap:10px;margin:0 0 8px;font:11px 'JetBrains Mono';color:var(--mut)}
+.quiz-left-head button{background:var(--ink);color:#fff;border:0;padding:7px 10px;font:11px 'JetBrains Mono';cursor:pointer}
+body.quiz-fullscreen{overflow:hidden}
+body.quiz-fullscreen header.hud{display:none}
+body.quiz-fullscreen #app{width:100vw;max-width:none;height:100vh;margin:0;padding:8px 10px;display:flex;flex-direction:column;overflow:hidden}
+body.quiz-fullscreen #app>.lvlhead,body.quiz-fullscreen #app>.dep,body.quiz-fullscreen #app>.tabs{display:none!important}
+body.quiz-fullscreen #body{display:flex;flex:1;flex-direction:column;min-height:0;overflow:hidden}
+body.quiz-fullscreen .arena{flex:0 0 auto;margin:0 0 8px}
+body.quiz-fullscreen .quiz-layout{grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr);gap:10px;flex:1;height:calc(100vh - 100px);min-height:0;align-items:stretch}
+body.quiz-fullscreen .quiz-left{display:flex;flex-direction:column;min-height:0}
+body.quiz-fullscreen .quiz-left-head{flex:0 0 auto}
+body.quiz-fullscreen #q{flex:1;min-height:0;overflow:auto}
+body.quiz-fullscreen .quiz-board{position:static;display:flex;flex-direction:column;min-height:0;padding:8px}
+body.quiz-fullscreen .quiz-board-title{flex-direction:row;align-items:baseline;justify-content:space-between;gap:8px}
+body.quiz-fullscreen .quiz-paper{height:auto;min-height:0;flex:1}
+@media(max-width:850px){body.quiz-fullscreen .quiz-layout{grid-template-columns:minmax(260px,.8fr) minmax(300px,1.2fr)}}
+@media(max-width:650px){body.quiz-fullscreen{overflow:auto}body.quiz-fullscreen #app{height:auto;min-height:100vh;overflow:visible}body.quiz-fullscreen #body{overflow:visible}body.quiz-fullscreen .quiz-layout{display:grid;grid-template-columns:1fr;height:auto;overflow:visible}body.quiz-fullscreen #q{overflow:visible}body.quiz-fullscreen .quiz-paper{height:48vh;min-height:300px;flex:none}}
+@media(max-width:850px){.quiz-layout{grid-template-columns:1fr}.quiz-board{position:static}.quiz-paper{height:55vh;min-height:320px}}
 .qcard{background:var(--paper);border:1px solid var(--ink);padding:20px}
 .qnum{font-family:'JetBrains Mono';font-size:11px;color:var(--red);letter-spacing:.15em}
 .qtext{font-size:19px;margin:10px 0 16px;overflow-x:auto}
@@ -281,6 +336,10 @@ canvas{width:100%;height:auto;background:#fff;border:1px solid var(--ink);displa
 .fb.no{display:block;border:1px solid var(--red);border-left:6px solid var(--red);background:#fff3f2}
 .fb .go{display:block;width:max-content}
 .fb .st{font-family:'JetBrains Mono';font-size:12px;font-weight:700;letter-spacing:.12em}
+.solution{margin-top:12px;padding:12px 14px;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--red);line-height:1.65}
+.solution>b{font-family:'JetBrains Mono';font-size:12px;letter-spacing:.08em}
+.solution ol{margin:8px 0 0;padding-left:24px}
+.solution li{padding:3px 0 3px 4px}
 .hintbox{margin-top:10px;display:none;font-size:15px;border:1px dashed var(--ink);padding:8px 12px}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
 .end{text-align:center;padding:34px 12px}

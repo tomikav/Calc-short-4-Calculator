@@ -2,6 +2,7 @@
    Este archivo no tiene contenido de la materia: todo lo lee de content/<idioma>/. */
 const app = document.getElementById('app');
 let RET=null; const EXK={}; let CUR={i:0,tab:'lore'};
+let ACTIVE_PLAN=store('calc-study-plan')||'complete';
 let timerId=null; function clearTimer(){ if(timerId){clearInterval(timerId);timerId=null;} }
 function unlocked(i){ return S.free || i===0 || !!S.done[LV[i-1].id]; }
 function prog(n){ return '■'.repeat(n)+'□'.repeat(3-n); }
@@ -23,15 +24,22 @@ function showBack(){ let b=document.getElementById('backbtn'); if(!b){ b=documen
 
 /* ---------- mapa ---------- */
 function tableHTML(title, rows, cls){ if(!rows||!rows.length) return ''; return `<section class="route ${cls||''}"><div class="hd">${title}</div><table>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table></section>`; }
+function chooseStudyPlan(id){ ACTIVE_PLAN=id; store('calc-study-plan',id); showMap(); }
+function studyPlanHTML(){
+  const plans=COURSE.studyPlans||[]; if(!plans.length) return tableHTML(COURSE.routeTitle,COURSE.route);
+  const plan=plans.find(p=>p.id===ACTIVE_PLAN)||plans[0]; ACTIVE_PLAN=plan.id;
+  const choices=plans.map(p=>`<button class="plan-option${p.id===plan.id?' active':''}" type="button" aria-pressed="${p.id===plan.id}" onclick="chooseStudyPlan('${p.id}')">${t(p.labelKey)}<small>${p.duration}</small></button>`).join('');
+  return `<section class="plan-picker"><div class="hd">${t('studyTitle')}</div><p class="plan-intro">${t('studyChoose')}</p><div class="plan-options">${choices}</div>${tableHTML(`${plan.title} // ${plan.duration}`,plan.route,'selected-plan')}</section>`;
+}
 function showMap(){
-  RET=null; showBack(); hud(); window.scrollTo(0,0); clearTimer(); document.body.classList.remove('printmode');
+  RET=null; showBack(); hud(); window.scrollTo(0,0); clearTimer(); document.body.classList.remove('printmode','quiz-fullscreen');
   const total = LV.reduce((s,l)=>s+(S.done[l.id]||0),0);
   const fb = t('contentFallback') && CONTENT_LANG!==LANG ? `<div class="tip" style="margin-top:16px">${t('contentFallback')}</div>` : '';
   app.innerHTML = `${fb}<section class="hero"><div class="tag">${COURSE.tag}</div>
    <h1>CÁLCULO<b>//</b></h1><p>${COURSE.intro(LV.length)}</p>
    <p style="margin-top:14px"><button class="go" style="margin:0" onclick="showSheet()">${t('openSheet')} &gt;</button></p>
    <p class="mono" style="font-size:12px;color:#999">${t('progress')}: ${total}/${LV.length*3} · ${t('progressHint')}</p></section>
-   ${tableHTML(COURSE.examTitle, COURSE.exam, 'exam')}${tableHTML(COURSE.routeTitle, COURSE.route)}
+   ${tableHTML(COURSE.examTitle, COURSE.exam, 'exam')}${studyPlanHTML()}
    <div class="line" id="map"></div>`;
   const m = document.getElementById('map'); let cur=null, grid=null;
   LV.forEach((L,i)=>{
@@ -64,7 +72,7 @@ function exBlock(ex, L, n){
 
 /* ---------- sección ---------- */
 function showLevel(i, tab='lore', keepRet){
-  const L=LV[i]; window.scrollTo(0,0); clearTimer(); CUR={i,tab}; document.body.classList.remove('printmode');
+  const L=LV[i]; window.scrollTo(0,0); clearTimer(); CUR={i,tab}; document.body.classList.remove('printmode'); document.body.classList.toggle('quiz-fullscreen',tab==='battle');
   if(!keepRet){ RET=null; showBack(); }
   app.innerHTML = `<div class="lvlhead"><button class="back" onclick="showMap()">${t('back')}</button><div><div class="code">${L.code} // ${L.sub}</div><h2>${L.n}</h2></div></div>
    <div class="dep"><div><span>${t('requires')}</span>${(L.req&&L.req.length)?L.req.map(id=>`<a onclick="showLevel(LV.findIndex(x=>x.id==='${id}'))">${codeOf(id)} · ${LV.find(x=>x.id===id).n}</a>`).join(''):`<em>${t('startPoint')}</em>`}</div><div><span>${t('usedIn')}</span><em>${L.uses||''}</em></div></div>
@@ -93,7 +101,12 @@ function battle(i, body){
      <div class="stat"><div class="lbl">${t('firewall')}</div><div class="hp"><div id="hpb" style="width:100%"></div></div></div>
      <div class="stat" style="flex:0 0 auto"><div class="lbl">${t('integrity')}</div><div class="cells" id="hearts"></div></div>
      ${L.time?`<div class="stat" style="flex:0 0 auto"><div class="lbl">${t('time')}</div><div class="timer" id="tmr"></div></div>`:''}</div>
-   <div id="q"></div>`;
+   <div class="quiz-layout"><div class="quiz-left"><div class="quiz-left-head"><button type="button" onclick="showMap()">‹ ${t('map')}</button><span>${L.code} // ${L.n}</span></div><div id="q"></div></div><aside class="quiz-board">
+     <div class="quiz-board-title"><b>${t('boardTitle')}</b><small>${t('boardInQuiz')}</small></div>
+     ${boardToolsHTML('quiz-tools')}
+     <div class="board-paper quiz-paper"><canvas id="boardcanvas" aria-label="Pizarrón para desarrollar la pregunta de evaluación" role="img"></canvas></div>
+   </aside></div>`;
+  mountBoard();
   const H=()=>{ document.getElementById('hearts').innerHTML='<i>'+'■'.repeat(hearts)+'</i>'+'□'.repeat(maxH-hearts); };
   H();
   if(L.time){ const tick=()=>{ const el=document.getElementById('tmr'); if(!el){clearTimer();return;} el.textContent=`${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}`; if(left<=0){ clearTimer(); finish(false,t('timeUp')); return; } left--; }; tick(); timerId=setInterval(tick,1000); }
@@ -115,9 +128,9 @@ function battle(i, body){
       if(o.ok){ b.classList.add('ok'); const g=hintUsed?5:10; xpGain+=g; const tg=document.getElementById('tgt'); tg.classList.remove('hit'); void tg.offsetWidth; tg.classList.add('hit');
         document.getElementById('hpb').style.width=(100*(qs.length-qi-1)/qs.length)+'%';
         streak++; const M=t('okMsgs'); burst(b); fb.className='fb ok';
-        fb.innerHTML=`<div class="okhd"><span class="tick"></span><span class="okm">${M[Math.floor(Math.random()*M.length)]}</span><span class="okxp">+${g} XP</span>${streak>=2?`<span class="streak">${t('streak')} x${streak}</span>`:''}</div>${Q.e}${refRow(QREF[L.id],t('theory'))}`; }
+        fb.innerHTML=`<div class="okhd"><span class="tick"></span><span class="okm">${M[Math.floor(Math.random()*M.length)]}</span><span class="okxp">+${g} XP</span>${streak>=2?`<span class="streak">${t('streak')} x${streak}</span>`:''}</div>${Q.e}${Q.p?`<div class="solution"><b>Procedimiento completo</b><ol>${Q.p.map(step=>`<li>${step}</li>`).join('')}</ol></div>`:''}${refRow(QREF[L.id],t('theory'))}`; }
       else { b.classList.add('no'); [...O.children].forEach((x,k)=>{ if(opts[k].ok) x.classList.add('ok'); }); hearts--; H();
-        streak=0; fb.className='fb no'; fb.innerHTML=`<div class="st" style="color:var(--red)">${t('wrong')}</div>${Q.e}${refRow(QREF[L.id],t('review'))}`; }
+        streak=0; fb.className='fb no'; fb.innerHTML=`<div class="st" style="color:var(--red)">${t('wrong')}</div>${Q.e}${Q.p?`<div class="solution"><b>Procedimiento completo</b><ol>${Q.p.map(step=>`<li>${step}</li>`).join('')}</ol></div>`:''}${refRow(QREF[L.id],t('review'))}`; }
       const nx=document.createElement('button'); nx.className='go'; nx.textContent = hearts<=0? t('seeResult') : (qi<qs.length-1?t('nextQ'):t('finalQ'));
       nx.onclick=()=>{ if(hearts<=0) return finish(false,t('noLives')); qi++; if(qi>=qs.length) finish(true); else render(); };
       fb.appendChild(nx); typeset(fb);

@@ -21,6 +21,8 @@ function typeset(el){ if (window.__mj && window.MathJax && MathJax.typesetPromis
 <header class="hud">
   <div class="wrap">
     <div class="logo" onclick="showMap()">CÁLCULO<b>//</b></div>
+    <button class="sw" type="button" onclick="showMap()" data-i18n="map" aria-label="Abrir mapa del curso"></button>
+    <button class="sw" id="boardbtn" type="button" onclick="showBoard()" data-i18n="board" aria-label="Abrir pizarrón"></button>
     <div class="xpbox">
       <div class="xpbar"><div id="xpfill" style="width:0"></div></div>
       <div class="xplabel"><span id="rank"></span><span id="xptxt"></span></div>
@@ -40,6 +42,7 @@ function typeset(el){ if (window.__mj && window.MathJax && MathJax.typesetPromis
 <script src="js/labs-calc.js"></script>
 <script src="js/labs-graph.js"></script>
 <script src="js/app.js"></script>
+<script src="js/board.js"></script>
 <script src="js/loader.js"></script>
 </body>
 </html>

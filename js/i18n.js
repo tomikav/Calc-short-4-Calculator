@@ -8,6 +8,10 @@ const LANGS = { es:'Español', en:'English' };
 const I18N = {
  es:{
   free:'ACCESO LIBRE', sheet:'HOJA DE APUNTES', tv:'MODO TV', full:'PANTALLA COMPLETA',
+  map:'MAPA', board:'PIZARRÓN', studyTitle:'PLANES DE ESTUDIO', studyChoose:'Elige la ruta que se ajusta a tu objetivo. Los tiempos son aproximados.',
+  planComplete:'DESDE CERO', planExam:'SEGUNDO CORTE', planQuick:'REPASO INTENSIVO',
+  boardTitle:'PIZARRÓN DE CÁLCULO', boardIntro:'Resuelve aquí paso a paso. El área de trabajo es independiente del contenido y conserva tus trazos en este navegador.', boardInQuiz:'Escribe el procedimiento mientras resuelves la pregunta.',
+  boardPen:'LÁPIZ', boardEraser:'BORRADOR', boardUndo:'DESHACER', boardClear:'LIMPIAR', boardExport:'DESCARGAR PNG', boardColor:'TINTA', boardSize:'GROSOR', boardAI:'DETECCIÓN DE ERRORES CON IA · PRÓXIMAMENTE', boardAIHint:'El pizarrón ya puede exportarse como imagen; todavía no se envía a ningún modelo.',
   fullBlocked:'Tu navegador bloqueó la pantalla completa: pulsa F11',
   ranks:[[0,'NIVEL 0 // RECLUTA'],[120,'NIVEL 1 // OPERADOR'],[300,'NIVEL 2 // ANALISTA'],[520,'NIVEL 3 // INGENIERO'],[760,'NIVEL 4 // ESPECIALISTA'],[1000,'NIVEL 5 // EJECUTIVO']],
   openSheet:'VER HOJA DE APUNTES', progress:'PROGRESO', progressHint:'Para saltar a cualquier sección activa ACCESO LIBRE.',
@@ -42,6 +46,10 @@ const I18N = {
  },
  en:{
   free:'FREE ACCESS', sheet:'CHEAT SHEET', tv:'TV MODE', full:'FULL SCREEN',
+  map:'MAP', board:'WHITEBOARD', studyTitle:'STUDY PLANS', studyChoose:'Choose the route that matches your goal. Time estimates are approximate.',
+  planComplete:'FROM SCRATCH', planExam:'SECOND MIDTERM', planQuick:'INTENSIVE REVIEW',
+  boardTitle:'CALCULUS WHITEBOARD', boardIntro:'Work through problems here. This workspace is separate from the course content and keeps your strokes in this browser.', boardInQuiz:'Write your working as you solve the question.',
+  boardPen:'PEN', boardEraser:'ERASER', boardUndo:'UNDO', boardClear:'CLEAR', boardExport:'DOWNLOAD PNG', boardColor:'INK', boardSize:'WIDTH', boardAI:'AI ERROR DETECTION · COMING SOON', boardAIHint:'You can export the board as an image; it is not sent to any model yet.',
   fullBlocked:'Your browser blocked full screen: press F11',
   ranks:[[0,'LEVEL 0 // RECRUIT'],[120,'LEVEL 1 // OPERATOR'],[300,'LEVEL 2 // ANALYST'],[520,'LEVEL 3 // ENGINEER'],[760,'LEVEL 4 // SPECIALIST'],[1000,'LEVEL 5 // EXECUTIVE']],
   openSheet:'OPEN CHEAT SHEET', progress:'PROGRESS', progressHint:'Turn on FREE ACCESS to jump to any section.',

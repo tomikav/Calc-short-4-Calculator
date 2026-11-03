@@ -48,3 +48,23 @@ const COURSE = {
   /* Los ejemplos cuyo título cumple este patrón se marcan como "ejercicio del taller" */
   realPattern: /Taller/,
 };
+
+/* Rutas seleccionables: completa, enfocada al parcial y repaso intensivo. */
+COURSE.studyPlans = [
+  {id:'complete', labelKey:'planComplete', duration:'~15 h', title:'RUTA COMPLETA DESDE CERO', route:COURSE.route},
+  {id:'exam', labelKey:'planExam', duration:'~8 h', title:'PREPARACIÓN DEL SEGUNDO CORTE', route:[
+    ['BASE Y TFC · 1.5 h','SEC-03 a 08','Repasa gráficas, derivadas e integral definida: son los cimientos para plantear aplicaciones.'],
+    ['MÉTODOS · 2.5 h','SEC-09 a 13','Practica partes, integrales trigonométricas, sustitución trigonométrica y fracciones parciales.'],
+    ['ÁREAS Y VOLÚMENES · 2 h','SEC-14 a 15B','Dibuja cada región, calcula cortes y practica áreas, discos/arandelas y secciones transversales.'],
+    ['LONGITUD · 1 h','SEC-17','Deriva, simplifica la raíz y evalúa la integral de longitud.'],
+    ['SIMULACRO · 1 h','SEC-XX','Resuelve la evaluación mixta y revisa cada procedimiento que te cueste.']
+  ]},
+  {id:'quick', labelKey:'planQuick', duration:'~5 h', title:'REPASO INTENSIVO DEL PARCIAL', route:[
+    ['TFC · 30 min','SEC-08','Evalúa primitivas con cuidado; practica signos, paréntesis y cambio de límites.'],
+    ['MÉTODOS · 50 min','SEC-07, 09, 12, 13','Reconoce sustitución, partes, sustitución trigonométrica y fracciones parciales.'],
+    ['ÁREA · 50 min','SEC-14','Practica intersecciones, curvas de arriba/abajo y partición cuando cambia el orden.'],
+    ['VOLÚMENES · 70 min','SEC-15, 15B','Elige el método, define radios o áreas de sección y revisa unidades cúbicas.'],
+    ['LONGITUD · 45 min','SEC-17','Enfócate en derivar y reconocer cuadrados perfectos bajo la raíz.'],
+    ['PRUEBA FINAL · 55 min','SEC-XX','Haz el simulacro sin apuntes; después usa los desarrollos para corregir.']
+  ]}
+];

@@ -1,7 +1,7 @@
 /* ============ CARGADOR DE CONTENIDO ============
    Carga content/<idioma>/<archivo>. Si un archivo no existe en ese idioma,
    usa la versión en español (content/es/). */
-const CONTENT_FILES = ['course.js','references.js','sections.js','annotations.js','workshop.js','sheet.js'];
+const CONTENT_FILES = ['course.js','references.js','sections.js','evaluation-solutions.js','annotations.js','workshop.js','sheet.js'];
 let CONTENT_LANG = LANG;
 
 function loadScript(src){
