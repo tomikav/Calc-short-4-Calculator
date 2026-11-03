@@ -52,6 +52,18 @@ En `content/es/sections.js`, dentro del arreglo `LV`, agrega un objeto como este
 
 La **primera opción es siempre la correcta**; la app las mezcla al mostrarlas.
 
+El procedimiento que se muestra al responder va en `content/<idioma>/solutions.js`, por índice de pregunta:
+
+```js
+SOL.miTema = { 0:[R`Paso 1 explicado`, R`Paso 2`, R`Resultado`] };
+```
+
+Para una pregunta difícil (+20 XP, etiqueta DIFÍCIL), agrégala en `HARD` con su propio `sol`:
+
+```js
+HARD.miTema = [{ hard:true, q:R`...`, o:[...], e:'...', h:'...', sol:[R`...`] }];
+```
+
 ## 4. Agregar una referencia a la teoría
 
 En `references.js`:
@@ -63,17 +75,31 @@ COL.miLey = '#0057ff';
 
 El botón lleva al primer `<h3>` de esa sección que contenga ese texto.
 
-## 5. Agregar líneas a la hoja de apuntes
+## 5. Crear un plan de estudio
+
+En `content/es/course.js`, dentro de `plans`, agrega un bloque:
+
+```js
+{ id:'mi-plan', code:'PLAN-03', name:'Repaso de volúmenes', range:'Discos → Secciones transversales',
+  desc:'Descripción corta que aparece en la pantalla de inicio.',
+  sections:['discos','secciones','cascarones'],   // ids en el orden del recorrido; 'all' usa todas
+  exam:false,                                     // true muestra la tabla de temas del parcial
+  route:[['BLOQUE 1 · 1h','SEC-15','Consejo']] }  // opcional; true usa la ruta general
+```
+
+El plan aparece solo en la pantalla de inicio. Dentro del plan, cada sección se desbloquea al superar la anterior del mismo recorrido.
+
+## 6. Agregar líneas a la hoja de apuntes
 
 En `sheet.js`, dentro de `HOJA2`: `[prioridad, idSección, 'Etiqueta', 'fórmula o texto', 'ejemplo']`. La prioridad 0 es "antes de cada ejercicio".
 
-## 6. Agregar o traducir un idioma
+## 7. Agregar o traducir un idioma
 
 1. En `js/i18n.js`, copia el bloque `es` dentro de `I18N`, cámbiale la clave (por ejemplo `pt`), traduce los textos y agrégalo a `LANGS`.
 2. Para traducir el contenido, crea `content/pt/` y copia ahí los archivos de `content/es/` que vayas traduciendo. Los que no existan se cargan en español automáticamente, así que puedes traducir de a poco.
 3. Si traduces `sections.js`, **no cambies los `id`**: el progreso y las referencias dependen de ellos.
 
-## 7. Una materia nueva
+## 8. Una materia nueva
 
 Copia la carpeta `content/es/` completa, cambia `course.js` y reemplaza las secciones. Puedes tenerla en otra rama o en un repositorio aparte.
 

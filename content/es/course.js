@@ -45,26 +45,30 @@ const COURSE = {
     ['SI NO ALCANZA','Prioridad','SEC-04 → 08 → 14 → 15 → 15B → 17 → métodos (07, 09, 12, 13). Cascarones (16) solo si sobra tiempo.'],
   ],
 
+  /* ============ PLANES DE ESTUDIO ============
+     Cada plan es un recorrido por algunas secciones (en el orden de "sections").
+     Para crear un plan nuevo copia un bloque y cambia la lista de ids.
+     sections:'all' usa todas las secciones. exam / route son opcionales. */
+  plans: [
+    { id:'base', code:'PLAN-00', icon:'chip', accent:'#ffd400', name:'Fundamentos', range:'Exponentes → Derivadas',
+      desc:'Álgebra, gráficas, trigonometría y derivadas: todo lo que se asume que ya sabes.',
+      sections:['exponentes','notables','ecuaciones','graficar','regiones','trigbase','derivadas'] },
+    { id:'parcial2', code:'PLAN-02', icon:'target', accent:'#ff2a1f', featured:true, name:'Parcial · Segundo corte', range:'Integral definida → Longitud de la curva',
+      desc:'Los 7 temas del parcial: integral definida, áreas, discos, arandelas, secciones transversales y longitud. Incluye cómo graficar regiones.',
+      sections:['definida','graficar','regiones','area','discos','secciones','longitud','boss'], exam:true,
+      route:[
+        ['BLOQUE 1 · 1h','SEC-08','Tema 1 · Integral definida y TFC: la herramienta para calcular todo lo demás.'],
+        ['BLOQUE 2 · 1.5h','SEC-03 y 04','Graficar curvas y regiones: sin dibujo no hay planteo.'],
+        ['BLOQUE 3 · 1.5h','SEC-14','Temas 2 y 3 · Área bajo la curva y entre curvas.'],
+        ['BLOQUE 4 · 2.5h','SEC-15 y 15B','Temas 4, 5 y 6 · Discos, arandelas y secciones transversales: lo que más pesa.'],
+        ['BLOQUE 5 · 1h','SEC-17','Tema 7 · Longitud de curva: busca el cuadrado perfecto.'],
+        ['BLOQUE 6 · 1h','SEC-XX','Simulacro mixto con todos los temas.'],
+      ]},
+    { id:'completo', code:'PLAN-XX', icon:'network', accent:'#2f7bff', name:'Plan completo', range:'Álgebra básica → Evaluación final',
+      desc:'Las 20 secciones en 7 fases, desde cero hasta el simulacro de parcial.',
+      sections:'all', exam:true, route:true },
+  ],
+
   /* Los ejemplos cuyo título cumple este patrón se marcan como "ejercicio del taller" */
   realPattern: /Taller/,
 };
-
-/* Rutas seleccionables: completa, enfocada al parcial y repaso intensivo. */
-COURSE.studyPlans = [
-  {id:'complete', labelKey:'planComplete', duration:'~15 h', title:'RUTA COMPLETA DESDE CERO', route:COURSE.route},
-  {id:'exam', labelKey:'planExam', duration:'~8 h', title:'PREPARACIÓN DEL SEGUNDO CORTE', route:[
-    ['BASE Y TFC · 1.5 h','SEC-03 a 08','Repasa gráficas, derivadas e integral definida: son los cimientos para plantear aplicaciones.'],
-    ['MÉTODOS · 2.5 h','SEC-09 a 13','Practica partes, integrales trigonométricas, sustitución trigonométrica y fracciones parciales.'],
-    ['ÁREAS Y VOLÚMENES · 2 h','SEC-14 a 15B','Dibuja cada región, calcula cortes y practica áreas, discos/arandelas y secciones transversales.'],
-    ['LONGITUD · 1 h','SEC-17','Deriva, simplifica la raíz y evalúa la integral de longitud.'],
-    ['SIMULACRO · 1 h','SEC-XX','Resuelve la evaluación mixta y revisa cada procedimiento que te cueste.']
-  ]},
-  {id:'quick', labelKey:'planQuick', duration:'~5 h', title:'REPASO INTENSIVO DEL PARCIAL', route:[
-    ['TFC · 30 min','SEC-08','Evalúa primitivas con cuidado; practica signos, paréntesis y cambio de límites.'],
-    ['MÉTODOS · 50 min','SEC-07, 09, 12, 13','Reconoce sustitución, partes, sustitución trigonométrica y fracciones parciales.'],
-    ['ÁREA · 50 min','SEC-14','Practica intersecciones, curvas de arriba/abajo y partición cuando cambia el orden.'],
-    ['VOLÚMENES · 70 min','SEC-15, 15B','Elige el método, define radios o áreas de sección y revisa unidades cúbicas.'],
-    ['LONGITUD · 45 min','SEC-17','Enfócate en derivar y reconocer cuadrados perfectos bajo la raíz.'],
-    ['PRUEBA FINAL · 55 min','SEC-XX','Haz el simulacro sin apuntes; después usa los desarrollos para corregir.']
-  ]}
-];
