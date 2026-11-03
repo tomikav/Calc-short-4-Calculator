@@ -118,7 +118,7 @@ const QUIZ={
  ],
  area:[
   {q:R`Área entre \(y=x^2\) y \(y=x+2\)`,o:[R`\(\frac92\)`,'9',R`\(\frac{7}{6}\)`,R`\(\frac{10}{3}\)`],e:'Cortes en −1 y 2; arriba la recta.',h:'x² − x − 2 = 0',
-   sol:[R`Cortes: \(x^2=x+2\Rightarrow x^2-x-2=0\Rightarrow(x-2)(x+1)=0\Rightarrow x=-1,\ 2\).`,R`Prueba en \(x=0\): recta 2, parábola 0 → arriba \(x+2\).`,R`\(A=\int_{-1}^2(x+2-x^2)dx=\left[\frac{x^2}{2}+2x-\frac{x^3}{3}\right]_{-1}^2\).`,R`En 2: \(2+4-\frac83=\frac{10}{3}\). En −1: \(\frac12-2+\frac13=-\frac76\).`,R`\(A=\frac{10}{3}+\frac76=\frac{27}{6}=\frac92=4.5\) u².`],
+   sol:[R`Cortes: \(x^2=x+2\Rightarrow x^2-x-2=0\) \(\Rightarrow(x-2)(x+1)=0\Rightarrow x=-1,\ 2\).`,R`Prueba en \(x=0\): recta 2, parábola 0 → arriba \(x+2\).`,R`\(A=\int_{-1}^2(x+2-x^2)dx\) \(=\left[\frac{x^2}{2}+2x-\frac{x^3}{3}\right]_{-1}^2\).`,R`En 2: \(2+4-\frac83=\frac{10}{3}\). En −1: \(\frac12-2+\frac13=-\frac76\).`,R`\(A=\frac{10}{3}+\frac76=\frac{27}{6}=\frac92=4.5\) u².`],
    fig:{xr:[-1.6,2.6],yr:[-.5,4.6],fills:[{top:x=>x+2,bot:x=>x*x,a:-1,b:2,c:'blue'}],curves:[{f:x=>x+2,c:'red',lab:'y = x + 2',lx:-1.4},{f:x=>x*x,c:'ink',lab:'y = x²',lx:1.7}],slice:{x:.5,top:x=>x+2,bot:x=>x*x,c:'yel'},pts:[[-1,1,'(−1, 1)'],[2,4,'(2, 4)']]}},
   {q:R`Área entre \(y=\sqrt x\) y \(y=\frac x2\)`,o:[R`\(\frac43\)`,R`\(\frac{16}{3}\)`,'4',R`\(\frac23\)`],e:'Cortes en 0 y 4; arriba la raíz.',h:'√x = x/2 → x = x²/4',
    sol:[R`Cortes: \(\sqrt x=\frac x2\Rightarrow x=\frac{x^2}{4}\Rightarrow x(x-4)=0\Rightarrow x=0,\ 4\).`,R`En \(x=1\): \(\sqrt1=1>\frac12\) → arriba \(\sqrt x\).`,R`\(A=\int_0^4\left(x^{1/2}-\frac x2\right)dx=\left[\frac23x^{3/2}-\frac{x^2}{4}\right]_0^4=\frac{16}{3}-4\).`,R`\(A=\frac43\approx1.33\) u².`],

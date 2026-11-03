@@ -309,7 +309,7 @@ function guideHTML(print){ if(typeof FICHAS==='undefined') return '';
   return `<div class="hsec guide"><div class="hsec-hd gd"><span>${t('fcGuide')}</span>${t('fcGuideSub')}</div>
    <p class="gd-intro">${t('fcIntro')}</p>
    ${print?'':`<div class="gd-idx">${FICHAS.map((F,k)=>`<a class="${F.sec==='graficar'?'g':''}" href="#${F.id}" onclick="openFicha('${F.id}');return false">${String(k+1).padStart(2,'0')} · ${F.n}</a>`).join('')}</div>`}
-   <div class="gd-sub">${t('fcKit')}</div>${kitHTML()}
+   <div class="gd-sub">${t('fcKit')}</div>${kitHTML()}${catalogHTML(print)}
    ${FICHAS.map((F,k)=>(k===0?`<div class="gd-sub">${t('fcGraf')}</div>`:'')+(k>0&&F.sec!=='graficar'&&FICHAS[k-1].sec==='graficar'?`<div class="gd-sub">${t('fcFichas')}</div>`:'')+fichaHTML(F,k,print||k===0)).join('')}</div>`; }
 function openFicha(id){ let el=document.getElementById(id); if(!el){ showSheet(); el=document.getElementById(id); } if(!el) return; el.open=true; setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),60); }
 
@@ -319,6 +319,33 @@ function fichaShort(F,k){ const L=LV.find(x=>x.id===F.sec);
    <div class="sf-q"><b>${F.ej.src}</b> ${F.ej.q}</div>
    <ol class="sf-steps">${F.pasos.map(st=>`<li><div class="sf-sb${st.fig?' f':''}"><div><span class="sf-sh">${st.h}.</span> ${st.x}${fichaTbl(st.tbl)}</div>${st.fig&&typeof figSVG==='function'?`<div class="sf-fig">${figSVG(st.fig,{w:300,h:200})}</div>`:''}</div></li>`).join('')}</ol>
    <div class="sf-ck"><b>${t('fcCheck')}:</b> ${F.chequeo} <span class="sf-er">${F.errores.join(' · ')}</span></div></div>`; }
+
+/* ---------- identificar qué piden ---------- */
+function identHTML(print){ if(typeof IDENT==='undefined') return ''; const I=IDENT;
+  const link=id=>id&&!print?` <a class="fc-link" href="#${id}" onclick="event.preventDefault();openFicha('${id}')">${t('idSee')}</a>`:'';
+  return `<div class="idt${print?' p':''}">
+   <div class="idt-h"><span>${t('idTag')}</span>${t('idTitle')}</div>
+   ${I.tpl?`<div class="idt-sub">${t('idTpl')}</div><div class="tpl">${I.tpl.map(([n,f,d])=>`<div class="tpl-c"><div class="tpl-n">${n}</div><div class="tpl-f">\\(\\displaystyle ${f}\\)</div><div class="tpl-d">${d}</div></div>`).join('')}</div>`:''}
+   <div class="idt-sub">${t('idWords')}</div>
+   <table class="idt-t"><tr><th>${t('idCol1')}</th><th>${t('idCol2')}</th><th>${t('idCol3')}</th></tr>${I.words.map(([a,b,c,id])=>`<tr><td class="q">${a}</td><td class="w">${b}</td><td>${c}${link(id)}</td></tr>`).join('')}</table>
+   <div class="idt-two"><div><div class="idt-sub">${t('idInteg')}</div><table class="idt-t">${I.integ.map(([a,b,c])=>`<tr><td>${a}</td><td class="w">${b}</td><td>${c}</td></tr>`).join('')}</table></div>
+   <div><div class="idt-sub">${t('idDeriv')}</div><table class="idt-t">${I.deriv.map(([a,b,c])=>`<tr><td>${a}</td><td class="w">${b}</td><td>${c}</td></tr>`).join('')}</table>
+   <div class="idt-sub">${t('idPlan')}</div><ol class="idt-plan">${I.plan.map(x=>`<li>${x}</li>`).join('')}</ol></div></div></div>`; }
+function catalogHTML(print){ if(typeof GG_CAT==='undefined') return '';
+  return `<div class="gd-sub">${t('catTitle')}</div><div class="gg-grid${print?' p':''}">${GG_CAT.map(([n,e,d,sp])=>`<div class="gg-card"><div class="gg-fig">${figSVG(sp,{w:150,h:100,mini:true})}</div><div class="gg-n">${n}</div><div class="gg-e">${e}</div><div class="gg-d">${d}</div></div>`).join('')}</div>`; }
+
+/* ---------- guía de la calculadora del parcial ---------- */
+function calcGuideHTML(print){ if(typeof CALCGUIDE==='undefined') return ''; const G=CALCGUIDE;
+  return `<div class="cg${print?' p':''}"><div class="cg-h"><span>${t('cgTag')}</span>${G.model}</div><p class="cg-i">${G.intro}</p>
+   <div class="cg-cols">${G.items.map(([h,rows])=>`<div class="cg-c"><div class="cg-ch">${h}</div><ul>${rows.map(r=>`<li>${r.replace(/\[([^\]]+)\]/g,'<kbd>$1</kbd>')}</li>`).join('')}</ul></div>`).join('')}</div></div>`; }
+
+/* ---------- solucionario del Taller 4 ---------- */
+function t4Card(e,print){ const fig=e.fig&&typeof figSVG==='function'?`<div class="t4-fig">${figSVG(e.fig,print?{w:300,h:180}:{w:340,h:220})}</div>`:'';
+  return `<div class="t4c"><div class="t4-h"><span>${e.n}</span>${e.q}</div><div class="t4-b${fig?' f':''}"><ol class="t4-s">${e.s.map(x=>`<li>${x}</li>`).join('')}</ol>${fig}</div><div class="t4-r">${e.r}</div></div>`; }
+function t4HTML(print){ if(typeof T4==='undefined') return '';
+  const gs=Object.keys(T4GROUPS);
+  if(print) return gs.map(g=>`<div class="t4g-p"><div class="t4-gh">${T4GROUPS[g]}</div><div class="t4cols">${T4.filter(e=>e.g===g).map(e=>t4Card(e,true)).join('')}</div></div>`).join('');
+  return `<div class="hsec"><div class="hsec-hd t4x"><span>${t('t4Title')}</span>${t('t4Sub')}</div>${gs.map((g,k)=>`<details class="t4g"${k===0?' open':''}><summary>${T4GROUPS[g]} <em>${T4.filter(e=>e.g===g).length}</em></summary><div class="t4cols">${T4.filter(e=>e.g===g).map(e=>t4Card(e,false)).join('')}</div></details>`).join('')}</div>`; }
 
 /* ---------- aprender replicando ---------- */
 let REPLDONE=store('calc-repl')||{};
@@ -350,7 +377,7 @@ function showSheet(){
   app.innerHTML = `<div class="lvlhead"><button class="back" onclick="showMap()">${t('back')}</button><div><div class="code">${t('sheetCode')}</div><h2>${t('sheetTitle')}</h2></div></div>
    <div class="panel"><p>${t('sheetIntro')(done,HOJA2.length)}</p>
    <div class="row" style="margin:0 0 10px;gap:10px;flex-wrap:wrap"><button class="go" style="margin:0" onclick="exportPDF('short')">${t('exportShort')} &gt;</button><button class="ghost" onclick="exportPDF('full')">${t('exportFull')}</button><button class="ghost" onclick="showPrint('short')">${t('printVersion')}</button>${typeof loadContent==='function'?`<a class="ghost" href="docs/Hoja_de_apuntes.pdf" target="_blank" rel="noopener">${t('readyPdf')}</a><a class="ghost" href="docs/Guia_completa.pdf" target="_blank" rel="noopener">${t('readyGuide')}</a>`:''}</div>
-   ${[0,1,2,3].map(p=>`<div class="hsec"><div class="hsec-hd p${p}"><span>${PNAME[p][0]}</span>${PNAME[p][1]}</div>${HOJA2.filter(it=>it[0]===p).map(hrow).join('')}</div>${p===0?guideHTML(false):''}${p===1&&typeof REPL!=='undefined'?`<div class="hsec"><div class="hsec-hd p1 rpx"><span>${t('rpTitle')}</span>${t('rpIntro')}</div>${REPL.map(replHTML).join('')}</div>`:''}`).join('')}</div>`;
+   ${[0,1,2,3].map(p=>`<div class="hsec"><div class="hsec-hd p${p}"><span>${PNAME[p][0]}</span>${PNAME[p][1]}</div>${p===0?identHTML(false):''}${HOJA2.filter(it=>it[0]===p).map(hrow).join('')}</div>${p===0?calcGuideHTML(false)+guideHTML(false)+t4HTML(false):''}${p===1&&typeof REPL!=='undefined'?`<div class="hsec"><div class="hsec-hd p1 rpx"><span>${t('rpTitle')}</span>${t('rpIntro')}</div>${REPL.map(replHTML).join('')}</div>`:''}`).join('')}</div>`;
   typeset(app);
 }
 let PRINTMODE='short';
@@ -361,17 +388,18 @@ function showPrint(mode){
     <span class="pmodes"><button class="${PRINTMODE==='short'?'on':''}" onclick="showPrint('short')">${t('pShort')}</button><button class="${PRINTMODE==='full'?'on':''}" onclick="showPrint('full')">${t('pFull')}</button></span>
     <button class="go" style="margin:0" onclick="tryPrint()">${t('exportPdf')}</button><span class="small">${t('pdfHint')}</span></div>`;
   if(PRINTMODE==='short'){
-    const card=([pp,sec,lab,c,ej])=>`<div class="sc"><div class="sc-l">${lab}</div><div class="sc-c">${mth(c)}</div><div class="sc-e"><b>${t('eg')}</b> ${mth(ej)}</div>${typeof TALLER_EJ!=='undefined'&&TALLER_EJ[lab]?`<div class="sc-e t"><b>${t('tallerEg')}</b> ${mth(TALLER_EJ[lab])}</div>`:''}</div>`;
-    app.innerHTML = `${bar}<div class="psheet short"><div class="ptitle">${COURSE.title.toUpperCase()} · ${t('sheetTitle').toUpperCase()}<span>${t('pShortSub')}</span></div>
-     ${[0,1,2].map(p=>`<div class="sblock"><div class="ph">${PNAME[p][0]} <span>${PNAME[p][1]}</span></div><div class="scols">${HOJA2.filter(it=>it[0]===p).map(card).join('')}</div></div>`).join('')}
+    const card=([pp,sec,lab,c,ej])=>`<div class="sc${/^Tabla de/.test(lab)?' wide':''}"><div class="sc-l">${lab}</div><div class="sc-c">${mth(c)}</div><div class="sc-e"><b>${t('eg')}</b> ${mth(ej)}</div>${typeof TALLER_EJ!=='undefined'&&TALLER_EJ[lab]?`<div class="sc-e t"><b>${t('tallerEg')}</b> ${mth(TALLER_EJ[lab])}</div>`:''}</div>`;
+    app.innerHTML = `${bar}<div class="psheet short"><div class="ptitle">${COURSE.title.toUpperCase()} · ${t('sheetTitle').toUpperCase()}<span>${t('pShortSub')}</span></div>${calcGuideHTML(true)}
+     ${[0,1,2].map(p=>`<div class="sblock"><div class="ph">${PNAME[p][0]} <span>${PNAME[p][1]}</span></div>${p===0?identHTML(true):''}<div class="scols">${HOJA2.filter(it=>it[0]===p).map(card).join('')}</div></div>`).join('')}
      ${typeof KIT!=='undefined'?`<div class="sblock"><div class="ph">${t('fcKit')} <span>${t('pKitSub')}</span></div><div class="scols kitc">${KIT.map(([h,rows])=>`<div class="sc"><div class="sc-l">${h}</div>${rows.map(([f,n])=>`<div class="sc-k">\\(${f}\\)${n?` <em>${n}</em>`:''}</div>`).join('')}</div>`).join('')}</div></div>`:''}
+     <div class="sblock">${catalogHTML(true)}</div>
      ${typeof FICHAS!=='undefined'?`<div class="sblock"><div class="ph">${t('pProc')} <span>${t('pProcSub')}</span></div><div class="sfichas">${FICHAS.map((F,k)=>fichaShort(F,k)).join('')}</div></div>`:''}
-     ${typeof REPL!=='undefined'?`<div class="sblock"><div class="ph">${t('rpTitle')} <span>${t('rpPrint')}</span></div><div class="scols rpc">${REPL.map(it=>`<div class="sc"><div class="sc-l">${it.title} · ${it.ex.src}</div><div class="sc-c">${it.ex.q}</div><ol class="sf-steps">${it.ex.s.map(x=>`<li>${x}</li>`).join('')}</ol><div class="sc-e t"><b>${t('rpYou')}</b> ${it.you.q}</div><div class="sc-e"><b>${t('pAns')}</b> ${it.you.checks.map(c=>c[0]+': '+c[1].replace(/sqrt\(([^)]*)\)/g,'√$1').replace(/pi/g,'π')).join(' · ')}</div></div>`).join('')}</div></div>`:''}
+     ${typeof T4!=='undefined'?`<div class="sblock"><div class="ph">${t('t4Title')} <span>${t('t4Sub')}</span></div>${t4HTML(true)}</div>`:''}
     </div>`;
   } else {
   app.innerHTML = `${bar}
    <div class="psheet full"><div class="ptitle">${COURSE.title.toUpperCase()} · ${t('guideTitle').toUpperCase()}</div>
-   ${[0,1,2,3].map(p=>(p===1?`<div class="pguide">${guideHTML(true)}</div>`:'')+`<div class="pblock"><div class="ph">${PNAME[p][0]} <span>${PNAME[p][1]}</span></div><table class="pt">${HOJA2.filter(it=>it[0]===p).map(([pp,sec,lab,c,ej])=>`<tr><td class="pl">${lab}</td><td class="pc"><div>${mth(c)}</div><div class="pe"><b>${t('eg')}</b> ${mth(ej)}</div>${typeof TALLER_EJ!=='undefined'&&TALLER_EJ[lab]?`<div class="pe"><b>${t('tallerEg')}</b> ${mth(TALLER_EJ[lab])}</div>`:''}</td></tr>`).join('')}</table></div>`).join('')}
+   ${[0,1,2,3].map(p=>(p===1?`${calcGuideHTML(true)}<div class="pguide">${guideHTML(true)}</div><div class="pblock"><div class="ph">${t('t4Title')} <span>${t('t4Sub')}</span></div>${t4HTML(true)}</div>`:'')+`<div class="pblock"><div class="ph">${PNAME[p][0]} <span>${PNAME[p][1]}</span></div>${p===0?identHTML(true):''}<table class="pt">${HOJA2.filter(it=>it[0]===p).map(([pp,sec,lab,c,ej])=>`<tr><td class="pl">${lab}</td><td class="pc"><div>${mth(c)}</div><div class="pe"><b>${t('eg')}</b> ${mth(ej)}</div>${typeof TALLER_EJ!=='undefined'&&TALLER_EJ[lab]?`<div class="pe"><b>${t('tallerEg')}</b> ${mth(TALLER_EJ[lab])}</div>`:''}</td></tr>`).join('')}</table></div>`).join('')}
    ${typeof REPL!=='undefined'?`<div class="pblock"><div class="ph">${t('rpTitle')} <span>${t('rpPrint')}</span></div><table class="pt">${REPL.map(it=>`<tr><td class="pl">${it.title}<br><span class="psrc">${it.ex.src}</span></td><td class="pc"><div>${it.ex.q}</div><ol class="psteps">${it.ex.s.map(x=>`<li>${x}</li>`).join('')}</ol><div class="pe"><b>${t('rpYou')}</b> ${it.you.q} → <span class="pans">${it.you.checks.map(c=>c[0]+': '+c[1].replace(/sqrt\(([^)]*)\)/g,'√$1').replace(/pi/g,'π')).join(' · ')}</span></div></td></tr>`).join('')}</table></div>`:''}</div>`;
   }
   typeset(app);

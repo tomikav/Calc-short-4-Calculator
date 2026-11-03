@@ -242,6 +242,7 @@ const FICHAS=[
   chequeo:'Distancia recta de (0, 0) a (0.33, 0.5) ≈ 0.60 < 0.61 ✓.'},
 ];
 
+const sq2c=x=>Math.sqrt(Math.max(0,x));
 const FICHAS_G=[
  {id:'g-recta',sec:'graficar',n:'Graficar una recta',
   que:R`Una ecuación de la forma \(y=mx+b\) siempre es una línea recta. \(b\) es donde corta el eje y; \(m\) (pendiente) dice cuánto sube y por cada 1 que avanza x.`,
@@ -355,6 +356,53 @@ const FICHAS_G=[
     fig:{xr:[-1,17.5],yr:[-9,9],gx:4,gy:4,fills:[{top:x=>2*Math.sqrt(x),bot:x=>x/2,a:0,b:16,c:'blue'}],curves:[{f:x=>2*Math.sqrt(x),a:0,b:16,c:'red',lab:'R = 2√x',lx:3},{f:x=>x/2,a:0,b:16,c:'ink',lab:'r = x/2',lx:11}],axis:{y:0,lab:'eje x'},mirror:true,washer:true,slice:{x:7,top:x=>2*Math.sqrt(x),bot:x=>x/2,c:'red'}}}],
   errores:['No despejar y antes de tabular.','Olvidar marcar el eje y los radios.'],
   chequeo:'Tu dibujo debe tener: 2 curvas rotuladas, 2 cortes con coordenadas, región, rebanada, eje punteado, R y r.'},
+ {id:'g-cubica',sec:'graficar',n:'Cúbica e hipérbola (x³ y 1/x)',
+  que:R`\(y=x^3\) pasa por el origen y crece rápido (Taller #6). \(y=\frac1x\) nunca toca los ejes: se acerca pero no llega (asíntotas) (Taller #7 y #12).`,
+  cuando:R`Ves \(x^3\) o x dividiendo (\(\frac1x\), \(\frac2y\)).`,
+  formula:R`y=x^3\ (\text{impar}),\qquad y=\frac1x\ (x\neq0)`,
+  simbolos:[['impar','f(−x) = −f(x): simétrica respecto al origen'],['asíntota','recta a la que la curva se acerca sin tocarla']],
+  ej:{src:'Taller 4 · 5.2 #6 y #7',q:R`Grafica \(y=x^3\) en [0, 3] y \(y=\frac1x\) en [2, 4]`},
+  pasos:[
+   {h:'Tabla de x³',x:R`Eleva cada x al cubo (los negativos quedan negativos):`,tbl:{f:x=>x**3,xs:[-2,-1,0,1,2,3],cols:['x','x³']},
+    fig:{xr:[-2.4,3.4],yr:[-9,28],gy:5,curves:[{f:x=>x**3,c:'blue',lab:'y = x³',lx:2.2}],pts:[[-2,-8,'(−2, −8)'],[0,0],[1,1],[2,8,'(2, 8)'],[3,27,'(3, 27)']]}},
+   {h:'Región del #6',x:R`Bajo \(y=x^3\), sobre y = 0, hasta \(x=3\): una zona que se ensancha muy rápido a la derecha.`,
+    fig:{xr:[-.3,3.4],yr:[-1,28],gy:5,fills:[{top:x=>x**3,a:0,b:3,c:'blue'}],curves:[{f:x=>x**3,a:0,b:3.1,c:'blue'}],pts:[[3,27,'(3, 27)']]}},
+   {h:'Tabla de 1/x',x:R`Divide 1 entre x. Con x grande el resultado se acerca a 0; con x cerca de 0 se dispara:`,tbl:{f:x=>1/x,xs:[.25,.5,1,2,4],cols:['x','1/x']}},
+   {h:'Dibuja y marca la región del #7',x:R`La curva baja pegándose al eje x. La región del #7 está entre x = 2 y x = 4, bajo la curva.`,
+    fig:{xr:[-.3,4.6],yr:[-.3,4.4],fills:[{top:x=>1/x,a:2,b:4,c:'blue'}],curves:[{f:x=>1/x,a:.22,c:'blue',lab:'y = 1/x',lx:.6}],pts:[[2,.5,'(2, ½)'],[4,.25,'(4, ¼)'],[1,1,'(1, 1)']]}}],
+  errores:['Dibujar 1/x tocando los ejes.','Olvidar que (−2)³ = −8 (negativo).'],
+  chequeo:'1/x siempre positiva para x > 0; x³ positiva para x > 0.'},
+
+ {id:'g-pot23',sec:'graficar',n:'Potencia x^(2/3) y su versión acostada',
+  que:R`\(y=x^{2/3}=\sqrt[3]{x^2}\) crece cada vez más despacio (Taller #10). Su versión \(x=y^{2/3}\) aparece en el #14 y en el #33/#34 (de \(y^2=x^3\)).`,
+  cuando:R`Exponente con denominador 3, o \(y^2=x^3\).`,
+  formula:R`x^{2/3}=\left(\sqrt[3]{x}\right)^2`,
+  simbolos:[['truco','usa x que sean cubos: 0, 1, 8, 27'],['y² = x³','es lo mismo que y = x^(3/2) o x = y^(2/3)']],
+  ej:{src:'Taller 4 · 5.2 #10 y #14',q:R`Grafica \(y=x^{2/3}\) entre \(x=1\) y \(x=27\)`},
+  pasos:[
+   {h:'Tabla con cubos perfectos',x:R`Raíz cúbica primero, luego al cuadrado: \(27^{2/3}=(\sqrt[3]{27})^2=3^2=9\).`,tbl:{f:x=>Math.cbrt(x)**2,xs:[0,1,8,27],cols:['x','x^(2/3)']}},
+   {h:'Dibuja la región',x:R`Sube rápido al principio y luego se aplana. La región del #10 va de x = 1 a 27 bajo la curva.`,
+    fig:{xr:[-1,29],yr:[-.5,10],gx:5,gy:2,fills:[{top:x=>Math.cbrt(x)**2,a:1,b:27,c:'blue'}],curves:[{f:x=>Math.cbrt(x)**2,a:0,c:'blue',lab:'y = x^(2/3)',lx:14}],pts:[[1,1,'(1, 1)'],[8,4,'(8, 4)'],[27,9,'(27, 9)']]}},
+   {h:'Versión acostada x = y^(2/3) (#14)',x:R`Misma tabla con los papeles cambiados: eliges y = 0, 1, 8, 27 y calculas x. Queda la misma forma pero "acostada".`,
+    fig:{xr:[-.5,10],yr:[-1,29],gx:2,gy:5,fills:[{dir:'y',right:y=>Math.cbrt(y)**2,left:y=>0,a:0,b:27,c:'blue'}],ycurves:[{g:y=>Math.cbrt(y)**2,a:0,b:28,c:'blue',lab:'x = y^(2/3)',ly:16}],pts:[[9,27,'(9, 27)'],[4,8,'(4, 8)']]}}],
+  errores:['Calcular 27^(2/3) como 27·2/3 = 18.'],
+  chequeo:'x^(2/3) en x = 8 debe dar 4.'},
+
+ {id:'g-trig',sec:'graficar',n:'Seno, coseno y √cos x',
+  que:R`\(\sin x\) y \(\cos x\) son ondas entre −1 y 1. En el taller aparece \(y=\sqrt{\cos x}\) (#25): solo existe donde \(\cos x\ge0\), es decir entre \(-\frac\pi2\) y \(\frac\pi2\).`,
+  cuando:'Ves sen, cos o tan. Trabaja en radianes (calculadora en Rad).',
+  formula:R`\sin0=0,\ \sin\tfrac\pi2=1;\quad\cos0=1,\ \cos\tfrac\pi2=0`,
+  simbolos:[['π ≈ 3.14','media vuelta'],['período','2π: la onda se repite']],
+  ej:{src:'Taller 4 · 5.2 #25',q:R`Grafica \(y=\cos x\) y \(y=\sqrt{\cos x}\) en \(\left[-\frac\pi2,\frac\pi2\right]\)`},
+  pasos:[
+   {h:'Puntos clave del coseno',x:R`Usa los ángulos de la tabla de valores notables:`,tbl:{f:Math.cos,xs:[-Math.PI/2,-Math.PI/4,0,Math.PI/4,Math.PI/2],cols:['x (rad)','cos x']}},
+   {h:'Raíz del coseno',x:R`Saca raíz a cada valor: 0 → 0, 0.707 → 0.841, 1 → 1. Queda una "loma" más redonda que el coseno.`,
+    fig:{xr:[-1.9,1.9],yr:[-.2,1.25],xt:[[-Math.PI/2,'−π/2'],[0,'0'],[Math.PI/2,'π/2']],curves:[{f:Math.cos,c:'ink',dash:true,lab:'cos x',lx:-1.35},{f:x=>sq2c(Math.cos(x)),a:-Math.PI/2,b:Math.PI/2,c:'blue',lab:'√cos x',lx:.35}]}},
+   {h:'Región del #25',x:R`La base del sólido es la zona bajo \(\sqrt{\cos x}\) y sobre el eje x. Sobre cada rebanada se levanta un cuadrado de lado \(\sqrt{\cos x}\).`,
+    fig:{xr:[-1.9,2.2],yr:[-.2,1.4],xt:[[-Math.PI/2,'−π/2'],[Math.PI/2,'π/2']],fills:[{top:x=>sq2c(Math.cos(x)),a:-Math.PI/2,b:Math.PI/2,c:'blue',hatch:true}],curves:[{f:x=>sq2c(Math.cos(x)),a:-Math.PI/2,b:Math.PI/2,c:'blue'}],section:{x:.2,top:x=>sq2c(Math.cos(x)),c:'purple'}}}],
+  errores:['Usar grados en la calculadora.','Dibujar √cos x fuera de [−π/2, π/2].'],
+  chequeo:'En x = 0 las dos valen 1.'}
 ];
+(()=>{ const i=FICHAS_G.findIndex(f=>f.id==='g-region'); if(i>=0) FICHAS_G.push(FICHAS_G.splice(i,1)[0]); })();
 FICHAS.unshift(...FICHAS_G);
 const FICHA_OF={'Graficar':'g-parabola','Área bajo la curva':'f-signo','TFC':'f-definida','Propiedades':'f-definida','Sustitución en definida':'f-sust','Área entre curvas':'f-area','¿dx o dy? ¿se cruzan?':'f-dy','Discos / arandelas':'f-arandela','Eje desplazado y = k':'f-eje','Variable en discos':'f-discoy','Secciones transversales':'f-secc','Áreas de secciones':'f-secc','Largo de la rebanada':'f-secc','Longitud de curva':'f-long','Truco del cuadrado perfecto':'f-truco','Paramétricas':'f-param'};

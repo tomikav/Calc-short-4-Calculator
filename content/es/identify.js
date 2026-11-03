@@ -1,0 +1,66 @@
+/* ============ IDENTIFICAR: QUÉ ME ESTÁN PIDIENDO Y QUÉ HAGO ============
+   IDENT.words:  [frase del enunciado, qué significa, qué haces, id de ficha]
+   IDENT.integ:  [cómo se ve la integral, método, ejemplo]
+   IDENT.deriv:  [cómo se ve la función, regla, ejemplo]
+   IDENT.plan:   plan para el parcial (7 puntos, 2 de selección múltiple). */
+const IDENT={
+ words:[
+  ['"Evalúe" + ∫ con números arriba y abajo','Integral definida','Antiderivada F y luego F(b) − F(a) con paréntesis','f-definida'],
+  ['"d/dx de ∫ de a hasta x²…"','TFC parte 1','Reemplaza t por el límite de arriba y multiplica por su derivada','f-definida'],
+  ['"Área de la región acotada (encerrada) por…"','Área entre curvas','Dibuja, cortes, arriba − abajo (o derecha − izquierda)','f-area'],
+  ['"Área entre la curva y el eje x" y la curva baja del eje','Área con signo','Parte donde corta el eje y suma valores positivos','f-signo'],
+  ['"…acotada por x = y², …" o curvas con y²','Rebanadas horizontales','Despeja x de cada curva y usa dy','f-dy'],
+  ['"Gire / haga girar / alrededor de / sólido de revolución"','Volumen por discos o arandelas','π ∫ R² (o R² − r²). Rebanada ⟂ al eje','f-discox'],
+  ['"…en torno al eje x" o "y = k"','Eje horizontal','Rebanada vertical → dx. R = distancia vertical al eje','f-discox'],
+  ['"…en torno al eje y" o "x = k"','Eje vertical','Rebanada horizontal → dy. Despeja x. R = distancia horizontal','f-discoy'],
+  ['Dos curvas + "gire"','Arandela','R = curva lejana del eje, r = cercana. π ∫ (R² − r²)','f-arandela'],
+  ['"alrededor de la recta y = 8" / "x = 4"','Eje desplazado','R y r = distancia al eje: mayor − menor','f-eje'],
+  ['"La base de un sólido es… las secciones perpendiculares son cuadrados / triángulos / semicírculos"','Secciones transversales','s = arriba − abajo; V = ∫ A(s) dx. SIN π (salvo círculos)','f-secc'],
+  ['"Longitud de la curva / del arco entre x = a y x = b"','Longitud','∫ √(1 + (y′)²) dx. Busca el cuadrado perfecto','f-long'],
+  ['"x = …t, y = …t" (paramétricas)','Longitud paramétrica','∫ √(x′² + y′²) dt. Límites en t','f-param'],
+  ['"Establezca una integral" / "aproxime con la regla de la parábola, n = 8"','Solo plantear','Escribe la integral bien; el valor lo da la calculadora','f-long'],
+  ['"Primer cuadrante"','x ≥ 0 y y ≥ 0','Usa solo la parte de la región a la derecha del eje y y arriba del eje x',''],
+  ['"Dibuje / bosqueje / muestre una rebanada"','El dibujo da puntos','Curvas rotuladas, cortes, región sombreada, rebanada y eje','g-region'],
+  ['"Rebanada vertical" / "perpendicular al eje x"','Integrar en x','Todo en función de x, límites en x',''],
+  ['"Rebanada horizontal" / "perpendicular al eje y"','Integrar en y','Despeja x = g(y), límites en y',''],
+ ],
+ integ:[
+  [R`Solo potencias: \(x^n\), \(\sqrt x\), \(\frac1{x^2}\)`,'Regla de la potencia',R`\(\int x^{1/2}dx=\frac23x^{3/2}\)`],
+  [R`\(\frac1x\)`,'Logaritmo',R`\(\int\frac{dx}{x}=\ln|x|\)`],
+  [R`Paréntesis al cuadrado \((x^2+1)^2\)`,'Expande primero',R`\((x^2+1)^2=x^4+2x^2+1\)`],
+  [R`Algo de adentro y su derivada afuera: \(x\sqrt{x^2+16}\)`,'Sustitución u = lo de adentro',R`\(u=x^2+16,\ du=2x\,dx\)`],
+  [R`Fracción que se separa: \(\frac{x^4+3}{6x}\)`,'Divide cada término',R`\(\frac{x^3}{6}+\frac1{2x}\)`],
+  [R`Producto de tipos distintos: \(x\,e^x\), \(x\sin x\), \(\ln x\)`,'Por partes (LIATE)',R`\(\int x e^x=xe^x-e^x\)`],
+  [R`\(\sin^n x\), \(\cos^n x\)`,'Identidades trigonométricas',R`\(\sin^3=(1-\cos^2)\sin\)`],
+  [R`\(\sqrt{a^2-x^2}\)`,'Área de círculo (si es definida) o x = a sen θ',R`\(\int_{-2}^2\sqrt{4-x^2}=2\pi\)`],
+  [R`Fracción de polinomios que no se separa`,'Fracciones parciales',R`\(\frac1{x^2-1}=\frac{1/2}{x-1}-\frac{1/2}{x+1}\)`],
+  [R`No sé cuál → en el parcial`,'Comprueba con la calculadora',R`[∫] da el decimal: compara con tu resultado`],
+ ],
+ deriv:[
+  [R`Potencias sumadas: \(x^3-4x+\frac{1}{x}\)`,'Regla de la potencia término a término',R`\(3x^2-4-\frac1{x^2}\)`],
+  [R`Algo elevado: \((x^2+1)^{3/2}\)`,'Cadena: deriva afuera × deriva adentro',R`\(\frac32(x^2+1)^{1/2}\cdot2x\)`],
+  [R`Raíz de algo: \(\sqrt{4-x^2}\)`,'Cadena (raíz = potencia ½)',R`\(\frac{-2x}{2\sqrt{4-x^2}}=\frac{-x}{\sqrt{4-x^2}}\)`],
+  [R`Dos cosas multiplicadas: \(x\sin x\)`,'Producto: f′g + fg′',R`\(\sin x+x\cos x\)`],
+  [R`Fracción con x abajo: \(\frac{x^4+3}{6x}\)`,'Mejor separa y usa potencias',R`\(\frac{x^3}{6}+\frac{x^{-1}}{2}\Rightarrow\frac{x^2}{2}-\frac{1}{2x^2}\)`],
+  [R`\(\ln(\ldots)\), \(e^{\ldots}\), \(\sin(\ldots)\)`,'Cadena',R`\((\ln\cos x)'=\frac{-\sin x}{\cos x}=-\tan x\)`],
+ ],
+ tpl:[
+  ['Integral definida',R`\int_{\square}^{\square}f(x)\,dx=\Big[F(x)\Big]_{a}^{b}=F(b)-F(a)`,'1. antiderivada  2. evalúa arriba  3. evalúa abajo  4. resta con paréntesis'],
+  ['Área (dx)',R`A=\int_{x_1}^{x_2}\big[\,\text{arriba}-\text{abajo}\,\big]\,dx`,'x₁, x₂ = cortes · arriba = la que gana en un punto de prueba'],
+  ['Área (dy)',R`A=\int_{y_1}^{y_2}\big[\,x_{der}-x_{izq}\,\big]\,dy`,'despeja x · y₁, y₂ = cortes en y'],
+  ['Disco',R`V=\pi\int_a^b\big[R\big]^2dx`,'R = distancia del eje a la curva'],
+  ['Arandela',R`V=\pi\int_a^b\big(R^2-r^2\big)dx`,'R = lejana · r = cercana · NUNCA (R − r)²'],
+  ['Eje y = k',R`R=|k-y_{\text{lejana}}|,\ \ r=|k-y_{\text{cercana}}|`,'mayor − menor'],
+  ['Secciones',R`V=\int_a^bA(s)\,dx,\ \ s=\text{arriba}-\text{abajo}`,'cuadrado s² · semicírculo πs²/8 · equilátero √3s²/4'],
+  ['Longitud',R`L=\int_a^b\sqrt{1+(y')^2}\,dx`,'deriva → al cuadrado → +1 → busca (A + B)²'],
+  ['Paramétrica',R`L=\int_{t_1}^{t_2}\sqrt{x'^2+y'^2}\,dt`,'factor común dentro de la raíz'],
+ ],
+ plan:[
+  'Son 7 puntos y 2 son de selección múltiple. Para 3.5 de 5 necesitas el 70 %, más o menos 5 de 7 puntos.',
+  'Selección múltiple: calcula la integral con la calculadora (∫) y compara el decimal con cada opción. Elimina las que no cuadren.',
+  'En los de desarrollo el dibujo y el planteo dan puntos aunque te equivoques en una cuenta: SIEMPRE dibuja y escribe la integral.',
+  'Lee el enunciado y subraya las palabras clave de la tabla: te dicen qué ficha usar. Busca en el solucionario el ejercicio del taller más parecido y cópiale la estructura.',
+  'Empieza por el punto que más se parezca al taller. Deja para el final el que no reconozcas.',
+  'Antes de entregar: unidades (u², u³, u) y el decimal de la calculadora junto a tu respuesta exacta.',
+ ],
+};
