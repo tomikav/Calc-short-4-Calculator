@@ -25,13 +25,18 @@ function typeset(el){ if (window.__mj && window.MathJax && MathJax.typesetPromis
       <div class="xpbar"><div id="xpfill" style="width:0"></div></div>
       <div class="xplabel"><span id="rank"></span><span id="xptxt"></span></div>
     </div>
-    <label class="sw"><input type="checkbox" id="free" onchange="toggleFree()"> <span data-i18n="free"></span></label>
-    <button class="sw" onclick="showIntro(true)" data-i18n="plans"></button>
-    <button class="sw" onclick="showSheet()" data-i18n="sheet"></button>
-    <button class="sw bd-open" onclick="toggleBoard()" data-i18n="board"></button>
-    <button class="sw" id="tvbtn" onclick="toggleTV()"></button>
-    <button class="sw" onclick="goFull()">[ ] <span data-i18n="full"></span></button>
-    <select class="sw" id="lang" onchange="setLang(this.value)" aria-label="Idioma / Language"></select>
+    <nav class="hic-row">
+      <button class="hic" id="freebtn" onclick="toggleFree()" data-tip="free"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="1"/><path class="lk" d="M8 11V7a4 4 0 0 1 8 0v4"/><path class="ul" d="M8 11V7a4 4 0 0 1 7.5-2"/><circle cx="12" cy="16" r="1.4" class="f"/></svg></button>
+      <button class="hic" onclick="showIntro(true)" data-tip="plans"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5"/><rect x="13.5" y="3" width="7.5" height="7.5"/><rect x="3" y="13.5" width="7.5" height="7.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" class="f"/></svg></button>
+      <button class="hic" onclick="showSheet()" data-tip="sheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5h10l4 4V21.5H5z"/><path d="M15 2.5v4h4"/><path d="M8 11h8M8 14.5h8M8 18h5"/></svg></button>
+      <i class="hic-sep"></i>
+      <button class="hic bd-open" id="boardbtn" onclick="toggleBoard()" data-tip="board"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21l3.5-1 12-12-2.5-2.5-12 12z"/><path d="M14.5 5.5l2.5-2.5 4 4-2.5 2.5"/><path d="M3 21h8" class="r"/></svg></button>
+      <button class="hic" id="calcbtn" onclick="toggleCalc()" data-tip="calcBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="2.5" width="15" height="19" rx="1"/><rect x="7.5" y="5.5" width="9" height="4" class="f2"/><path d="M8 13h.01M12 13h.01M16 13h.01M8 16.5h.01M12 16.5h.01M8 19.5h.01M12 19.5h.01"/><path d="M16 16v4" class="r"/></svg></button>
+      <i class="hic-sep"></i>
+      <button class="hic" id="tvbtn" onclick="toggleTV()" data-tip="tv"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="13" rx="1"/><path d="M8 21h8M12 17.5V21"/><path d="M7 8.5v5" class="r"/></svg></button>
+      <button class="hic" onclick="goFull()" data-tip="full"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9V3h6M21 9V3h-6M3 15v6h6M21 15v6h-6"/><rect x="8" y="8" width="8" height="8" class="f2"/></svg></button>
+      <label class="hic hic-lang" data-tip="langTip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><select id="lang" onchange="setLang(this.value)" aria-label="Idioma / Language"></select></label>
+    </nav>
   </div>
 </header>
 <main class="wrap" id="app"></main>
@@ -44,6 +49,7 @@ function typeset(el){ if (window.__mj && window.MathJax && MathJax.typesetPromis
 <script src="js/labs-graph.js"></script>
 <script src="js/app.js"></script>
 <script src="js/board.js"></script>
+<script src="js/sketch.js"></script>
 <script src="js/calc.js"></script>
 <script src="js/loader.js"></script>
 </body>

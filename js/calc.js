@@ -102,7 +102,7 @@ function calcHTML(){
   return `<div class="cx">
    <div class="cx-head" onclick="if(event.target===this||event.target.classList.contains('cx-title'))calcMin()"><span class="cx-title">${L.title}</span>
      <button class="cx-deg" id="cxdeg" onclick="event.stopPropagation();calcDeg()">${CALC.deg?'DEG':'RAD'}</button>
-     <button class="cx-min" onclick="event.stopPropagation();calcMin()" aria-label="min">–</button></div>
+     <button class="cx-min" onclick="event.stopPropagation();calcMin()" aria-label="min">–</button><button class="cx-min cx-close" onclick="event.stopPropagation();toggleCalc()" aria-label="close">×</button></div>
    <div class="cx-body">
    <div class="cx-modes">${[['calc',L.mCalc],['int',L.mInt],['der',L.mDer]].map(([k,n])=>`<button class="cx-m${CALC.mode===k?' on':''}" onclick="calcMode('${k}')">${n}</button>`).join('')}</div>
    <div class="cx-fields" id="cxf"></div>
@@ -133,7 +133,7 @@ function calcFields(){
 function calcSaveF(){ const g=id=>{const e=document.getElementById(id); return e?e.value:undefined;}; CALC.f=Object.assign(CALC.f||{}, Object.fromEntries([['e',g('cx_e')],['f',g('cx_f')],['a',g('cx_a')],['b',g('cx_b')]].filter(x=>x[1]!==undefined))); }
 function calcMode(m){ calcSaveF(); CALC.mode=m; const side=document.getElementById('calcside'); if(side) mountCalc(side); }
 function calcDeg(){ CALC.deg=!CALC.deg; store('calc-deg',CALC.deg); const b=document.getElementById('cxdeg'); if(b) b.textContent=CALC.deg?'DEG':'RAD'; calcLive(); }
-function calcFloating(){ return window.innerWidth<1180 || (document.body.classList.contains('board-open') && window.innerWidth<2000); }
+function calcFloating(){ const s=document.getElementById('calcside'); if(s&&s.classList.contains('calc-float')) return false; return window.innerWidth<1180 || (document.body.classList.contains('board-open') && window.innerWidth<2000); }
 function calcApplyMin(){ const s=document.getElementById('calcside'); if(!s) return; const fl=calcFloating();
   s.classList.toggle('min', fl ? store('calc-fopen')!==true : !!store('calc-min')); }
 function calcMin(){ const s=document.getElementById('calcside'); if(!s) return; s.classList.toggle('min'); const m=s.classList.contains('min');
@@ -174,3 +174,23 @@ function calcHistRender(){ const h=document.getElementById('cxhist'); if(!h) ret
   typeset(h); }
 function calcUse(k){ const it=CALC.hist[k]; if(!it) return; const n=parseFloat(it[1]); if(isFinite(n)) CALC.ans=n; calcKey('ans'); }
 function calcClearHist(){ CALC.hist=[]; store('calc-hist',[]); calcHistRender(); }
+
+/* ---- calculadora como opción del header ----
+   En ejemplos/evaluación: muestra u oculta la del lado (se recuerda).
+   En cualquier otra pantalla: abre/cierra una calculadora flotante. */
+let CALC_SHOW = store('calc-show')!==false;
+function calcHeaderState(){
+  document.body.classList.toggle('calc-hide', !CALC_SHOW);
+  const side=document.querySelector('.lv-split #calcside'), fl=document.getElementById('calcfloat');
+  const b=document.getElementById('calcbtn'); if(b) b.classList.toggle('on', side? CALC_SHOW : !!fl);
+}
+function toggleCalc(){
+  const side=document.querySelector('.lv-split #calcside');
+  if(side){ CALC_SHOW=!CALC_SHOW; store('calc-show',CALC_SHOW); if(CALC_SHOW){ side.classList.remove('min'); } calcHeaderState(); return; }
+  let fl=document.getElementById('calcfloat');
+  if(fl){ fl.remove(); calcHeaderState(); return; }
+  fl=document.createElement('aside'); fl.id='calcfloat'; fl.className='calc-float-wrap noprint';
+  fl.innerHTML='<div class="calc-side calc-float" id="calcside"></div>'; document.body.appendChild(fl);
+  mountCalc(document.getElementById('calcside')); document.getElementById('calcside').classList.remove('min');
+  calcHeaderState();
+}

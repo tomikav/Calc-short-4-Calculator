@@ -64,6 +64,16 @@ Para una pregunta difícil (+20 XP, etiqueta DIFÍCIL), agrégala en `HARD` con 
 HARD.miTema = [{ hard:true, q:R`...`, o:[...], e:'...', h:'...', sol:[R`...`] }];
 ```
 
+Para mostrar una gráfica junto al procedimiento, agrégala en `content/<idioma>/figures.js` con el mismo índice:
+
+```js
+FIG.miTema = { 0:{ xr:[0,3], yr:[0,5], fills:[{top:x=>4-x*x, a:0, b:2, c:'blue'}],
+                   curves:[{f:x=>4-x*x, c:'blue', lab:'4 − x²'}], axis:{y:0}, disk:true,
+                   slice:{x:1, top:x=>4-x*x} } };
+```
+
+Las opciones disponibles (regiones, rebanadas, ejes de giro, secciones, arcos, etiquetas) están descritas al inicio de `js/fig.js`.
+
 ## 4. Agregar una referencia a la teoría
 
 En `references.js`:

@@ -50,6 +50,7 @@ function toggleBoard(force){
   p.classList.toggle('open',BOARD.open); document.body.classList.toggle('board-open',BOARD.open);
   if(BOARD.open){ const L=LV[CUR.i]; const c=document.getElementById('bdctx'); if(c&&!c.value&&L) c.value=`${L.code} · ${L.n}`; setTimeout(boardResize,320); }
   if(typeof calcApplyMin==='function') calcApplyMin();
+  const bb=document.getElementById('boardbtn'); if(bb) bb.classList.toggle('on',BOARD.open);
 }
 function boardResize(){
   const w=document.getElementById('bdwrap'); if(!w||!BOARD.cv) return;

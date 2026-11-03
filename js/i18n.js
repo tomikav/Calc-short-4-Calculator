@@ -7,7 +7,7 @@ const LANGS = { es:'Español', en:'English' };
 
 const I18N = {
  es:{
-  free:'ACCESO LIBRE', sheet:'HOJA DE APUNTES', tv:'MODO TV', full:'PANTALLA COMPLETA',
+  free:'ACCESO LIBRE', calcBtn:'CALCULADORA', langTip:'IDIOMA', freeOn:'Acceso libre activado: todas las secciones abiertas', freeOff:'Acceso libre desactivado', sheet:'HOJA DE APUNTES', tv:'MODO TV', full:'PANTALLA COMPLETA',
   fullBlocked:'Tu navegador bloqueó la pantalla completa: pulsa F11',
   ranks:[[0,'NIVEL 0 // RECLUTA'],[120,'NIVEL 1 // OPERADOR'],[300,'NIVEL 2 // ANALISTA'],[520,'NIVEL 3 // INGENIERO'],[760,'NIVEL 4 // ESPECIALISTA'],[1000,'NIVEL 5 // EJECUTIVO']],
   openSheet:'VER HOJA DE APUNTES', progress:'PROGRESO', progressHint:'Para saltar a cualquier sección activa ACCESO LIBRE.',
@@ -26,7 +26,13 @@ const I18N = {
   hint:'SOLICITAR PISTA [−5 XP]',
   okMsgs:['¡Correcto!','¡Eso es!','¡Exacto!','¡Muy bien!','¡Lo tienes!','¡Perfecto!','¡Bien hecho!','¡Así se hace!'],
   calc:{title:'CALCULADORA', mCalc:'CALC', mInt:'∫ DEFINIDA', mDer:'f′(a)', ph:'ej: 2pi*(27/2 - 81/4)', hist:'HISTORIAL', clear:'BORRAR', exact:'FORMA EXACTA ≈', err:'Expresión incompleta o inválida', tip:'Escribe con el teclado o usa los botones. 2x, 3π y 2sin(x) multiplican solos. Enter = calcular. Toca el historial para reutilizar el resultado (ANS). ∫ usa Simpson: sirve para verificar tu resultado, no para reemplazar el procedimiento.'},
-  streak:'RACHA', procedure:'PROCEDIMIENTO PASO A PASO', figCap:'GRÁFICA // región, rebanada y eje', stepOf:'PASO', hard:'DIFÍCIL · +20 XP', wrong:'Esa no era — aquí está por qué (−1 vida)',
+  streak:'RACHA', skAxes:'EJES', justToggle:'JUSTIFICAR CON DIBUJO', justToggleHint:'Antes de responder dibujas tu planteo; al final lo comparas con la gráfica correcta.', justOn:'Justificación con dibujo activada', justOff:'Justificación con dibujo desactivada',
+  justTitle:'JUSTIFICA', justEmpty:'Dibuja aquí con el mouse, el dedo o el lápiz', justLocked:'Las respuestas se desbloquean cuando dibujes tu justificación', justReady:'Justificación lista: ya puedes responder', justFirst:'Primero justifica con un dibujo',
+  justMine:'TU JUSTIFICACIÓN', justRef:'REFERENCIA', justReview:'AUTORREVISIÓN // compara tu dibujo y marca lo que sí hiciste', justDone:'Justificación completa · +5 XP', justBonus:'Justificación completa: +5 XP',
+  justPrompt:{definida:'Dibuja la función entre a y b y marca qué parte suma y cuál resta.',area:'Dibuja las curvas rotuladas, los puntos de corte, la región sombreada y una rebanada.',discos:'Dibuja la región, el eje de giro punteado, la rebanada y señala R (y r).',secciones:'Dibuja la base vista desde arriba, marca el lado s y levanta una sección.',longitud:'Dibuja la curva y resalta el tramo que vas a medir.',boss:'Dibuja la región o la curva y escribe el planteo de la integral.',gen:'Escribe el planteo y los pasos clave.'},
+  justCheck:{definida:['Dibujé la función','Marqué a y b en el eje x','Indiqué dónde el área suma y dónde resta'],area:['Dibujé y rotulé las dos curvas','Marqué los puntos de corte','Sombreé solo la región encerrada','Dibujé la rebanada (dx o dy)'],discos:['Sombreé la región','Dibujé el eje de giro punteado','La rebanada es perpendicular al eje','Señalé R (y r si hay hueco)'],secciones:['Dibujé la base','Marqué el lado o diámetro s','Dibujé la figura de la sección'],longitud:['Dibujé la curva','Marqué el tramo de a a b','Escribí la derivada que va en la raíz'],boss:['Dibujé la región o la curva','Escribí el planteo de la integral','Indiqué límites y variable (dx o dy)'],gen:['Escribí el planteo','Escribí los pasos clave']},
+  tallerEg:'TALLER', fcTag:'FICHA', fcWhat:'QUÉ ES', fcWhen:'CÓMO RECONOCERLO', fcEx:'EJERCICIO', fcCheck:'Comprueba', fcGuide:'GUÍA COMPLETA', fcGuideSub:'De cero al parcial: kit básico + una ficha por cada tipo de ejercicio', fcIntro:'Si no sabes nada del tema, empieza aquí. Primero el kit básico (lo mínimo de álgebra, derivadas e integrales). Luego las fichas de graficación: cómo dibujar rectas, parábolas, raíces, parábolas acostadas, círculos y la región completa de un ejercicio, con ejemplos resueltos. Después, cada ficha explica qué es, cómo reconocerlo, qué significa cada letra de la fórmula y resuelve un ejercicio del taller paso a paso: qué haces, por qué lo haces, la tabla de valores para graficar y la gráfica de cada etapa.', fcKit:'KIT BÁSICO', fcFichas:'FICHAS DEL PARCIAL', fcGraf:'CÓMO GRAFICAR (EJEMPLOS RESUELTOS)', fcSee:'ver ficha completa →', rpTag:'REPLICA', rpTitle:'APRENDE REPLICANDO', rpIntro:'Un ejercicio del taller resuelto y al lado uno igual para ti. Escribe cada resultado: se revisa al instante.', rpEx:'EJEMPLO', rpYou:'TU TURNO', rpInst:'Escribe como en la calculadora: 9/2, 32pi/15, 2sqrt(2), (27-5sqrt(5))/3 o el decimal.', rpPh:'ej: 9/2 · 32pi/15 · 4.5', rpHints:'PISTAS', rpHint:'Pista', rpDraft:'BORRADOR', rpSol:'VER SOLUCIÓN', rpDone:'¡Replicado! +10 XP', rpDoneTag:'REPLICADO', rpPrint:'Ejemplo del taller y ejercicio de práctica con su respuesta',
+  procedure:'PROCEDIMIENTO PASO A PASO', figCap:'GRÁFICA // región, rebanada y eje', stepOf:'PASO', hard:'DIFÍCIL · +20 XP', wrong:'Esa no era — aquí está por qué (−1 vida)',
   seeResult:'VER RESULTADO', nextQ:'SIGUIENTE OBJETIVO >', finalQ:'EJECUTAR GOLPE FINAL',
   timeUp:'TIEMPO AGOTADO.', noLives:'INTEGRIDAD AGOTADA.',
   report:'INFORME DE MISIÓN', win:'OBJETIVO NEUTRALIZADO', lose:'MISIÓN FALLIDA', bonus:'bono',
@@ -36,7 +42,7 @@ const I18N = {
   sheetBox:'PARA TU HOJA DE APUNTES', sheetBoxHint:'marca cada línea cuando la escribas · orden completo en HOJA DE APUNTES',
   sheetTitle:'Hoja de apuntes', sheetCode:'RESUMEN POR PRIORIDAD // CON EJEMPLO EN CADA LÍNEA',
   sheetIntro:(d,n)=>`Escríbela en este orden: primero lo que harás <b>antes de cada ejercicio</b>, luego prioridad 1 → 2 → 3. Llevas <b>${d}/${n}</b> líneas.`,
-  printVersion:'VERSIÓN PARA IMPRIMIR', print:'IMPRIMIR', back2:'< VOLVER',
+  printVersion:'VERSIÓN PARA IMPRIMIR', exportPdf:'EXPORTAR PDF', exportShort:'PDF HOJA DEL PARCIAL', exportFull:'PDF GUÍA COMPLETA', readyGuide:'ABRIR GUÍA LISTA', pShort:'HOJA DEL PARCIAL', pFull:'GUÍA COMPLETA', pShortSub:'para el parcial · imprímela por lado y lado', pKitSub:'lo mínimo que tienes que saber', pProc:'PROCEDIMIENTOS RESUELTOS', pAns:'RESPUESTAS', pProcSub:'cómo graficar y un ejercicio del taller por tema, paso a paso', guideTitle:'Guía completa', readyPdf:'ABRIR HOJA LISTA', pdfHint:'En la ventana de impresión elige Destino: "Guardar como PDF" (o tu impresora). Si no abre, usa Ctrl + P.', pdfToast:'Destino → Guardar como PDF', print:'IMPRIMIR', back2:'< VOLVER',
   printHint:'Si el botón no funciona, usa Ctrl + P (Cmd + P en Mac).', printBlocked:'Este visor no deja imprimir: usa Ctrl + P',
   prio:'PRIORIDAD', before:'ANTES DE EMPEZAR', eg:'EJ.',
   contentFallback:'',
@@ -53,7 +59,7 @@ const I18N = {
   boot:['INICIANDO PROTOCOLO DE ENTRENAMIENTO','VERIFICANDO MÓDULOS DE TEORÍA','CARGANDO SIMULADORES','SINCRONIZANDO PROGRESO','ACCESO CONCEDIDO'],
  },
  en:{
-  free:'FREE ACCESS', sheet:'CHEAT SHEET', tv:'TV MODE', full:'FULL SCREEN',
+  free:'FREE ACCESS', calcBtn:'CALCULATOR', langTip:'LANGUAGE', freeOn:'Free access on: every section unlocked', freeOff:'Free access off', sheet:'CHEAT SHEET', tv:'TV MODE', full:'FULL SCREEN',
   fullBlocked:'Your browser blocked full screen: press F11',
   ranks:[[0,'LEVEL 0 // RECRUIT'],[120,'LEVEL 1 // OPERATOR'],[300,'LEVEL 2 // ANALYST'],[520,'LEVEL 3 // ENGINEER'],[760,'LEVEL 4 // SPECIALIST'],[1000,'LEVEL 5 // EXECUTIVE']],
   openSheet:'OPEN CHEAT SHEET', progress:'PROGRESS', progressHint:'Turn on FREE ACCESS to jump to any section.',
@@ -72,7 +78,13 @@ const I18N = {
   hint:'REQUEST HINT [−5 XP]',
   okMsgs:['Correct!','That’s it!','Exactly!','Well done!','You got it!','Perfect!','Nice!','Great job!'],
   calc:{title:'CALCULATOR', mCalc:'CALC', mInt:'∫ DEFINITE', mDer:'f′(a)', ph:'e.g. 2pi*(27/2 - 81/4)', hist:'HISTORY', clear:'CLEAR', exact:'EXACT FORM ≈', err:'Incomplete or invalid expression', tip:'Type or use the keys. 2x, 3π and 2sin(x) multiply implicitly. Enter = compute. Tap history to reuse a result (ANS). ∫ uses Simpson: use it to check your result, not to replace the procedure.'},
-  streak:'STREAK', procedure:'STEP-BY-STEP PROCEDURE', figCap:'GRAPH // region, slice and axis', stepOf:'STEP', hard:'HARD · +20 XP', wrong:'Not that one — here is why (−1 life)',
+  streak:'STREAK', skAxes:'AXES', justToggle:'JUSTIFY WITH A DRAWING', justToggleHint:'Draw your setup before answering; then compare it with the correct graph.', justOn:'Drawing justification on', justOff:'Drawing justification off',
+  justTitle:'JUSTIFY', justEmpty:'Draw here with the mouse, your finger or a pen', justLocked:'Answers unlock once you draw your justification', justReady:'Justification ready: you can answer now', justFirst:'Justify with a drawing first',
+  justMine:'YOUR JUSTIFICATION', justRef:'REFERENCE', justReview:'SELF-REVIEW // compare your drawing and tick what you did', justDone:'Justification complete · +5 XP', justBonus:'Justification complete: +5 XP',
+  justPrompt:{definida:'Sketch the function between a and b and mark what adds and what subtracts.',area:'Draw the labeled curves, intersection points, shaded region and one slice.',discos:'Draw the region, the dashed axis, the slice and mark R (and r).',secciones:'Draw the base from above, mark side s and raise one cross-section.',longitud:'Draw the curve and highlight the piece you will measure.',boss:'Draw the region or curve and write the integral setup.',gen:'Write the setup and the key steps.'},
+  justCheck:{definida:['I drew the function','I marked a and b','I showed where area adds and subtracts'],area:['I drew and labeled both curves','I marked the intersections','I shaded only the enclosed region','I drew the slice (dx or dy)'],discos:['I shaded the region','I drew the dashed axis','The slice is perpendicular to the axis','I marked R (and r)'],secciones:['I drew the base','I marked side or diameter s','I drew the cross-section shape'],longitud:['I drew the curve','I marked the piece from a to b','I wrote the derivative inside the root'],boss:['I drew the region or curve','I wrote the integral setup','I gave limits and variable'],gen:['I wrote the setup','I wrote the key steps']},
+  tallerEg:'WORKSHOP', fcTag:'CARD', fcWhat:'WHAT IT IS', fcWhen:'HOW TO SPOT IT', fcEx:'EXERCISE', fcCheck:'Check', fcGuide:'COMPLETE GUIDE', fcGuideSub:'From zero to the midterm: basic kit + one card per exercise type', fcIntro:'If you know nothing about the topic, start here: the basic kit first, then each card explains what it is, how to spot it, what every symbol means and solves a workshop exercise step by step with value tables and a graph for each stage.', fcKit:'BASIC KIT', fcFichas:'MIDTERM CARDS', fcGraf:'HOW TO GRAPH (WORKED EXAMPLES)', fcSee:'see full card →', rpTag:'REPLICATE', rpTitle:'LEARN BY REPLICATING', rpIntro:'A solved workshop exercise and, next to it, a matching one for you. Type each result: it is checked instantly.', rpEx:'EXAMPLE', rpYou:'YOUR TURN', rpInst:'Type like in the calculator: 9/2, 32pi/15, 2sqrt(2), (27-5sqrt(5))/3 or the decimal.', rpPh:'e.g. 9/2 · 32pi/15 · 4.5', rpHints:'HINTS', rpHint:'Hint', rpDraft:'SCRATCHPAD', rpSol:'SHOW SOLUTION', rpDone:'Replicated! +10 XP', rpDoneTag:'DONE', rpPrint:'Workshop example and practice exercise with its answer',
+  procedure:'STEP-BY-STEP PROCEDURE', figCap:'GRAPH // region, slice and axis', stepOf:'STEP', hard:'HARD · +20 XP', wrong:'Not that one — here is why (−1 life)',
   seeResult:'SEE RESULT', nextQ:'NEXT TARGET >', finalQ:'FINAL STRIKE',
   timeUp:'TIME IS UP.', noLives:'NO INTEGRITY LEFT.',
   report:'MISSION REPORT', win:'TARGET NEUTRALIZED', lose:'MISSION FAILED', bonus:'bonus',
@@ -82,7 +94,7 @@ const I18N = {
   sheetBox:'FOR YOUR CHEAT SHEET', sheetBoxHint:'tick each line when you write it · full order in CHEAT SHEET',
   sheetTitle:'Cheat sheet', sheetCode:'SUMMARY BY PRIORITY // WITH AN EXAMPLE ON EVERY LINE',
   sheetIntro:(d,n)=>`Write it in this order: first what you do <b>before every exercise</b>, then priority 1 → 2 → 3. Done: <b>${d}/${n}</b> lines.`,
-  printVersion:'PRINT VERSION', print:'PRINT', back2:'< BACK',
+  printVersion:'PRINT VERSION', exportPdf:'EXPORT PDF', exportShort:'PDF SHORT SHEET (MIDTERM)', exportFull:'PDF FULL GUIDE', readyGuide:'OPEN READY GUIDE', pShort:'SHORT SHEET', pFull:'FULL GUIDE', pShortSub:'short version for the midterm · the full guide is a separate PDF', pKitSub:'the bare minimum', pProc:'WORKED PROCEDURES', pAns:'ANSWERS', pProcSub:'how to graph and one workshop exercise per topic, step by step', guideTitle:'Full guide', readyPdf:'OPEN READY PDF', pdfHint:'In the print dialog choose Destination: "Save as PDF" (or your printer). If nothing opens, use Ctrl + P.', pdfToast:'Destination → Save as PDF', print:'PRINT', back2:'< BACK',
   printHint:'If the button does nothing, use Ctrl + P (Cmd + P on Mac).', printBlocked:'Printing is blocked here: use Ctrl + P',
   prio:'PRIORITY', before:'BEFORE YOU START', eg:'E.G.',
   contentFallback:'The course content is only in Spanish for now. The interface is in English. Translations are welcome — see CONTRIBUTING.md.',
@@ -107,6 +119,7 @@ function t(k){ const v=(I18N[LANG]&&I18N[LANG][k]); return v!==undefined ? v : I
 function setLang(l){ store('calc-lang', l); location.reload(); }
 function applyStaticI18n(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{ el.textContent=t(el.dataset.i18n); });
+  document.querySelectorAll('[data-tip]').forEach(el=>{ const v=t(el.dataset.tip); el.setAttribute('aria-label',v); el.setAttribute('title',v); el.dataset.tipText=v; });
   const sel=document.getElementById('lang');
   if(sel){ sel.innerHTML=Object.entries(LANGS).map(([k,v])=>`<option value="${k}" ${k===LANG?'selected':''}>${v}</option>`).join(''); }
 }

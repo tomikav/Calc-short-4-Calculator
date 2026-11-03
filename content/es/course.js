@@ -21,7 +21,7 @@ const COURSE = {
   examTitle: 'TEMAS DEL PARCIAL // SEGUNDO CORTE',
   exam: [
     ['TEMA 1','Integral definida y TFC','SEC-08'],
-    ['TEMAS 2 Y 3','Área bajo la curva y entre curvas','SEC-14 (dibujar: SEC-03 y 04)'],
+    ['TEMAS 2 Y 3','Área bajo la curva y entre curvas','SEC-14 · incluye la guía para graficar'],
     ['TEMAS 4 Y 5','Volúmenes por discos y arandelas','SEC-15'],
     ['TEMA 6','Volúmenes por secciones transversales','SEC-15B'],
     ['TEMA 7','Longitud de una curva plana','SEC-17'],
@@ -50,20 +50,9 @@ const COURSE = {
      Para crear un plan nuevo copia un bloque y cambia la lista de ids.
      sections:'all' usa todas las secciones. exam / route son opcionales. */
   plans: [
-    { id:'base', code:'PLAN-00', icon:'chip', accent:'#ffd400', name:'Fundamentos', range:'Exponentes → Derivadas',
-      desc:'Álgebra, gráficas, trigonometría y derivadas: todo lo que se asume que ya sabes.',
-      sections:['exponentes','notables','ecuaciones','graficar','regiones','trigbase','derivadas'] },
     { id:'parcial2', code:'PLAN-02', icon:'target', accent:'#ff2a1f', featured:true, name:'Parcial · Segundo corte', range:'Integral definida → Longitud de la curva',
-      desc:'Los 7 temas del parcial: integral definida, áreas, discos, arandelas, secciones transversales y longitud. Incluye cómo graficar regiones.',
-      sections:['definida','graficar','regiones','area','discos','secciones','longitud','boss'], exam:true,
-      route:[
-        ['BLOQUE 1 · 1h','SEC-08','Tema 1 · Integral definida y TFC: la herramienta para calcular todo lo demás.'],
-        ['BLOQUE 2 · 1.5h','SEC-03 y 04','Graficar curvas y regiones: sin dibujo no hay planteo.'],
-        ['BLOQUE 3 · 1.5h','SEC-14','Temas 2 y 3 · Área bajo la curva y entre curvas.'],
-        ['BLOQUE 4 · 2.5h','SEC-15 y 15B','Temas 4, 5 y 6 · Discos, arandelas y secciones transversales: lo que más pesa.'],
-        ['BLOQUE 5 · 1h','SEC-17','Tema 7 · Longitud de curva: busca el cuadrado perfecto.'],
-        ['BLOQUE 6 · 1h','SEC-XX','Simulacro mixto con todos los temas.'],
-      ]},
+      desc:'Solo los 7 temas del parcial, en el orden del temario, con preguntas al nivel del Taller 4. La guía para graficar está dentro de Áreas.',
+      sections:['definida','area','discos','secciones','longitud','boss'], exam:true },
     { id:'completo', code:'PLAN-XX', icon:'network', accent:'#2f7bff', name:'Plan completo', range:'Álgebra básica → Evaluación final',
       desc:'Las 20 secciones en 7 fases, desde cero hasta el simulacro de parcial.',
       sections:'all', exam:true, route:true },

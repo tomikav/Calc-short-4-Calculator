@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360">
+<defs>
+ <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity=".05"/></pattern>
+ <pattern id="st" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="11" height="22" fill="#e10600"/></pattern>
+ <radialGradient id="glow" cx="78%" cy="20%" r="60%"><stop offset="0" stop-color="#e10600" stop-opacity=".45"/><stop offset="1" stop-color="#e10600" stop-opacity="0"/></radialGradient>
+ <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff2a1f" stop-opacity="0"/><stop offset="1" stop-color="#ff2a1f" stop-opacity=".55"/></linearGradient>
+ <style>
+  .t{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-weight:700}
+  .m{font-family:'JetBrains Mono',Consolas,monospace}
+  .gl1{animation:g1 4s steps(1) infinite}.gl2{animation:g2 4s steps(1) infinite}
+  @keyframes g1{0%,88%,100%{opacity:0}89%{opacity:.9;transform:translate(-7px,0)}91%{opacity:.9;transform:translate(5px,0)}93%{opacity:0}}
+  @keyframes g2{0%,89%,100%{opacity:0}90%{opacity:.9;transform:translate(7px,0)}92%{opacity:.9;transform:translate(-4px,0)}94%{opacity:0}}
+  .scan{animation:sc 5s linear infinite}@keyframes sc{from{transform:translateY(-80px)}to{transform:translateY(380px)}}
+  .blink{animation:bl 1.2s steps(2) infinite}@keyframes bl{50%{opacity:.15}}
+  .ring{transform-origin:1010px 170px;animation:rot 16s linear infinite}@keyframes rot{to{transform:rotate(360deg)}}
+ </style>
+ <clipPath id="c"><polygon points="0,0 1160,0 1200,40 1200,360 40,360 0,320"/></clipPath>
+</defs>
+<g clip-path="url(#c)">
+ <rect width="1200" height="360" fill="#0b0b0b"/><rect width="1200" height="360" fill="url(#g)"/><rect width="1200" height="360" fill="url(#glow)"/>
+ <g opacity=".5"><path d="M0 360 L520 230 L680 230 L1200 360Z" fill="url(#fl)"/>
+  <g stroke="#ff2a1f" stroke-opacity=".5"><path d="M600 230 L600 360M560 230 L420 360M640 230 L780 360M520 230 L240 360M680 230 L960 360M480 230 L60 360M720 230 L1140 360"/>
+  <path d="M470 255H730M380 285H820M250 320H950" stroke-opacity=".35"/></g></g>
+ <rect x="0" y="0" width="1200" height="60" fill="#ffffff" opacity=".03" class="scan"/>
+ <rect x="0" y="0" width="10" height="360" fill="#e10600"/>
+ <polygon points="980,0 1160,0 1200,40 1200,70 1050,70" fill="url(#st)" opacity=".9"/>
+ <circle cx="70" cy="62" r="5" fill="#ff2a1f" class="blink"/>
+ <text x="86" y="67" class="m" font-size="15" fill="#ff2a1f" letter-spacing="4">SISTEMA DE ENTRENAMIENTO // CÁLCULO INTEGRAL</text>
+ <g class="t" font-size="132" letter-spacing="6">
+  <text x="60" y="205" fill="#e10600" class="gl1">CÁLCULO//</text>
+  <text x="60" y="205" fill="#2f7bff" class="gl2">CÁLCULO//</text>
+  <text x="64" y="205" fill="#e10600" opacity=".55">CÁLCULO</text>
+  <text x="60" y="205" fill="#ffffff">CÁLCULO<tspan fill="#ff2a1f">//</tspan></text>
+ </g>
+ <text x="62" y="250" class="m" font-size="16" fill="#bdbdbd" letter-spacing="2">INTEGRAL DEFINIDA → ÁREAS → DISCOS Y ARANDELAS → SECCIONES → LONGITUD</text>
+ <g transform="translate(62 290)"><rect width="118" height="30" fill="#e10600"/><text x="12" y="20" class="m" font-size="13" fill="#fff" letter-spacing="2">ES | EN</text>
+  <rect x="128" width="170" height="30" fill="none" stroke="#fff"/><text x="140" y="20" class="m" font-size="13" fill="#fff" letter-spacing="2">SIN INSTALACIÓN</text>
+  <rect x="308" width="136" height="30" fill="none" stroke="#fff"/><text x="320" y="20" class="m" font-size="13" fill="#fff" letter-spacing="2">OPEN SOURCE</text></g>
+ <g fill="none" stroke="#ff2a1f" stroke-width="3">
+  <circle cx="1010" cy="170" r="92" stroke="#262626" stroke-width="10"/>
+  <g class="ring"><circle cx="1010" cy="170" r="110" stroke-dasharray="10 9" stroke-width="2" opacity=".7"/></g>
+  <circle cx="1010" cy="170" r="62" stroke="#fff" stroke-width="1.5" stroke-dasharray="3 6" opacity=".5"/>
+  <path d="M1010 50v36M1010 254v36M890 170h36M1094 170h36" stroke-width="2.5"/>
+ </g>
+ <text x="1010" y="205" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="104" fill="#ffffff">∫</text>
+ <text x="1050" y="128" font-family="Georgia,serif" font-style="italic" font-size="22" fill="#ff2a1f">b</text>
+ <text x="972" y="232" font-family="Georgia,serif" font-style="italic" font-size="22" fill="#ff2a1f">a</text>
+ <g fill="#fff" opacity=".45"><rect x="62" y="336" width="2" height="12"/><rect x="66" y="336" width="1" height="12"/><rect x="70" y="336" width="3" height="12"/><rect x="76" y="336" width="1" height="12"/><rect x="80" y="336" width="2" height="12"/><rect x="85" y="336" width="3" height="12"/><rect x="91" y="336" width="1" height="12"/><rect x="95" y="336" width="2" height="12"/><rect x="100" y="336" width="1" height="12"/><rect x="104" y="336" width="3" height="12"/><rect x="110" y="336" width="2" height="12"/><rect x="115" y="336" width="1" height="12"/><rect x="119" y="336" width="2" height="12"/><rect x="124" y="336" width="3" height="12"/></g>
+ <text x="1140" y="346" text-anchor="end" class="m" font-size="11" fill="#777" letter-spacing="3">EXP-INT // V2</text>
+</g></svg>

@@ -77,7 +77,7 @@ function showMap(){
   P.forEach(i=>{ const L=LV[i];
     if(L.g!==cur){ cur=L.g; const G=COURSE.groups[cur]||['','','']; const gi=groups[cur], gd=gi.filter(x=>S.done[LV[x].id]).length;
       const ph=document.createElement('div'); ph.className='mp-phase'+(gd===gi.length?' full':'');
-      phk++; ph.innerHTML=`<div class="mp-ph"><div class="mp-phn">${phk}</div><div class="mp-pht"><span class="l">${G[0]}</span><span class="t">${G[1]}</span><span class="d">${G[2]}</span></div><div class="mp-php"><span>${gd}/${gi.length}</span><div class="b"><div style="width:${100*gd/gi.length}%"></div></div></div></div>`;
+      phk++; ph.innerHTML=`<div class="mp-ph"><div class="mp-phn">${phk}</div><div class="mp-pht">${plan&&plan.sections!=='all'?'':`<span class="l">${G[0]}</span>`}<span class="t">${G[1]}</span><span class="d">${G[2]}</span></div><div class="mp-php"><span>${gd}/${gi.length}</span><div class="b"><div style="width:${100*gd/gi.length}%"></div></div></div></div>`;
       m.appendChild(ph); grid=document.createElement('div'); grid.className='mp-grid'; ph.appendChild(grid); }
     const st=S.done[L.id]||0, ok=unlocked(i)||st>0, isNx=i===nx&&!st;
     const state = !ok?'locked':st?'cleared':isNx?'next':'open';
@@ -95,6 +95,7 @@ function showMap(){
     b.onclick=()=>{ if(ok) showLevel(i); else toast(t('denied')); };
     grid.appendChild(b);
   });
+  if(typeof calcHeaderState==='function') calcHeaderState();
   requestAnimationFrame(()=>document.querySelectorAll('.mp-ring .fg').forEach(c=>c.style.strokeDashoffset=getComputedStyle(c).getPropertyValue('--o')));
 }
 
@@ -185,61 +186,80 @@ function showLevel(i, tab='lore', keepRet){
   let body=document.getElementById('body');
   const withCalc = (tab==='ex'||tab==='battle') && typeof mountCalc==='function';
   document.body.classList.toggle('calc-on', withCalc);
-  if(withCalc){ body.className='lv-split'; body.innerHTML='<div class="lv-main" id="lvmain"></div><aside class="calc-side noprint" id="calcside"></aside>'; mountCalc(document.getElementById('calcside')); body=document.getElementById('lvmain'); }
+  if(withCalc){ const fl=document.getElementById('calcfloat'); if(fl) fl.remove(); body.className='lv-split'; body.innerHTML='<div class="lv-main" id="lvmain"></div><aside class="calc-side noprint" id="calcside"></aside>'; mountCalc(document.getElementById('calcside')); body=document.getElementById('lvmain'); }
   const idx = tabs.findIndex(x=>x[0]===tab); const next = tabs[idx+1];
   const nextBtn = next ? `<button class="go" onclick="showLevel(${i},'${next[0]}')">${t('continueTo')} ${next[1]} &gt;</button>` : '';
   const vblock = VIDS[L.id] ? `<h3>${t('videosTitle')}</h3><p class="small">${t('videosHint')}</p>${vidsHTML(L.id)}` : '';
-  if(tab==='lore'){ body.innerHTML=`<div class="panel">${sheetBlock(L)}${L.lore}${vblock}${nextBtn}</div>`; tagAnchors(body,L); typeset(body); }
+  if(tab==='lore'){ body.innerHTML=`<div class="panel">${sheetBlock(L)}${L.lore}${replFor(L.id)}${vblock}${nextBtn}</div>`; tagAnchors(body,L); typeset(body); }
   else if(tab==='ex'){ const p=document.createElement('div'); p.className='panel'; p.innerHTML=`<p class="small">${t('exHint')}</p>`; L.ex.forEach((e,n)=>p.appendChild(exBlock(e,L,n))); p.insertAdjacentHTML('beforeend', nextBtn); body.appendChild(p); typeset(p); }
   else if(tab==='lab'){ const p=document.createElement('div'); p.className='panel'; body.appendChild(p); LABS[L.lab](p,L); p.insertAdjacentHTML('beforeend', nextBtn); typeset(p); }
   else if(tab==='vid'){ body.innerHTML=`<div class="panel"><h3>${t('videosTitle')}</h3><p class="small">${t('videosTab')}</p>${vidsHTML(L.id)}${nextBtn}</div>`; }
   else battle(i, body);
+  if(typeof calcHeaderState==='function') calcHeaderState();
 }
 
 /* ---------- evaluación ---------- */
 function burst(el){ const r=el.getBoundingClientRect(); for(let i=0;i<22;i++){ const d=document.createElement('i'); d.className='bit'; const a=Math.random()*2*Math.PI, v=60+Math.random()*90; d.style.left=(r.left+r.width*0.12)+'px'; d.style.top=(r.top+r.height/2)+'px'; d.style.setProperty('--dx',Math.cos(a)*v+'px'); d.style.setProperty('--dy',Math.sin(a)*v+'px'); d.style.background=['#e10600','#0057ff','#ffb000','#00a37a','#8a2be2','#0b0b0b'][i%6]; document.body.appendChild(d); setTimeout(()=>d.remove(),750); } }
 const SOLC=['#0057ff','#8a2be2','#e10600','#00a37a','#ffb000','#0b0b0b'];
-function solHTML(Q){
-  const fig = Q.fig && typeof figSVG==='function' ? `<figure class="qfig">${figSVG(Q.fig)}<figcaption>${t('figCap')}</figcaption></figure>` : '';
+function solHTML(Q,noFig){
+  const fig = !noFig && Q.fig && typeof figSVG==='function' ? `<figure class="qfig">${figSVG(Q.fig)}<figcaption>${t('figCap')}</figcaption></figure>` : '';
   const steps = Q.sol&&Q.sol.length ? `<div class="qsol"><div class="qsol-h">${t('procedure')}</div><ol>${Q.sol.map((x,k)=>`<li style="--sc:${SOLC[k%SOLC.length]};--sd:${k*.08}s">${x}</li>`).join('')}</ol></div>` : '';
   if(!fig&&!steps) return '';
   return `<div class="qsolw${fig?' hasfig':''}">${steps}${fig}</div>`;
 }
+/* ---------- justificar con dibujo ---------- */
+let JUST = store('calc-just')!==false;
+const JUST_MIN=140;
+function justKind(L){ return ['definida','area','discos','secciones','longitud'].includes(L.id)?L.id:(L.id==='boss'?'boss':'gen'); }
+function justHTML(Q,img,L,qkey){
+  const ck=t('justCheck')[justKind(L)]||t('justCheck').gen;
+  const ref = Q.fig&&typeof figSVG==='function' ? `<figure class="jref"><figcaption>${t('justRef')}</figcaption>${figSVG(Q.fig)}</figure>` : '';
+  return `<div class="jcmp${ref?'':' solo'}"><figure class="jme"><figcaption>${t('justMine')}</figcaption><img src="${img}" alt=""></figure>${ref}</div>
+   <div class="jck" data-q="${qkey}"><div class="jck-h">${t('justReview')}</div>${ck.map((c,k)=>`<label><input type="checkbox" data-k="${k}"><span>${c}</span></label>`).join('')}<div class="jck-ok" hidden>${t('justDone')}</div></div>`;
+}
 function battle(i, body){
   const L=LV[i]; const qs = shuffle(L.qs); const maxH = L.hearts||3;
-  let streak=0, qi=0, hearts=maxH, xpGain=0, hintUsed=false, left=L.time||0;
+  let streak=0, qi=0, hearts=maxH, xpGain=0, hintUsed=false, left=L.time||0, ANS=false;
   body.innerHTML = `<div class="arena"><div class="target" id="tgt"><div class="lbl">${t('target')}</div><div class="nm">${L.tgt||L.code}</div></div>
      <div class="stat"><div class="lbl">${t('firewall')}</div><div class="hp"><div id="hpb" style="width:100%"></div></div></div>
      <div class="stat" style="flex:0 0 auto"><div class="lbl">${t('integrity')}</div><div class="cells" id="hearts"></div></div>
      ${L.time?`<div class="stat" style="flex:0 0 auto"><div class="lbl">${t('time')}</div><div class="timer" id="tmr"></div></div>`:''}</div>
+   <div class="jtog-row"><button class="jtog${JUST?' on':''}" id="jtog"><i></i>${t('justToggle')}</button><span class="small">${t('justToggleHint')}</span></div>
    <div id="q"></div>`;
+  document.getElementById('jtog').onclick=e=>{ JUST=!JUST; store('calc-just',JUST); e.currentTarget.classList.toggle('on',JUST); toast(JUST?t('justOn'):t('justOff')); if(!ANS) render(); };
   const H=()=>{ document.getElementById('hearts').innerHTML='<i>'+'■'.repeat(hearts)+'</i>'+'□'.repeat(maxH-hearts); };
   H();
   if(L.time){ const tick=()=>{ const el=document.getElementById('tmr'); if(!el){clearTimer();return;} el.textContent=`${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}`; if(left<=0){ clearTimer(); finish(false,t('timeUp')); return; } left--; }; tick(); timerId=setInterval(tick,1000); }
   function render(){
-    const Q=qs[qi]; hintUsed=false;
+    const Q=qs[qi]; hintUsed=false; ANS=false;
     const opts = shuffle(Q.o.map((tx,k)=>({tx,ok:k===0})));
     const box=document.getElementById('q');
     box.innerHTML = `<div class="qcard"><div class="qnum">${t('question')} ${String(qi+1).padStart(2,'0')} / ${String(qs.length).padStart(2,'0')}${Q.hard?`<span class="qhard">${t('hard')}</span>`:''}</div>
-      <div class="qtext">${Q.q}</div><div class="opts" id="opts"></div>
+      <div class="qtext">${Q.q}</div>
+      ${JUST?`<div class="just"><div class="just-h"><span>${t('justTitle')}</span>${(t('justPrompt')[justKind(L)]||t('justPrompt').gen)}</div><div class="sk" id="sk"></div><div class="just-st" id="jst">${t('justLocked')}</div></div>`:''}
+      <div class="opts${JUST?' locked':''}" id="opts"></div>
       <div class="row"><button class="ghost" id="hb">${t('hint')}</button></div>
       <div class="hintbox" id="hint">${Q.h||''}</div>
       <div class="fb" id="fb"></div></div>`;
     const O=document.getElementById('opts');
-    opts.forEach((o,k)=>{ const b=document.createElement('button'); b.className='opt'; b.dataset.k='['+'ABCD'[k]+']'; b.innerHTML=o.tx; b.onclick=()=>answer(o,b); O.appendChild(b); });
+    let SK=null, justified=!JUST;
+    if(JUST){ SK=makeSketch(document.getElementById('sk'),{prompt:t('justEmpty'),onInk:len=>{ const ok=len>=JUST_MIN; if(ok!==justified){ justified=ok; O.classList.toggle('locked',!ok); const js=document.getElementById('jst'); js.textContent=ok?t('justReady'):t('justLocked'); js.classList.toggle('ok',ok); } }}); }
+    opts.forEach((o,k)=>{ const b=document.createElement('button'); b.className='opt'; b.dataset.k='['+'ABCD'[k]+']'; b.innerHTML=o.tx; b.onclick=()=>{ if(!justified){ toast(t('justFirst')); const p=document.querySelector('.just'); if(p){ p.classList.remove('shake'); void p.offsetWidth; p.classList.add('shake'); } return; } answer(o,b); }; O.appendChild(b); });
     document.getElementById('hb').onclick=()=>{ hintUsed=true; document.getElementById('hint').style.display='block'; document.getElementById('hb').disabled=true; typeset(document.getElementById('hint')); };
     function answer(o,b){
-      [...O.children].forEach(x=>x.disabled=true); document.getElementById('hb').disabled=true;
+      ANS=true; [...O.children].forEach(x=>x.disabled=true); document.getElementById('hb').disabled=true;
       const fb=document.getElementById('fb');
+      let jblock=''; if(SK){ jblock=justHTML(Q,SK.image(),L,qi); SK.lock(); document.querySelector('.just').classList.add('done'); }
       if(o.ok){ b.classList.add('ok'); const g=(Q.hard?20:10)/(hintUsed?2:1); xpGain+=g; const tg=document.getElementById('tgt'); tg.classList.remove('hit'); void tg.offsetWidth; tg.classList.add('hit');
         document.getElementById('hpb').style.width=(100*(qs.length-qi-1)/qs.length)+'%';
         streak++; const M=t('okMsgs'); burst(b); fb.className='fb ok';
-        fb.innerHTML=`<div class="okhd"><span class="tick"></span><span class="okm">${M[Math.floor(Math.random()*M.length)]}</span><span class="okxp">+${g} XP</span>${streak>=2?`<span class="streak">${t('streak')} x${streak}</span>`:''}</div>${Q.e}${solHTML(Q)}${refRow(QREF[L.id],t('theory'))}`; }
+        fb.innerHTML=`<div class="okhd"><span class="tick"></span><span class="okm">${M[Math.floor(Math.random()*M.length)]}</span><span class="okxp">+${g} XP</span>${streak>=2?`<span class="streak">${t('streak')} x${streak}</span>`:''}</div>${Q.e}${jblock}${solHTML(Q,!!jblock)}${refRow(QREF[L.id],t('theory'))}`; }
       else { b.classList.add('no'); [...O.children].forEach((x,k)=>{ if(opts[k].ok) x.classList.add('ok'); }); hearts--; H();
-        streak=0; fb.className='fb no'; fb.innerHTML=`<div class="st" style="color:var(--red)">${t('wrong')}</div>${Q.e}${solHTML(Q)}${refRow(QREF[L.id],t('review'))}`; }
+        streak=0; fb.className='fb no'; fb.innerHTML=`<div class="st" style="color:var(--red)">${t('wrong')}</div>${Q.e}${jblock}${solHTML(Q,!!jblock)}${refRow(QREF[L.id],t('review'))}`; }
       const nx=document.createElement('button'); nx.className='go'; nx.textContent = hearts<=0? t('seeResult') : (qi<qs.length-1?t('nextQ'):t('finalQ'));
       nx.onclick=()=>{ if(hearts<=0) return finish(false,t('noLives')); qi++; if(qi>=qs.length) finish(true); else render(); };
       fb.appendChild(nx); typeset(fb);
+      const jc=fb.querySelector('.jck'); if(jc){ let paid=false; jc.addEventListener('change',()=>{ const all=[...jc.querySelectorAll('input')].every(x=>x.checked); jc.classList.toggle('full',all); jc.querySelector('.jck-ok').hidden=!all; if(all&&!paid){ paid=true; xpGain+=5; toast(t('justBonus')); } }); }
     }
     typeset(box);
   }
@@ -268,30 +288,100 @@ function sheetToggle(k,el){ SHEETDONE[k]=el.checked; store('calc-sheet',SHEETDON
 const isTex = c => /\\|\^|_/.test(c);
 const mth = c => isTex(c) ? `\\(\\displaystyle ${c}\\)` : c;
 function hrow(it){ const [p,sec,lab,c,ej]=it; const k='h:'+lab; const L=LV.find(x=>x.id===sec);
-  return `<label class="hrow${SHEETDONE[k]?' done':''}"><input type="checkbox" ${SHEETDONE[k]?'checked':''} onchange="sheetToggle('${k.replace(/'/g,"\\'")}',this)"><span class="hl">${lab}<em>${L?L.code:''}</em></span><span class="hc">${mth(c)}<span class="hej"><b>${t('eg')}</b> ${mth(ej)}</span></span></label>`; }
+  return `<label class="hrow${SHEETDONE[k]?' done':''}"><input type="checkbox" ${SHEETDONE[k]?'checked':''} onchange="sheetToggle('${k.replace(/'/g,"\\'")}',this)"><span class="hl">${lab}<em>${L?L.code:''}</em></span><span class="hc">${mth(c)}<span class="hej"><b>${t('eg')}</b> ${mth(ej)}</span>${typeof TALLER_EJ!=='undefined'&&TALLER_EJ[lab]?`<span class="hej tall"><b>${t('tallerEg')}</b> ${mth(TALLER_EJ[lab])}${typeof FICHA_OF!=='undefined'&&FICHA_OF[lab]?` <a class="fc-link" href="#${FICHA_OF[lab]}" onclick="event.preventDefault();openFicha('${FICHA_OF[lab]}')">${t('fcSee')}</a>`:''}</span>`:''}</span></label>`; }
 function sheetBlock(L){ if(typeof HOJA2==='undefined') return ''; const its=HOJA2.filter(it=>it[1]===L.id); if(!its.length) return '';
   return `<div class="hoja"><div class="hd"><span>${t('sheetBox')}</span><span class="small2">${t('sheetBoxHint')}</span></div>${its.map(it=>`<div class="pchip p${it[0]}">${it[0]?t('prio')+' '+it[0]:t('before')}</div>`+hrow(it)).join('')}</div>`; }
+/* ---------- guía completa (fichas) ---------- */
+function fNum(v){ if(!isFinite(v)) return '—'; if(Math.abs(v-Math.round(v))<1e-9) return String(Math.round(v)).replace('-','−'); return String(+v.toFixed(3)).replace('-','−'); }
+function fichaTbl(tb){ if(!tb) return ''; let rows;
+  if(tb.px) rows=tb.ts.map(t=>[fNum(t),fNum(tb.px(t)),fNum(tb.py(t))]); else rows=tb.xs.map(x=>[fNum(x),fNum(tb.f(x))]);
+  return `<table class="fc-tb"><tr>${tb.cols.map(c=>`<th>${c}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table>`; }
+function fichaHTML(F,k,open){ const L=LV.find(x=>x.id===F.sec);
+  return `<details class="fc" id="${F.id}"${open?' open':''}><summary><span class="fc-n">${t('fcTag')} ${String(k+1).padStart(2,'0')}</span><span class="fc-t">${F.n}</span><em>${L?L.code:''}</em></summary><div class="fc-body">
+   <div class="fc-grid"><div class="fc-box"><b>${t('fcWhat')}</b>${F.que}</div><div class="fc-box"><b>${t('fcWhen')}</b>${F.cuando}</div></div>
+   <div class="fc-form">\\[${F.formula}\\]</div>
+   <table class="fc-sym">${F.simbolos.map(([a,b])=>`<tr><td>${a}</td><td>${b}</td></tr>`).join('')}</table>
+   <div class="fc-ej"><span>${t('fcEx')} // ${F.ej.src}</span>${F.ej.q}</div>
+   <ol class="fc-steps">${F.pasos.map(st=>`<li><div class="fc-sh">${st.h}</div><div class="fc-sb${st.fig||st.tbl?' wide':''}"><div class="fc-sx">${st.x}${fichaTbl(st.tbl)}</div>${st.fig&&typeof figSVG==='function'?`<div class="fc-fig">${figSVG(st.fig)}</div>`:''}</div></li>`).join('')}</ol>
+   <div class="fc-bot"><div class="trap">${F.errores.join('<br>')}</div><div class="tip"><b>${t('fcCheck')}:</b> ${F.chequeo}</div></div></div></details>`; }
+function kitHTML(){ return `<div class="kit">${KIT.map(([h,rows])=>`<div class="kit-c"><div class="kit-h">${h}</div>${rows.map(([f,n])=>`<div class="kit-r"><span>\\(${f}\\)</span>${n?`<em>${n}</em>`:''}</div>`).join('')}</div>`).join('')}</div>`; }
+function guideHTML(print){ if(typeof FICHAS==='undefined') return '';
+  return `<div class="hsec guide"><div class="hsec-hd gd"><span>${t('fcGuide')}</span>${t('fcGuideSub')}</div>
+   <p class="gd-intro">${t('fcIntro')}</p>
+   ${print?'':`<div class="gd-idx">${FICHAS.map((F,k)=>`<a class="${F.sec==='graficar'?'g':''}" href="#${F.id}" onclick="openFicha('${F.id}');return false">${String(k+1).padStart(2,'0')} · ${F.n}</a>`).join('')}</div>`}
+   <div class="gd-sub">${t('fcKit')}</div>${kitHTML()}
+   ${FICHAS.map((F,k)=>(k===0?`<div class="gd-sub">${t('fcGraf')}</div>`:'')+(k>0&&F.sec!=='graficar'&&FICHAS[k-1].sec==='graficar'?`<div class="gd-sub">${t('fcFichas')}</div>`:'')+fichaHTML(F,k,print||k===0)).join('')}</div>`; }
+function openFicha(id){ let el=document.getElementById(id); if(!el){ showSheet(); el=document.getElementById(id); } if(!el) return; el.open=true; setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),60); }
+
+function fichaShort(F,k){ const L=LV.find(x=>x.id===F.sec);
+  return `<div class="sf"><div class="sf-h"><span>${String(k+1).padStart(2,'0')}</span>${F.n}<em>${L?L.code:''}</em></div>
+   <div class="sf-top"><div class="sf-f">\\[${F.formula}\\]</div><div class="sf-w">${F.cuando}</div></div>
+   <div class="sf-q"><b>${F.ej.src}</b> ${F.ej.q}</div>
+   <ol class="sf-steps">${F.pasos.map(st=>`<li><div class="sf-sb${st.fig?' f':''}"><div><span class="sf-sh">${st.h}.</span> ${st.x}${fichaTbl(st.tbl)}</div>${st.fig&&typeof figSVG==='function'?`<div class="sf-fig">${figSVG(st.fig,{w:300,h:200})}</div>`:''}</div></li>`).join('')}</ol>
+   <div class="sf-ck"><b>${t('fcCheck')}:</b> ${F.chequeo} <span class="sf-er">${F.errores.join(' · ')}</span></div></div>`; }
+
+/* ---------- aprender replicando ---------- */
+let REPLDONE=store('calc-repl')||{};
+function replHTML(it){ const i=REPL.indexOf(it), L=LV.find(x=>x.id===it.sec), done=REPLDONE[i];
+  return `<div class="rp${done?' done':''}" data-i="${i}"><div class="rp-hd"><span>${t('rpTag')}</span>${it.title}<em>${L?L.code:''}</em>${done?`<b class="rp-ok">${t('rpDoneTag')}</b>`:''}</div>
+   <div class="rp-cols"><div class="rp-ex"><div class="rp-lbl">${t('rpEx')} // ${it.ex.src}</div><div class="rp-q">${it.ex.q}</div>${it.ex.fig&&typeof figSVG==='function'?`<div class="rp-fig">${figSVG(it.ex.fig)}</div>`:''}<ol class="rp-steps">${it.ex.s.map(x=>`<li>${x}</li>`).join('')}</ol></div>
+   <div class="rp-you"><div class="rp-lbl you">${t('rpYou')}</div><div class="rp-q">${it.you.q}</div><p class="rp-inst">${t('rpInst')}</p>
+    ${it.you.checks.map((c,k)=>`<div class="rp-ck" data-k="${k}"><label>${c[0]}</label><div class="rp-row"><input class="rp-in" data-i="${i}" data-k="${k}" placeholder="${t('rpPh')}" autocomplete="off" spellcheck="false"><span class="rp-st"></span></div>${c[2]?`<div class="rp-hint">${t('rpHint')}: ${c[2]}</div>`:''}</div>`).join('')}
+    <div class="rp-act"><button class="ghost rp-b" data-a="hint">${t('rpHints')}</button><button class="ghost rp-b" data-a="draft">${t('rpDraft')}</button><button class="ghost rp-b" data-a="sol">${t('rpSol')}</button></div>
+    <div class="rp-draft"></div><ol class="rp-solbox" hidden>${it.you.sol.map(x=>`<li>${x}</li>`).join('')}</ol></div></div></div>`; }
+function replFor(id){ if(typeof REPL==='undefined') return ''; const its=REPL.filter(x=>x.sec===id); if(!its.length) return '';
+  return `<div class="rp-sec"><h3>${t('rpTitle')}</h3><p class="small">${t('rpIntro')}</p>${its.map(replHTML).join('')}</div>`; }
+function replCheck(inp){ const it=REPL[+inp.dataset.i], c=it.you.checks[+inp.dataset.k], box=inp.closest('.rp-ck'), stE=box.querySelector('.rp-st'), v=inp.value.trim();
+  box.classList.remove('ok','no'); stE.textContent=''; if(!v) return false;
+  let ok=false; try{ const a=cEval(c[1]), u=cEval(v); ok=isFinite(u)&&Math.abs(u-a)<=Math.max(0.006,1e-3*Math.abs(a)); }catch(e){ ok=false; }
+  box.classList.add(ok?'ok':'no'); stE.textContent=ok?'✓':'✗'; return ok; }
+function replAll(rp){ const ins=[...rp.querySelectorAll('.rp-in')]; const all=ins.every(x=>x.closest('.rp-ck').classList.contains('ok'));
+  if(all&&!rp.classList.contains('done')){ rp.classList.add('done'); const i=+rp.dataset.i; REPLDONE[i]=true; store('calc-repl',REPLDONE); S.xp+=10; save(); hud(); toast(t('rpDone')); burst(rp.querySelector('.rp-you')); } }
+document.addEventListener('input',e=>{ const inp=e.target.closest&&e.target.closest('.rp-in'); if(!inp) return; const ok=replCheck(inp); if(!ok) inp.closest('.rp-ck').classList.remove('no'), inp.closest('.rp-ck').querySelector('.rp-st').textContent=''; else replAll(inp.closest('.rp')); });
+document.addEventListener('change',e=>{ const inp=e.target.closest&&e.target.closest('.rp-in'); if(!inp) return; replCheck(inp); replAll(inp.closest('.rp')); });
+document.addEventListener('keydown',e=>{ const inp=e.target.closest&&e.target.closest('.rp-in'); if(!inp||e.key!=='Enter') return; replCheck(inp); replAll(inp.closest('.rp')); const nx=inp.closest('.rp-ck').nextElementSibling; const ni=nx&&nx.querySelector('.rp-in'); if(ni) ni.focus(); });
+document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('.rp-b'); if(!b) return; const rp=b.closest('.rp');
+  if(b.dataset.a==='hint') rp.classList.toggle('hints');
+  if(b.dataset.a==='sol'){ const sb=rp.querySelector('.rp-solbox'); sb.hidden=!sb.hidden; if(!sb.hidden) typeset(sb); }
+  if(b.dataset.a==='draft'){ const d=rp.querySelector('.rp-draft'); if(!d.dataset.on){ d.dataset.on='1'; d.classList.add('on'); if(typeof makeSketch==='function') makeSketch(d,{prompt:t('justEmpty')}); } else d.classList.toggle('off'); } });
 function showSheet(){
   RET=null; showBack(); clearTimer(); window.scrollTo(0,0); document.body.classList.remove('printmode','calc-on');
   const done=Object.values(SHEETDONE).filter(Boolean).length;
   app.innerHTML = `<div class="lvlhead"><button class="back" onclick="showMap()">${t('back')}</button><div><div class="code">${t('sheetCode')}</div><h2>${t('sheetTitle')}</h2></div></div>
    <div class="panel"><p>${t('sheetIntro')(done,HOJA2.length)}</p>
-   <div class="row" style="margin:0 0 10px"><button class="go" style="margin:0" onclick="showPrint()">${t('printVersion')} &gt;</button></div>
-   ${[0,1,2,3].map(p=>`<div class="hsec"><div class="hsec-hd p${p}"><span>${PNAME[p][0]}</span>${PNAME[p][1]}</div>${HOJA2.filter(it=>it[0]===p).map(hrow).join('')}</div>`).join('')}</div>`;
+   <div class="row" style="margin:0 0 10px;gap:10px;flex-wrap:wrap"><button class="go" style="margin:0" onclick="exportPDF('short')">${t('exportShort')} &gt;</button><button class="ghost" onclick="exportPDF('full')">${t('exportFull')}</button><button class="ghost" onclick="showPrint('short')">${t('printVersion')}</button>${typeof loadContent==='function'?`<a class="ghost" href="docs/Hoja_de_apuntes.pdf" target="_blank" rel="noopener">${t('readyPdf')}</a><a class="ghost" href="docs/Guia_completa.pdf" target="_blank" rel="noopener">${t('readyGuide')}</a>`:''}</div>
+   ${[0,1,2,3].map(p=>`<div class="hsec"><div class="hsec-hd p${p}"><span>${PNAME[p][0]}</span>${PNAME[p][1]}</div>${HOJA2.filter(it=>it[0]===p).map(hrow).join('')}</div>${p===0?guideHTML(false):''}${p===1&&typeof REPL!=='undefined'?`<div class="hsec"><div class="hsec-hd p1 rpx"><span>${t('rpTitle')}</span>${t('rpIntro')}</div>${REPL.map(replHTML).join('')}</div>`:''}`).join('')}</div>`;
   typeset(app);
 }
-function showPrint(){
+let PRINTMODE='short';
+function showPrint(mode){
+  PRINTMODE=mode||PRINTMODE||'short';
   RET=null; showBack(); clearTimer(); window.scrollTo(0,0); document.body.classList.remove('calc-on'); document.body.classList.add('printmode');
-  app.innerHTML = `<div class="noprint row" style="margin:14px 0"><button class="back" onclick="showSheet()">${t('back2')}</button><button class="go" style="margin:0" onclick="tryPrint()">${t('print')}</button><span class="small">${t('printHint')}</span></div>
-   <div class="psheet"><div class="ptitle">${COURSE.title.toUpperCase()} · ${t('sheetTitle').toUpperCase()}</div>
-   ${[0,1,2,3].map(p=>`<div class="pblock"><div class="ph">${PNAME[p][0]} <span>${PNAME[p][1]}</span></div><table class="pt">${HOJA2.filter(it=>it[0]===p).map(([pp,sec,lab,c,ej])=>`<tr><td class="pl">${lab}</td><td class="pc"><div>${mth(c)}</div><div class="pe"><b>${t('eg')}</b> ${mth(ej)}</div></td></tr>`).join('')}</table></div>`).join('')}</div>`;
+  const bar=`<div class="noprint row pbar" style="margin:14px 0"><button class="back" onclick="showSheet()">${t('back2')}</button>
+    <span class="pmodes"><button class="${PRINTMODE==='short'?'on':''}" onclick="showPrint('short')">${t('pShort')}</button><button class="${PRINTMODE==='full'?'on':''}" onclick="showPrint('full')">${t('pFull')}</button></span>
+    <button class="go" style="margin:0" onclick="tryPrint()">${t('exportPdf')}</button><span class="small">${t('pdfHint')}</span></div>`;
+  if(PRINTMODE==='short'){
+    const card=([pp,sec,lab,c,ej])=>`<div class="sc"><div class="sc-l">${lab}</div><div class="sc-c">${mth(c)}</div><div class="sc-e"><b>${t('eg')}</b> ${mth(ej)}</div>${typeof TALLER_EJ!=='undefined'&&TALLER_EJ[lab]?`<div class="sc-e t"><b>${t('tallerEg')}</b> ${mth(TALLER_EJ[lab])}</div>`:''}</div>`;
+    app.innerHTML = `${bar}<div class="psheet short"><div class="ptitle">${COURSE.title.toUpperCase()} · ${t('sheetTitle').toUpperCase()}<span>${t('pShortSub')}</span></div>
+     ${[0,1,2].map(p=>`<div class="sblock"><div class="ph">${PNAME[p][0]} <span>${PNAME[p][1]}</span></div><div class="scols">${HOJA2.filter(it=>it[0]===p).map(card).join('')}</div></div>`).join('')}
+     ${typeof KIT!=='undefined'?`<div class="sblock"><div class="ph">${t('fcKit')} <span>${t('pKitSub')}</span></div><div class="scols kitc">${KIT.map(([h,rows])=>`<div class="sc"><div class="sc-l">${h}</div>${rows.map(([f,n])=>`<div class="sc-k">\\(${f}\\)${n?` <em>${n}</em>`:''}</div>`).join('')}</div>`).join('')}</div></div>`:''}
+     ${typeof FICHAS!=='undefined'?`<div class="sblock"><div class="ph">${t('pProc')} <span>${t('pProcSub')}</span></div><div class="sfichas">${FICHAS.map((F,k)=>fichaShort(F,k)).join('')}</div></div>`:''}
+     ${typeof REPL!=='undefined'?`<div class="sblock"><div class="ph">${t('rpTitle')} <span>${t('rpPrint')}</span></div><div class="scols rpc">${REPL.map(it=>`<div class="sc"><div class="sc-l">${it.title} · ${it.ex.src}</div><div class="sc-c">${it.ex.q}</div><ol class="sf-steps">${it.ex.s.map(x=>`<li>${x}</li>`).join('')}</ol><div class="sc-e t"><b>${t('rpYou')}</b> ${it.you.q}</div><div class="sc-e"><b>${t('pAns')}</b> ${it.you.checks.map(c=>c[0]+': '+c[1].replace(/sqrt\(([^)]*)\)/g,'√$1').replace(/pi/g,'π')).join(' · ')}</div></div>`).join('')}</div></div>`:''}
+    </div>`;
+  } else {
+  app.innerHTML = `${bar}
+   <div class="psheet full"><div class="ptitle">${COURSE.title.toUpperCase()} · ${t('guideTitle').toUpperCase()}</div>
+   ${[0,1,2,3].map(p=>(p===1?`<div class="pguide">${guideHTML(true)}</div>`:'')+`<div class="pblock"><div class="ph">${PNAME[p][0]} <span>${PNAME[p][1]}</span></div><table class="pt">${HOJA2.filter(it=>it[0]===p).map(([pp,sec,lab,c,ej])=>`<tr><td class="pl">${lab}</td><td class="pc"><div>${mth(c)}</div><div class="pe"><b>${t('eg')}</b> ${mth(ej)}</div>${typeof TALLER_EJ!=='undefined'&&TALLER_EJ[lab]?`<div class="pe"><b>${t('tallerEg')}</b> ${mth(TALLER_EJ[lab])}</div>`:''}</td></tr>`).join('')}</table></div>`).join('')}
+   ${typeof REPL!=='undefined'?`<div class="pblock"><div class="ph">${t('rpTitle')} <span>${t('rpPrint')}</span></div><table class="pt">${REPL.map(it=>`<tr><td class="pl">${it.title}<br><span class="psrc">${it.ex.src}</span></td><td class="pc"><div>${it.ex.q}</div><ol class="psteps">${it.ex.s.map(x=>`<li>${x}</li>`).join('')}</ol><div class="pe"><b>${t('rpYou')}</b> ${it.you.q} → <span class="pans">${it.you.checks.map(c=>c[0]+': '+c[1].replace(/sqrt\(([^)]*)\)/g,'√$1').replace(/pi/g,'π')).join(' · ')}</span></div></td></tr>`).join('')}</table></div>`:''}</div>`;
+  }
   typeset(app);
 }
-function tryPrint(){ try{ window.print(); }catch(e){ toast(t('printBlocked')); } }
+function tryPrint(){ const old=document.title; document.title=PRINTMODE==='full'?'Guia_completa_Calculo':'Hoja_de_apuntes_Calculo'; toast(t('pdfToast')); setTimeout(()=>{ try{ window.print(); }catch(e){ toast(t('printBlocked')); } document.title=old; },350); }
+function exportPDF(mode){ showPrint(mode||'short'); const go=()=>tryPrint(); if(window.MathJax&&MathJax.startup&&MathJax.startup.promise) MathJax.startup.promise.then(()=>MathJax.typesetPromise?MathJax.typesetPromise([app]):null).then(()=>setTimeout(go,300)).catch(go); else setTimeout(go,800); }
 
 /* ---------- modo TV ---------- */
 let TV = store('calc-tv')===true;
-function applyTV(){ document.body.classList.toggle('tv',TV); const b=document.getElementById('tvbtn'); if(b) b.textContent = (TV?'[x] ':'[ ] ')+t('tv'); }
+function applyTV(){ document.body.classList.toggle('tv',TV); const b=document.getElementById('tvbtn'); if(b) b.classList.toggle('on',TV); }
 function toggleTV(){ TV=!TV; store('calc-tv',TV); applyTV(); window.dispatchEvent(new Event('resize')); }
 
-function boot(){ applyStaticI18n(); applyTV(); showMap(); showIntro(); }
+function boot(){ applyStaticI18n(); applyTV(); if(typeof calcHeaderState==='function') calcHeaderState(); showMap(); showIntro(); }

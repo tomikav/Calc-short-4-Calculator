@@ -19,9 +19,9 @@ function hud(){
   document.getElementById('xpfill').style.width = pct+'%';
   document.getElementById('rank').textContent = r[1];
   document.getElementById('xptxt').textContent = S.xp+' XP' + (next? ' / '+next[0] : '');
-  document.getElementById('free').checked = S.free;
+  const fb=document.getElementById('freebtn'); if(fb) fb.classList.toggle('on', !!S.free);
 }
 function goFull(){ try{ const d=document.documentElement; if(document.fullscreenElement){ document.exitFullscreen(); return; } const p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d); if(p&&p.catch) p.catch(()=>toast(t('fullBlocked'))); }catch(e){ toast(t('fullBlocked')); } }
-function toggleFree(){ S.free = document.getElementById('free').checked; save(); showMap(); }
+function toggleFree(){ S.free = !S.free; save(); hud(); toast(S.free?t('freeOn'):t('freeOff')); showMap(); }
 function toast(msg){ const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),2200); }
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
