@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cálculo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  startup: { ready() { MathJax.startup.defaultReady(); MathJax.startup.promise.then(() => { window.__mj = true; typeset(document.body); }); } }
+};
+function typeset(el){ if (window.__mj && window.MathJax && MathJax.typesetPromise) { MathJax.typesetClear && MathJax.typesetClear([el]); MathJax.typesetPromise([el]).catch(()=>{}); } }
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+<header class="hud">
+  <div class="wrap">
+    <div class="logo" onclick="showMap()">CÁLCULO<b>//</b></div>
+    <div class="xpbox">
+      <div class="xpbar"><div id="xpfill" style="width:0"></div></div>
+      <div class="xplabel"><span id="rank"></span><span id="xptxt"></span></div>
+    </div>
+    <label class="sw"><input type="checkbox" id="free" onchange="toggleFree()"> <span data-i18n="free"></span></label>
+    <button class="sw" onclick="showSheet()" data-i18n="sheet"></button>
+    <button class="sw" id="tvbtn" onclick="toggleTV()"></button>
+    <button class="sw" onclick="goFull()">[ ] <span data-i18n="full"></span></button>
+    <select class="sw" id="lang" onchange="setLang(this.value)" aria-label="Idioma / Language"></select>
+  </div>
+</header>
+<main class="wrap" id="app"></main>
+<div class="toast" id="toast"></div>
+
+<script src="js/core.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/labs-calc.js"></script>
+<script src="js/labs-graph.js"></script>
+<script src="js/app.js"></script>
+<script src="js/loader.js"></script>
+</body>
+</html>
