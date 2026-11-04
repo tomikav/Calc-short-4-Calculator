@@ -124,6 +124,17 @@ En `content/es/timeline.js`, dentro de `COURSE.plans`, agrega un bloque:
 
 `icon` puede ser `target`, `chip` o `network`. El plan aparece en la pantalla de inicio y, dentro del plan, cada sección se desbloquea al superar la anterior del recorrido.
 
+## 5a. Una ruta en la pantalla de inicio
+
+La pantalla de arranque pregunta "¿Qué curso estás viendo?". Cada opción está en `COURSE.paths` (en `timeline.js`):
+
+```js
+{ key:'mi-ruta', plan:'mi-plan', cmd:'mi-ruta', name:'Texto de la lista', sub:'Subtítulo',
+  desc:'Descripción del panel derecho', pre:['derivadas','definida'] }   // pre = conviene dominar antes
+```
+
+Opcionalmente `ladder:[['Nivel','— qué significa', R\`formula\`], ...]` muestra la escalera de niveles (como en *desde cero*).
+
 ## 5b. Una era nueva
 
 En `COURSE.groups` (en `timeline.js`): `clave:['ERA 15','TÍTULO','Descripción','años','protagonistas','#color']`, y en `ORDEN` la lista de ids de esa era. El color pinta la línea del mapa y la pantalla de historia.

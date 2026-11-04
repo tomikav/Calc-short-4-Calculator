@@ -126,6 +126,40 @@ const ORDEN = {
       desc:'Solo las secciones que cuentan la historia completa: límite, derivada, integral, TFC, series, gradiente, integrales múltiples y los teoremas fundamentales.',
       sections:['limites','derivada-def','derivadas','optimizacion','basica','definida','area','series','taylor','vectores','parciales','gradiente','dobles','linea','green','stokes','divergencia'].filter(id=>by(id)) },
   ];
+  COURSE.plans.splice(1,0,{ id:'pre', code:'PLAN-0', icon:'chip', accent:'#8d6e63', name:'Precálculo · Las bases', range:'Exponentes → Trigonometría',
+      desc:'Álgebra, funciones, gráficas y trigonometría: todo lo que el cálculo da por sabido.', sections:range('exponentes','trigbase') });
+
+  /* ---- rutas de la pantalla de inicio: "¿Qué curso estás viendo?" ----
+     key · plan (id de COURSE.plans) · name/sub (lista) · title/desc (panel) · pre (ids que conviene dominar antes)
+     ladder (opcional): [nivel, qué significa, fórmula TeX] — la escalera de cómo se construyen las matemáticas */
+  COURSE.paths = [
+    { key:'cero', plan:'linea', cmd:'desde-cero', name:'No lo sé · empezar desde cero', sub:'Álgebra → Cálculo vectorial',
+      title:'Desde cero: comprender las matemáticas en orden',
+      desc:'Si no sabes en qué curso estás, o hace tiempo que no ves matemáticas, empieza por el álgebra y sube. Cada nivel se apoya en el anterior: si algo no se entiende, casi siempre la causa está uno o dos niveles abajo.',
+      ladder:[
+        ['Álgebra','— el idioma: transformar expresiones sin cambiar su valor.', R`a^m a^n=a^{m+n}`],
+        ['Funciones','— relaciones entre cantidades y cómo se ven en una gráfica.', R`y=f(x)`],
+        ['Trigonometría','— ángulos, ciclos y el círculo unitario.', R`\sin^2\theta+\cos^2\theta=1`],
+        ['Límites','— qué pasa cerca de un punto: la idea que sostiene todo.', R`\lim_{x\to a}f(x)`],
+        ['Derivada','— tasa de cambio instantánea.', R`f'(x)=\lim_{h\to0}\tfrac{f(x+h)-f(x)}{h}`],
+        ['Integral','— acumulación; el TFC la une con la derivada.', R`\int_a^b f=F(b)-F(a)`],
+        ['Series','— sumar infinitos términos; funciones como polinomios.', R`e^x=\sum\tfrac{x^n}{n!}`],
+        ['Varias variables','— el mismo cálculo en el espacio.', R`\oint_C\vec F\cdot d\vec r=\iint_S(\nabla\times\vec F)\cdot d\vec S`],
+      ]},
+    { key:'pre', plan:'pre', cmd:'precalculo', name:'Precálculo · bachillerato', sub:'Exponentes → Trigonometría',
+      desc:'Las herramientas que todos los cursos de cálculo suponen: reescribir y factorizar, resolver ecuaciones, graficar y trigonometría. Si fallas aquí, fallarás después en los pasos algebraicos, no en el cálculo.' },
+    { key:'c1', plan:'calc1', cmd:'calculo-1', name:'Cálculo I · Diferencial', sub:'Límites → Derivadas → Optimización',
+      desc:'Límites y continuidad, la derivada y sus reglas, y sus aplicaciones: razones relacionadas, aproximación lineal, trazado de curvas, optimización y L’Hôpital. Incluye un repaso de bases al comienzo.' },
+    { key:'c2', plan:'calc2', cmd:'calculo-2', name:'Cálculo II · Integral', sub:'Integral → Series → Polares',
+      desc:'La integral y el Teorema Fundamental, todos los métodos de integración, aplicaciones geométricas y físicas, integrales impropias, series de Taylor, paramétricas y polares.',
+      pre:['limites','derivadas','implicita','trigbase'] },
+    { key:'c3', plan:'calc3', cmd:'calculo-3', name:'Cálculo III · Multivariable', sub:'Vectores → ∇ → Green, Stokes, Gauss',
+      desc:'Vectores y geometría del espacio, derivadas parciales, gradiente, optimización con restricciones, integrales dobles y triples, y cálculo vectorial hasta los tres grandes teoremas.',
+      pre:['derivadas','basica','definida','parametricas','polares'] },
+    { key:'exp', plan:'express', cmd:'panorama', name:'Panorama rápido', sub:'Las ideas grandes en 17 paradas',
+      desc:'Para repasar antes de un examen o ver la historia completa de una vez: límite, derivada, integral, series, gradiente, integrales múltiples y los teoremas fundamentales.' },
+  ];
+
   const c=id=>(by(id)||{}).code||'';
   COURSE.routeTitle='RUTA SUGERIDA // ~60 H EN TOTAL';
   COURSE.route = [
