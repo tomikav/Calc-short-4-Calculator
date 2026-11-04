@@ -3,7 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cálculo</title>
+<title>Cálculo — de cero a multivariable</title>
+<meta name="description" content="Línea de tiempo interactiva del cálculo: de álgebra básica a los teoremas de Green, Stokes y Gauss. Teoría paso a paso, ejemplos, simuladores y evaluación.">
+<meta name="theme-color" content="#0b0b0b">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="docs/icons/app.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -28,6 +32,8 @@ function typeset(el){ if (window.__mj && window.MathJax && MathJax.typesetPromis
     <nav class="hic-row">
       <button class="hic" id="freebtn" onclick="toggleFree()" data-tip="free"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="1"/><path class="lk" d="M8 11V7a4 4 0 0 1 8 0v4"/><path class="ul" d="M8 11V7a4 4 0 0 1 7.5-2"/><circle cx="12" cy="16" r="1.4" class="f"/></svg></button>
       <button class="hic" onclick="showIntro(true)" data-tip="plans"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5"/><rect x="13.5" y="3" width="7.5" height="7.5"/><rect x="3" y="13.5" width="7.5" height="7.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" class="f"/></svg></button>
+      <button class="hic" onclick="showHistory()" data-tip="tl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v19"/><circle cx="12" cy="6" r="2" class="f"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="18" r="2" class="f"/><path d="M14.5 6h6M3.5 12h6M14.5 18h4" class="r"/></svg></button>
+      <button class="hic" onclick="showGlossary()" data-tip="gloss"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.5h6.5a2 2 0 0 1 2 2V20a1.5 1.5 0 0 0-1.5-1.5H4z"/><path d="M20 4.5h-6.5a2 2 0 0 0-2 2V20a1.5 1.5 0 0 1 1.5-1.5H20z"/><path d="M15 9h3M15 12h3" class="r"/></svg></button>
       <button class="hic" onclick="showSheet()" data-tip="sheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5h10l4 4V21.5H5z"/><path d="M15 2.5v4h4"/><path d="M8 11h8M8 14.5h8M8 18h5"/></svg></button>
       <i class="hic-sep"></i>
       <button class="hic bd-open" id="boardbtn" onclick="toggleBoard()" data-tip="board"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21l3.5-1 12-12-2.5-2.5-12 12z"/><path d="M14.5 5.5l2.5-2.5 4 4-2.5 2.5"/><path d="M3 21h8" class="r"/></svg></button>
@@ -35,6 +41,7 @@ function typeset(el){ if (window.__mj && window.MathJax && MathJax.typesetPromis
       <i class="hic-sep"></i>
       <button class="hic" id="tvbtn" onclick="toggleTV()" data-tip="tv"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="13" rx="1"/><path d="M8 21h8M12 17.5V21"/><path d="M7 8.5v5" class="r"/></svg></button>
       <button class="hic" onclick="goFull()" data-tip="full"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9V3h6M21 9V3h-6M3 15v6h6M21 15v6h-6"/><rect x="8" y="8" width="8" height="8" class="f2"/></svg></button>
+      <button class="hic" id="palbtn" onclick="togglePal(event)" data-tip="pal"><span class="sw"></span></button>
       <label class="hic hic-lang" data-tip="langTip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><select id="lang" onchange="setLang(this.value)" aria-label="Idioma / Language"></select></label>
     </nav>
   </div>
@@ -43,11 +50,13 @@ function typeset(el){ if (window.__mj && window.MathJax && MathJax.typesetPromis
 <div class="toast" id="toast"></div>
 
 <script src="js/core.js"></script>
+<script src="js/theme.js"></script>
 <script src="js/fig.js"></script>
 <script src="js/i18n.js"></script>
 <script src="js/labs-calc.js"></script>
 <script src="js/labs-graph.js"></script>
 <script src="js/app.js"></script>
+<script src="js/wiki.js"></script>
 <script src="js/board.js"></script>
 <script src="js/sketch.js"></script>
 <script src="js/calc.js"></script>
