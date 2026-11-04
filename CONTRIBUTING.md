@@ -6,15 +6,17 @@ Las fórmulas se escriben en LaTeX dentro de `R\`...\``: `\(...\)` para fórmula
 
 ## 1. Agregar una sección
 
-En `content/es/sections.js`, dentro del arreglo `LV`, agrega un objeto como este:
+Las secciones nuevas van en el archivo de su área (`diferencial.js`, `series.js`, `multivariable.js`, `vectorial.js`, o uno nuevo) con `LV.push({...})`:
 
 ```js
-{ id:'mi-tema', code:'SEC-20', g:'f6', n:'Nombre del tema', sub:'Subtítulo corto', tgt:'NOMBRE_DEL_OBJETIVO',
+LV.push({ id:'mi-tema', n:'Nombre del tema', sub:'Subtítulo corto', tgt:'NOMBRE_DEL_OBJETIVO',
   req:['area'],                       // ids de las secciones que se necesitan antes
   uses:'Dónde se usa este tema',
+  cites:['osc2|§2.3','paul2'],        // bibliografía al final (claves de CITE en glosario.js)
+  see:['tfc','riemann'],              // "Ver también" (claves de WIKI)
   lab:'area',                         // opcional: simulador (ver js/labs-*.js)
   lore: R`
-    <div class="why">Por qué importa.</div>
+    <div class="why">Por qué importa. Se conecta con la [[derivada]] y la [[tfc|integral]][^osc1|§5.3].</div>
     <h3>Idea</h3>
     <p>Explicación con fórmulas \(x^2\).</p>
     <div class="formula">\[V=\int_a^bA(x)\,dx\]</div>
@@ -23,11 +25,36 @@ En `content/es/sections.js`, dentro del arreglo `LV`, agrega un objeto como este
     <div class="trap">Error común.</div>`,
   ex:[ /* ejemplos, ver punto 2 */ ],
   qs:[ /* preguntas, ver punto 3 */ ],
-},
+});
 ```
 
-- `g` es la fase del mapa; las fases están en `content/es/course.js` (`groups`).
-- El orden de las secciones en el mapa es el orden del arreglo.
+Luego agrega su `id` en `ORDEN` dentro de `content/es/timeline.js`, en la era que corresponda. **No escribas `code` ni `g`**: `timeline.js` numera todas las secciones (`SEC-00`, `SEC-01`…), asigna la era y actualiza cualquier "SEC-xx" que aparezca en los textos.
+
+### Enlaces tipo Wikipedia y citas
+
+| Marcado | Resultado |
+|---|---|
+| `[[clave]]` | enlace azul al término del glosario, con vista previa al pasar el mouse |
+| `[[clave\|texto]]` | lo mismo, mostrando otro texto |
+| `[^clave]` | cita numerada `[1]` que salta a la bibliografía de la sección |
+| `[^clave\|§2.3]` | cita con capítulo o página |
+
+Además, la **primera aparición** de cada término del glosario se enlaza sola (por eso conviene que el glosario tenga buenos alias).
+
+## 1b. Agregar un término al glosario
+
+En `content/es/glosario.js`, dentro de `WIKI`:
+
+```js
+'mi-termino':{ t:'Título', d:'Definición de una o dos líneas.', f:R`\int f\,dx`,
+  sec:'mi-tema', h:'Idea',            // sección y título <h3> al que lleva "TEORÍA →"
+  ex:0,                               // índice del ejemplo para "EJEMPLO →" (opcional)
+  w:'Artículo_de_Wikipedia',          // enlace a Wikipedia en español (opcional)
+  c:['osc2|§2.3'],                    // fuentes (opcional)
+  al:['palabra','otra forma'] },      // se enlazan solas en la teoría
+```
+
+Para agregar una fuente, agrégala en `CITE`; para un hito histórico, en `HIST` (con `sec` para enlazar la sección).
 
 ## 2. Agregar un ejemplo resuelto
 
@@ -87,17 +114,23 @@ El botón lleva al primer `<h3>` de esa sección que contenga ese texto.
 
 ## 5. Crear un plan de estudio
 
-En `content/es/course.js`, dentro de `plans`, agrega un bloque:
+En `content/es/timeline.js`, dentro de `COURSE.plans`, agrega un bloque:
 
 ```js
-{ id:'mi-plan', code:'PLAN-03', name:'Repaso de volúmenes', range:'Discos → Secciones transversales',
+{ id:'mi-plan', code:'PLAN-R', icon:'target', accent:'#ff2a1f', name:'Repaso de volúmenes', range:'Discos → Secciones transversales',
   desc:'Descripción corta que aparece en la pantalla de inicio.',
-  sections:['discos','secciones','cascarones'],   // ids en el orden del recorrido; 'all' usa todas
-  exam:false,                                     // true muestra la tabla de temas del parcial
-  route:[['BLOQUE 1 · 1h','SEC-15','Consejo']] }  // opcional; true usa la ruta general
+  sections:['discos','secciones','cascarones'] }   // ids en orden; 'all' usa todas; range('a','b') toma un tramo
 ```
 
-El plan aparece solo en la pantalla de inicio. Dentro del plan, cada sección se desbloquea al superar la anterior del mismo recorrido.
+`icon` puede ser `target`, `chip` o `network`. El plan aparece en la pantalla de inicio y, dentro del plan, cada sección se desbloquea al superar la anterior del recorrido.
+
+## 5b. Una era nueva
+
+En `COURSE.groups` (en `timeline.js`): `clave:['ERA 15','TÍTULO','Descripción','años','protagonistas','#color']`, y en `ORDEN` la lista de ids de esa era. El color pinta la línea del mapa y la pantalla de historia.
+
+## 5c. Una paleta de colores nueva
+
+Ver [`docs/TEMAS.md`](docs/TEMAS.md).
 
 ## 6. Agregar líneas a la hoja de apuntes
 
@@ -116,5 +149,6 @@ Copia la carpeta `content/es/` completa, cambia `course.js` y reemplaza las secc
 ## Antes de enviar
 
 - Abre `index.html` y revisa que las fórmulas se vean (si una sale en rojo o como texto, hay un error de LaTeX).
+- Pasa el mouse por los enlaces azules nuevos: la vista previa debe mostrar la definición y "TEORÍA →" debe llevar al título correcto.
 - Revisa con un ejemplo numérico que los resultados sean correctos.
 - Usa mensajes de commit cortos y claros.

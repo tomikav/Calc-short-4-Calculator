@@ -2,312 +2,182 @@
 
 <img src="docs/banner.svg" alt="CÁLCULO//" width="100%">
 
-**PROTOCOLO DE ENTRENAMIENTO INTENSIVO // CÁLCULO INTEGRAL**
+### Del álgebra básica a los teoremas de Green, Stokes y Gauss — como una línea de tiempo.
 
-![status](https://img.shields.io/badge/STATUS-OPERATIVO-e10600?style=for-the-badge&labelColor=0b0b0b)
-![build](https://img.shields.io/badge/BUILD-SIN_INSTALACIÓN-0b0b0b?style=for-the-badge&labelColor=e10600)
-![lang](https://img.shields.io/badge/IDIOMAS-ES_%7C_EN-e10600?style=for-the-badge&labelColor=0b0b0b)
-![license](https://img.shields.io/badge/LICENCIA-MIT-0b0b0b?style=for-the-badge&labelColor=e10600)
+![secciones](https://img.shields.io/badge/SECCIONES-59-e10600?style=for-the-badge&labelColor=0b0b0b)
+![eras](https://img.shields.io/badge/ERAS-15-2f7bff?style=for-the-badge&labelColor=0b0b0b)
+![preguntas](https://img.shields.io/badge/PREGUNTAS-360+-00a37a?style=for-the-badge&labelColor=0b0b0b)
+![glosario](https://img.shields.io/badge/GLOSARIO-100_TÉRMINOS-8a2be2?style=for-the-badge&labelColor=0b0b0b)
+<br>
+![build](https://img.shields.io/badge/INSTALACIÓN-NINGUNA-0b0b0b?style=for-the-badge&labelColor=e10600)
+![temas](https://img.shields.io/badge/PALETAS-8_+_PERSONALIZADA-0b0b0b?style=for-the-badge&labelColor=2f7bff)
+![pwa](https://img.shields.io/badge/PWA-INSTALABLE-0b0b0b?style=for-the-badge&labelColor=00a37a)
+![license](https://img.shields.io/badge/LICENCIA-MIT-0b0b0b?style=for-the-badge&labelColor=8a2be2)
 
-[ ENGLISH VERSION ](#english-version)
+**[▶ Empezar](#-en-30-segundos)** · **[🗺️ El temario](#%EF%B8%8F-el-temario-15-eras)** · **[✨ Qué tiene](#-qué-tiene)** · **[🎨 Paletas](#-paletas)** · **[🤝 Contribuir](#-contribuir)** · **[English](#english)**
 
 </div>
 
 ---
 
-## `// TEMARIO DEL PARCIAL`
+<img src="docs/timeline.svg" alt="Línea de tiempo de las 15 eras" width="100%">
 
-| # | TEMA | SECCIÓN |
-|:-:|---|:-:|
-| **01** | Integral definida y Teorema Fundamental del Cálculo | `SEC-08` |
-| **02 · 03** | Área bajo la curva y área entre curvas | `SEC-14` |
-| **04 · 05** | Volúmenes por discos y por arandelas | `SEC-15` |
-| **06** | Volúmenes por secciones transversales | `SEC-15B` |
-| **07** | Longitud de una curva plana | `SEC-17` |
-| `APOYO` | Graficar curvas y regiones · métodos de integración | `SEC-03 · 04 · 07 a 13` |
+**Cálculo//** es una forma fácil de estudiar cálculo **por temas**, ordenados como una línea de tiempo: de las leyes de los exponentes a las integrales de superficie. No es un PDF ni un resumen: cada sección explica **por qué** se hace cada paso, tiene ejemplos que se revelan paso a paso, simuladores, una evaluación con XP y **enlaces tipo Wikipedia** que te llevan a la definición, a la teoría donde se explica o a un ejemplo resuelto.
 
-## `// PLANES DE ESTUDIO`
+> Nació como guía para el parcial de Cálculo Integral (y funcionó 🎓). Ahora cubre **Cálculo I, II y III** completos.
 
-| | PLAN | RECORRIDO | CONTENIDO |
-|:-:|---|---|---|
-| `02` | **Parcial · Segundo corte** | Integral definida → Longitud de la curva | Solo los 7 temas, en el orden del temario, con preguntas al nivel del Taller 4 y simulacro final. La guía para graficar está dentro de Áreas. |
-| `XX` | **Plan completo** | Álgebra básica → Evaluación final | Las 20 secciones en 7 fases, desde cero |
-
-<details>
-<summary><b>Ver las 7 fases del plan completo</b></summary>
-
-| FASE | TEMAS |
-|---|---|
-| **01 · FUNDAMENTOS ALGEBRAICOS** | Leyes de exponentes y radicales · fracciones · productos notables · factorización · discriminante · división de polinomios · ecuaciones · logaritmos |
-| **02 · GRAFICAR** | Tabla de valores · rectas, parábolas, raíces, hipérbolas, exponencial y logaritmo · transformaciones · curvas x = g(y) · circunferencias · seno y coseno · cómo dibujar una región |
-| **03 · TRIGONOMETRÍA Y DERIVADAS** | Valores notables · identidades pitagóricas · ángulo doble y medio · tabla de derivadas · producto y cadena |
-| **04 · LA INTEGRAL** | Indefinida · tabla de integrales · sustitución u · definida · TFC · propiedades · cambio de límites |
-| **05 · MÉTODOS DE INTEGRACIÓN** | Partes (LIATE, tabla DI, cíclicas) · trigonométricas · completar el cuadrado · sustitución trigonométrica · fracciones parciales |
-| **06 · APLICACIONES** | Área bajo y entre curvas · discos y arandelas · ejes desplazados · secciones transversales · cascarones · longitud (cartesiana y paramétrica) |
-| **07 · EVALUACIÓN** | Simulacro mixto con tiempo |
-
-</details>
+<table>
+<tr>
+<td width="50%"><img src="docs/screens/02-linea-de-tiempo.png" alt="Mapa como línea de tiempo"><br><sub><b>El mapa es la línea de tiempo.</b> Cada era tiene sus años, sus protagonistas y su color.</sub></td>
+<td width="50%"><img src="docs/screens/03-enlaces-wiki.png" alt="Enlaces tipo Wikipedia"><br><sub><b>Enlaces tipo Wikipedia.</b> Pasa el mouse: definición, fórmula, "Teoría →", "Ejemplo →" y fuentes.</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/screens/04-historia.png" alt="Historia del cálculo"><br><sub><b>La historia real.</b> 32 hitos, de Arquímedes (250 a.C.) a las formas diferenciales, cada uno enlazado a su sección.</sub></td>
+<td width="50%"><img src="docs/screens/05-tema-noche.png" alt="Tema oscuro"><br><sub><b>8 paletas</b> claras y oscuras, más un acento propio.</sub></td>
+</tr>
+</table>
 
 ---
 
-## `// 00` EXPEDIENTE
+## ⚡ En 30 segundos
 
-**Cálculo** es una interfaz de entrenamiento para dominar Cálculo Integral desde cero. No es un PDF ni un resumen: es una **línea de estudio escalonada**. Cada sección es un nodo numerado que se desbloquea al superar el anterior, y los nodos se agrupan en **planes de estudio** según lo que necesites preparar.
-
-Cada operación queda trazada. Cuando un ejemplo aplica una ley, la expresión aparece marcada con una **llave de color** que dice cuál es y lleva al punto exacto de la teoría donde se explica.
-
-> El sistema no da respuestas para memorizar: muestra **por qué** se hace cada paso.
-
----
-
-## `// 01` PANEL DE CONTROL
-
-La barra superior funciona con íconos. Al pasar el mouse aparece el nombre; cuando una opción está activa se pinta de rojo.
-
-| ÍCONO | FUNCIÓN |
-|:-:|---|
-| <img src="docs/icons/free.svg" width="36"> | **Acceso libre.** Abre todas las secciones sin seguir el orden. |
-| <img src="docs/icons/plans.svg" width="36"> | **Planes.** Vuelve a la pantalla de inicio para cambiar de plan. |
-| <img src="docs/icons/sheet.svg" width="36"> | **Hoja de apuntes.** Resumen por prioridad, con versión para imprimir. |
-| <img src="docs/icons/board.svg" width="36"> | **Pizarra.** Panel lateral para resolver a mano. |
-| <img src="docs/icons/calc.svg" width="36"> | **Calculadora.** En ejemplos y evaluación la muestra u oculta al lado; en cualquier otra pantalla abre una flotante. |
-| <img src="docs/icons/tv.svg" width="36"> | **Modo TV.** Letra y controles más grandes para proyectar. |
-| <img src="docs/icons/full.svg" width="36"> | **Pantalla completa.** |
-| <img src="docs/icons/lang.svg" width="36"> | **Idioma.** Español o inglés. |
-
----
-
-## `// 02` MÓDULOS DEL SISTEMA
-
-| MÓDULO | FUNCIÓN |
-|---|---|
-| `INICIO` | Pantalla de arranque animada para elegir el plan. El progreso se comparte entre planes. |
-| `MAPA DEL PLAN` | Anillo de progreso, botón **CONTINUAR** a la siguiente sección, temas del parcial con miniaturas, ruta por bloques y mapa de secciones numeradas con su estado: completada, siguiente, disponible o bloqueada. |
-| `TEORÍA` | Procedimientos completos, sin saltarse pasos. En los temas del parcial abre con **lo que pide el parcial**, y Áreas incluye una **guía completa para graficar**: cómo identificar cada curva por su ecuación (con dibujo), los 6 pasos para graficar, transformaciones y cómo dibujar una región. |
-| `EJEMPLOS` | Resolución paso a paso: `ENUNCIADO → DIBUJO → CORTES → PLANTEO → CÁLCULO → RESPUESTA`, con ejercicios reales de los talleres. |
-| `SIMULADOR` | Graficar punto por punto, dibujar regiones, rectángulos de área, discos, arandelas, cascarones y longitud de arco. |
-| `EVALUACIÓN` | Combate con vidas, rachas y XP. En los temas del parcial las preguntas son ejercicios del **Taller 4** (conjuntos 5.2 y 5.4) o de la misma dificultad. Cada respuesta muestra el **procedimiento completo** con pasos de colores y, en los temas geométricos, una **gráfica** con la región, la rebanada y el eje de giro. Incluye preguntas **DIFÍCILES** (+20 XP). **Justificar con dibujo** (activado por defecto): antes de responder dibujas tu planteo en un lienzo con ejes; al final se compara con la gráfica de referencia y una autorrevisión completa da +5 XP. |
-| `CALCULADORA` | Científica: trig e inversas, ln, log, raíces, factorial, π, e, ANS, historial, **integral definida numérica**, derivada en un punto y **forma exacta** del resultado (fracción, kπ, √). |
-| `HOJA DE APUNTES` | Abre con **IDENTIFICA**: qué palabras del enunciado te dicen qué tema es y qué hacer, cómo integrar o derivar según la forma de la expresión y un plan para el parcial. Luego viene la **GUÍA COMPLETA**, pensada para quien no sabe nada del tema: un kit básico (álgebra, derivadas, integrales, trigonometría y geometría), un **catálogo visual de curvas**, **10 fichas de graficación** con ejemplos resueltos (rectas, parábolas, transformaciones, raíces, parábolas acostadas, círculos, cúbica e hipérbola, x^(2/3), seno y coseno, y la región completa de un volumen) y **13 fichas**, una por tipo de ejercicio del parcial. Cada ficha explica qué es, cómo reconocerlo y qué significa cada símbolo, y resuelve un ejercicio del taller paso a paso con el porqué de cada paso, tablas de valores para graficar y la gráfica de cada etapa. Después: lo que hay que saber, ordenado por prioridad, con un ejemplo en cada línea y otro **del Taller 4**. Se exporta en dos PDF: la **hoja del parcial** (≈20 páginas para imprimir por lado y lado: guía de la calculadora Casio fx-570ES PLUS, fórmulas en dos columnas, kit básico, procedimientos resueltos con gráficas y el **solucionario completo del Taller 4**) y la **guía completa** para estudiar. Ambos vienen listos en `docs/`. Incluye **APRENDE REPLICANDO**: un ejercicio del taller resuelto y al lado uno igual para ti, donde escribes cada resultado y se revisa al instante (+10 XP), con pistas, borrador para dibujar y solución. |
-| `PIZARRA` | Lápiz, tiza, borrador, colores primarios, fondo claro u oscuro y exportar a PNG. **Revisión con IA opcional**: califica tu procedimiento de 0 a 5, señala el primer error y da una pista. |
-
----
-
-## `// 03` REQUISITOS
-
-| COMPONENTE | DETALLE |
-|---|---|
-| **Sistema operativo** | Windows, macOS o Linux. En celular o tablet funciona sirviéndolo desde un servidor local (opción C). |
-| **Navegador** | Chrome, Edge, Firefox, Brave, Opera o Safari, en versión reciente. |
-| **Conexión** | Internet al abrirlo: las fórmulas (MathJax) y las fuentes se cargan desde la red. |
-| **Instalación** | Ninguna. No necesita Node, Python, base de datos ni compilar nada. |
-| **Git** *(opcional)* | Para clonarlo, actualizarlo con un comando o contribuir. |
-| **Clave de API** *(opcional)* | Solo para la revisión con IA de la pizarra. Sirve cualquier API compatible con OpenAI; por defecto [OpenRouter](https://openrouter.ai) con un modelo con visión. La clave se guarda únicamente en tu navegador. |
-
----
-
-## `// 04` DESPLIEGUE
-
-### Opción A · Descargar el ZIP (sin Git)
-
-1. En GitHub pulsa **Code → Download ZIP**.
-2. Descomprímelo.
-3. Abre `index.html` con doble clic.
-
-### Opción B · Clonar con Git *(recomendado)*
-
-```powershell
+```bash
 git clone https://github.com/tomikav/Calc-short-4-Calculator.git
 cd Calc-short-4-Calculator
-start index.html        # Windows  ·  macOS: open index.html  ·  Linux: xdg-open index.html
+start index.html          # Windows · macOS: open index.html · Linux: xdg-open index.html
 ```
 
-### Opción C · Servidor local *(para abrirlo desde el celular)*
-
-Con Python 3, desde la carpeta del proyecto:
-```bash
-python -m http.server 8080
-```
-Abre `http://localhost:8080`. Desde el celular, en la misma red Wi-Fi: `http://IP-DE-TU-PC:8080` (en Windows la IP sale con `ipconfig`).
-
-### Actualizar a la última versión
-
-Si lo clonaste:
-```powershell
-git pull
-```
-Si lo descargaste como ZIP, vuelve a descargarlo. Luego recarga el navegador con **Ctrl + F5**.
-
-> **Progreso:** el XP, las secciones completadas, el plan activo, la calculadora y la pizarra guardan su estado en el navegador (`localStorage`). Si cambias de navegador o borras los datos, empiezas de cero.
+¿Sin Git? **Code → Download ZIP**, descomprime y abre `index.html`.
+¿Desde el celular o instalarlo como app? Sírvelo con `python -m http.server 8080` y abre `http://IP-DE-TU-PC:8080`; en Chrome/Edge aparece **Instalar app**.
+¿Ya lo tenías? `git pull` y recarga con **Ctrl + F5**.
 
 ---
 
-## `// 05` ARQUITECTURA
+## 🗺️ El temario: 15 eras
+
+El orden es el **pedagógico** (cómo se aprende). El año es cuándo **nació** cada idea: la integral es la más antigua y el límite, que sostiene todo, llegó al final.
+
+| | Era | Años · protagonistas | Secciones |
+|:-:|---|---|---|
+| `ERA 00` | 🧮 **Fundamentos algebraicos** | `c. 820 – 1637` · Al-Juarismi · Viète · Descartes | Exponentes, radicales y fracciones · Productos notables y factorización · Fracciones, división, ecuaciones y logaritmos |
+| `ERA 01` | 📈 **Funciones y gráficas** | `1637` · Descartes · Fermat | Graficar I: funciones básicas · Graficar II: curvas especiales y regiones |
+| `ERA 02` | 📐 **Trigonometría** | `c. 150 – 1748` · Ptolomeo · Euler | Trigonometría base |
+| `ERA 03` | 🎯 **Límites y continuidad** | `1821 – 1861` · Cauchy · Weierstrass | Límites: la idea y sus leyes · Calcular límites: técnicas algebraicas · Continuidad y asíntotas |
+| `ERA 04` | ⚡ **La derivada** | `1665 – 1684` · Newton · Leibniz | La derivada: definición y recta tangente · Reglas de derivación · Derivación implícita, logarítmica e inversas |
+| `ERA 05` | 🛠️ **Aplicaciones de la derivada** | `1636 – 1696` · Fermat · Rolle · L’Hôpital | Razones de cambio relacionadas · Aproximación lineal, diferenciales y método de Newton · Valor medio, crecimiento y trazado de curvas · Optimización · Regla de L'Hôpital · Checkpoint: Cálculo diferencial |
+| `ERA 06` | ∫ **La integral** | `c. 250 a.C. – 1854` · Arquímedes · Barrow · Riemann | Integral indefinida y sustitución u · Integral definida y TFC |
+| `ERA 07` | 🧩 **Métodos de integración** | `1690 – 1770` · Bernoulli · Euler | Integración por partes · Integrales trigonométricas · Completar el cuadrado · Sustitución trigonométrica · Fracciones parciales · Integrales impropias |
+| `ERA 08` | 🏺 **Aplicaciones de la integral** | `1615 – 1659` · Kepler · Cavalieri · Torricelli | Área entre curvas · Discos y arandelas · Volúmenes por secciones transversales · Cascarones cilíndricos · Longitud de curva · Superficie, trabajo y centro de masa · Checkpoint: Cálculo integral |
+| `ERA 09` | ♾️ **Sucesiones y series** | `c. 1350 – 1821` · Oresme · Taylor · Euler | Sucesiones · Series infinitas y criterios de convergencia · Series de potencias y de Taylor |
+| `ERA 10` | 🌀 **Paramétricas y polares** | `1658 – 1691` · Wren · Jakob Bernoulli | Curvas paramétricas · Coordenadas polares |
+| `ERA 11` | 🧭 **Vectores y el espacio** | `1843 – 1881` · Hamilton · Grassmann · Gibbs | Vectores en el espacio · Rectas, planos y superficies cuádricas · Funciones vectoriales y movimiento |
+| `ERA 12` | ⛰️ **Derivadas en varias variables** | `1740 – 1788` · Clairaut · Euler · Lagrange | Funciones de varias variables · Derivadas parciales · Plano tangente, diferencial y regla de la cadena · Gradiente y derivada direccional · Máximos y mínimos en varias variables · Multiplicadores de Lagrange |
+| `ERA 13` | 🧊 **Integrales múltiples** | `1769 – 1841` · Euler · Lagrange · Jacobi | Integrales dobles · Integrales dobles en coordenadas polares · Integrales triples · Coordenadas cilíndricas y esféricas · Cambio de variables y jacobiano |
+| `ERA 14` | 🌪️ **Cálculo vectorial** | `1813 – 1854` · Gauss · Green · Ostrogradski · Stokes | Campos vectoriales, divergencia y rotacional · Integrales de línea · Teorema de Green · Superficies paramétricas e integrales de superficie · Teorema de Stokes · Teorema de la divergencia (Gauss–Ostrogradski) · Evaluación final: Cálculo multivariable |
+
+Hay **5 planes de estudio** que recorren tramos de esta línea:
+
+| Plan | Recorrido | Para |
+|---|---|---|
+| `PLAN-XX` **Línea de tiempo completa** | Álgebra → Stokes y Gauss | Todo, en orden, con ruta sugerida de ~60 h |
+| `PLAN-I` **Cálculo I · Diferencial** | Álgebra → L’Hôpital | Primer semestre |
+| `PLAN-II` **Cálculo II · Integral** | Integral indefinida → Polares | Segundo semestre |
+| `PLAN-III` **Cálculo III · Multivariable** | Vectores → Divergencia | Tercer semestre |
+| `PLAN-E` **Ruta express** | Límite → Gauss en 17 paradas | Ver el panorama completo rápido |
+
+---
+
+## ✨ Qué tiene
+
+| | Módulo | Qué hace |
+|:-:|---|---|
+| 📖 | **Teoría** | Procedimientos completos sin saltarse pasos: *por qué importa*, fórmula, receta numerada, error común y consejo. Diagramas propios en cada tema. |
+| 🔗 | **Enlaces tipo Wikipedia** | 100 términos de glosario. La primera aparición de cada término se enlaza sola; al pasar el mouse sale una tarjeta con definición, fórmula, botones **TEORÍA →** y **EJEMPLO →**, enlace a Wikipedia y fuentes. Al saltar, un botón te devuelve a donde estabas. |
+| 📚 | **Citas y bibliografía** | Citas numeradas `[1]` dentro de la teoría y referencias al final de cada sección: OpenStax *Cálculo* (vol. 1–3, en español), Paul’s Online Notes, MIT OpenCourseWare, Stewart, 3Blue1Brown, Khan Academy y las obras históricas originales. |
+| 🕰️ | **Línea de tiempo histórica** | 32 hitos con año, protagonista, qué hizo, enlace a Wikipedia y botón a la sección donde se estudia. |
+| 🔤 | **Glosario A–Z** | Buscador de todos los términos con su definición. |
+| 🧪 | **Ejemplos** | 170 ejercicios resueltos que se revelan paso a paso, con etapas `DIBUJO → PLANTEO → CÁLCULO → RESPUESTA`. |
+| 🎮 | **Evaluación** | 360+ preguntas con vidas, rachas, XP, pistas y procedimiento; checkpoints cronometrados al final de cada curso. |
+| 🕹️ | **Simuladores** | Graficar, regiones, rectángulos de área, discos, arandelas, cascarones, longitud de arco. |
+| 🧮 | **Calculadora** | Científica, con integral definida numérica, derivada en un punto y forma exacta. |
+| ✏️ | **Pizarra** | Para resolver a mano, con exportar a PNG y revisión opcional con IA. |
+| 📝 | **Hoja de apuntes** | Resumen por prioridad de cálculo integral, en PDF listo para imprimir. |
+| 🎨 | **Paletas** | 8 temas (4 claros, 4 oscuros) + acento personalizado, todo con variables CSS. |
+| 📱 | **App** | Responsive, modo TV para proyectar, instalable como PWA. |
+
+---
+
+## 🎨 Paletas
+
+<img src="docs/palettes.svg" alt="8 paletas" width="100%">
+
+Botón de colores en la barra superior. Todo el diseño sale de 12 variables CSS (*design tokens*), pensadas para que pasar a una app nativa sea copiar valores: ver **[docs/TEMAS.md](docs/TEMAS.md)**.
+
+---
+
+## 🧱 Arquitectura
+
+Sin dependencias ni compilación: HTML + CSS + JavaScript puro. MathJax y las fuentes se cargan de la web.
 
 ```
-index.html              ── Interfaz principal
-css/style.css           ── Estilos (rojo / negro / blanco)
-docs/                   ── Banner e íconos de este README
+index.html               interfaz
+manifest.webmanifest     para instalar como app
+css/style.css            estilos (todo con variables de color)
 js/
- ├─ core.js             ── Estado, utilidades y U(): llaves de color
- ├─ fig.js              ── Generador de gráficas SVG (regiones, discos, secciones, arcos)
- ├─ i18n.js             ── Textos de la interfaz por idioma
- ├─ labs-calc.js        ── Simuladores de áreas, volúmenes y longitud
- ├─ labs-graph.js       ── Simuladores para graficar y dibujar regiones
- ├─ app.js              ── Inicio, planes, mapa, secciones, ejemplos, evaluación y hoja
- ├─ board.js            ── Pizarra virtual y revisión con IA opcional
- ├─ sketch.js           ── Lienzo para justificar con dibujo en la evaluación
- ├─ calc.js             ── Calculadora científica (parser propio, sin eval)
- └─ loader.js           ── Carga el contenido del idioma activo
+ ├─ theme.js             paletas de color
+ ├─ wiki.js              enlaces tipo Wikipedia, citas, historia y glosario
+ ├─ app.js               mapa, secciones, ejemplos, evaluación y hoja
+ ├─ core.js · i18n.js · loader.js
+ ├─ fig.js · labs-*.js   gráficas y simuladores
+ └─ calc.js · board.js · sketch.js
 content/es/
- ├─ course.js           ── Nombre, fases, PLANES DE ESTUDIO, temas del parcial y rutas
- ├─ references.js       ── Colores de las leyes, enlaces a la teoría y videos
- ├─ sections.js         ── Las secciones: teoría, ejemplos y preguntas
- ├─ annotations.js      ── Llaves de color dentro de los ejemplos
- ├─ workshop.js         ── Ejercicios de taller resueltos completos
- ├─ solutions.js        ── Procedimiento de cada pregunta + preguntas difíciles
- ├─ figures.js          ── Gráficas de las preguntas y miniaturas de los temas
- ├─ parcial.js          ── Guía de graficar, info de parcial y preguntas del Taller 4
- ├─ replicate.js        ── Ejemplos del taller por fórmula y ejercicios para replicar
- ├─ fichas.js           ── Guía completa: kit básico y fichas paso a paso con gráficas
- ├─ taller4.js          ── Solucionario del Taller 4 (5.2 y 5.4) con dibujos
- ├─ calcguide.js        ── Cómo usar la Casio fx-570ES PLUS en el parcial
- ├─ identify.js         ── Palabras clave del enunciado, cómo integrar/derivar según la forma y plan de parcial
- └─ sheet.js            ── Hoja de apuntes por prioridad
+ ├─ sections.js …        álgebra, gráficas, trigonometría e integral (contenido original)
+ ├─ diferencial.js       límites, continuidad, derivada y sus aplicaciones
+ ├─ series.js            impropias, superficie y trabajo, sucesiones, series, Taylor, paramétricas, polares
+ ├─ multivariable.js     vectores, rectas y planos, parciales, gradiente, Lagrange
+ ├─ vectorial.js         integrales dobles y triples, jacobiano, campos, Green, Stokes, divergencia
+ ├─ glosario.js          glosario (WIKI), bibliografía (CITE) e hitos (HIST)
+ └─ timeline.js          eras, orden, numeración, planes y videos  ← se carga al final
+docs/                    banner, gráficos del README, capturas, PDFs y TEMAS.md
 ```
 
-El motor (`js/`) no tiene contenido propio: todo sale de `content/`. Para agregar temas, crear planes, añadir materias o traducir no hay que tocar el código.
-
-**Crear un plan nuevo** es agregar un bloque en `content/es/course.js`:
-```js
-{ id:'mi-plan', code:'PLAN-03', icon:'target', accent:'#ff2a1f', name:'Repaso de volúmenes',
-  range:'Discos → Secciones transversales', desc:'Solo volúmenes.', sections:['discos','secciones'] }
-```
-`icon` puede ser `target`, `chip` o `network`, y `accent` es el color de la tarjeta en la pantalla de inicio.
+El motor (`js/`) no tiene contenido: todo sale de `content/`. Agregar una sección es un `LV.push({...})` y una línea en `timeline.js`; los códigos `SEC-xx` se numeran solos.
 
 ---
 
-## `// 06` ACCESO PARA COLABORADORES
+## 🤝 Contribuir
 
-El proyecto es abierto. Puedes agregar secciones, ejemplos, preguntas con su procedimiento, gráficas, planes, idiomas o materias completas. El procedimiento está en [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Secciones, ejemplos, preguntas, términos del glosario, hitos históricos, paletas o traducciones: el paso a paso está en **[CONTRIBUTING.md](CONTRIBUTING.md)**. Dentro de la teoría se enlaza con `[[clave]]` y se cita con `[^fuente|§2.3]`.
 
 ```bash
-git checkout -b mi-aporte
-# ...cambios...
-git commit -m "nuevo ejemplo de arandelas"
-git push origin mi-aporte
+git checkout -b mi-aporte && git commit -m "nuevo ejemplo de Stokes" && git push origin mi-aporte
 ```
-Después abre un Pull Request.
+
+## 📄 Licencia
+
+[MIT](LICENSE). Los ejercicios de taller se citan con fines educativos; las fuentes enlazadas pertenecen a sus autores.
 
 ---
 
-## `// 07` LICENCIA
+<a id="english"></a>
+<div align="center">
 
-[MIT](LICENSE): libre para usar, copiar y modificar. Los ejercicios de taller se citan con fines educativos.
+## 🇬🇧 English
+
+</div>
+
+**Cálculo//** is an interactive, no-install study app that walks through **all of calculus as a timeline**: from exponent rules to Green’s, Stokes’ and the divergence theorems — 59 sections in 15 eras (Calc I, II and III).
+
+- **Theory → step-by-step examples → simulators → quiz with XP**, in every section.
+- **Wikipedia-style links**: 100 glossary terms auto-linked in the text, with hover previews (definition, formula, *Theory →*, *Example →*, Wikipedia, sources) and a back button.
+- **Numbered citations** and per-section references (OpenStax, Paul’s Notes, MIT OCW, Stewart, 3Blue1Brown, original historical works).
+- **History timeline** with 32 milestones, Archimedes to differential forms, each linked to its section.
+- **8 color palettes** (light and dark) + custom accent, all driven by 12 CSS variables — ready to port to a native app ([docs/TEMAS.md](docs/TEMAS.md)). Installable as a PWA.
+
+Run it: clone and open `index.html`, or `python -m http.server 8080`. The interface is available in Spanish and English; course content is in Spanish (translations welcome — see [CONTRIBUTING.md](CONTRIBUTING.md)).
 
 <div align="center">
 
 **`// FIN DEL EXPEDIENTE //`**
 
 </div>
-
----
----
-
-<a id="english-version"></a>
-<div align="center">
-
-**INTENSIVE TRAINING PROTOCOL // INTEGRAL CALCULUS**
-
-</div>
-
-## `// MIDTERM SYLLABUS`
-
-| # | TOPIC | SECTION |
-|:-:|---|:-:|
-| **01** | Definite integral and the Fundamental Theorem of Calculus | `SEC-08` |
-| **02 · 03** | Area under a curve and between curves | `SEC-14` |
-| **04 · 05** | Volumes by disks and washers | `SEC-15` |
-| **06** | Volumes by cross-sections | `SEC-15B` |
-| **07** | Arc length of a plane curve | `SEC-17` |
-| `SUPPORT` | Graphing curves and regions · integration techniques | `SEC-03 · 04 · 07 to 13` |
-
-## `// STUDY PLANS`
-
-| | PLAN | PATH | CONTENT |
-|:-:|---|---|---|
-| `02` | **Midterm 2** | Definite integral → Arc length | Only the 7 midterm topics, with questions at Workshop 4 level and a final mock exam |
-| `XX` | **Full plan** | Basic algebra → Final assessment | All 20 sections in 7 phases |
-
-## `// 00` OVERVIEW
-
-**Cálculo** is a training interface for learning Integral Calculus from scratch. It is not a PDF or a summary: it is a **step-by-step learning path**. Each section is a numbered node that unlocks when you clear the previous one, and nodes are grouped into **study plans**.
-
-Every operation is traceable. When an example applies a rule, the expression is marked with a **colored brace** that names the rule and links to the exact part of the theory where it is explained.
-
-## `// 01` CONTROL PANEL
-
-The top bar uses icons. Hover to see the name; active options turn red.
-
-| ICON | FUNCTION |
-|:-:|---|
-| <img src="docs/icons/free.svg" width="36"> | **Free access.** Unlocks every section. |
-| <img src="docs/icons/plans.svg" width="36"> | **Plans.** Back to the start screen to switch plans. |
-| <img src="docs/icons/sheet.svg" width="36"> | **Cheat sheet.** Priority summary with a printable version. |
-| <img src="docs/icons/board.svg" width="36"> | **Whiteboard.** Side panel to work by hand. |
-| <img src="docs/icons/calc.svg" width="36"> | **Calculator.** Shows or hides the side calculator in examples and quiz; opens a floating one anywhere else. |
-| <img src="docs/icons/tv.svg" width="36"> | **TV mode.** Larger text and controls for projecting. |
-| <img src="docs/icons/full.svg" width="36"> | **Full screen.** |
-| <img src="docs/icons/lang.svg" width="36"> | **Language.** Spanish or English. |
-
-## `// 02` SYSTEM MODULES
-
-| MODULE | WHAT IT DOES |
-|---|---|
-| `START` | Animated boot screen to choose a plan. Progress is shared across plans. |
-| `PLAN MAP` | Progress ring, **CONTINUE** button, midterm topics with thumbnails, study route by blocks and a numbered section map showing each state. |
-| `THEORY` | Complete procedures with no skipped steps. |
-| `EXAMPLES` | `STATEMENT → SKETCH → INTERSECTIONS → SETUP → CALCULATION → ANSWER`, using real workshop exercises. |
-| `SIMULATOR` | Plot functions, sketch regions, area rectangles, disks, washers, shells and arc length. |
-| `QUIZ` | Lives, streaks and XP. Midterm questions come from **Workshop 4** (sets 5.2 and 5.4) or match its difficulty. Every answer shows the **full procedure** with color-coded steps and, for geometric topics, a **graph** with the region, the slice and the axis of rotation. Includes **HARD** questions (+20 XP). **Justify with a drawing** (on by default): sketch your setup before answering, then compare it with the reference graph; a full self-review gives +5 XP. |
-| `CALCULATOR` | Scientific: trig and inverses, ln, log, roots, factorial, π, e, ANS, history, **numerical definite integral**, derivative at a point and **exact form** of the result. |
-| `CHEAT SHEET` | Starts with a **COMPLETE GUIDE** for absolute beginners: a basic kit and **13 cards**, one per midterm exercise type, each solving a workshop exercise step by step with value tables and a graph for every stage. Then: what you need to know, ordered by priority, with an example and a **Workshop 4** example on every line. Exports two PDFs: a ~13-page **midterm sheet** (double-sided) and the **full guide**, both ready in `docs/`. Includes **LEARN BY REPLICATING**: a solved workshop exercise next to a matching one where you type each result and get instant feedback. |
-| `WHITEBOARD` | Pencil, chalk, eraser, primary colors, light or dark background and PNG export. **Optional AI review** scores your work from 0 to 5. |
-
-## `// 03` REQUIREMENTS
-
-| COMPONENT | DETAILS |
-|---|---|
-| **Operating system** | Windows, macOS or Linux. Phones and tablets work through a local server (option C). |
-| **Browser** | A recent version of Chrome, Edge, Firefox, Brave, Opera or Safari. |
-| **Connection** | Internet access when opening it (MathJax and fonts load from the web). |
-| **Installation** | None. |
-| **Git** *(optional)* | To clone it, update it with one command or contribute. |
-| **API key** *(optional)* | Only for the whiteboard AI review. Any OpenAI-compatible API works; [OpenRouter](https://openrouter.ai) is the default. The key stays in your browser. |
-
-## `// 04` SETUP
-
-**Option A · ZIP:** on GitHub click **Code → Download ZIP**, extract it and double-click `index.html`.
-
-**Option B · Git** *(recommended)*
-```bash
-git clone https://github.com/tomikav/Calc-short-4-Calculator.git
-cd Calc-short-4-Calculator
-```
-Open it with `start index.html` (Windows), `open index.html` (macOS) or `xdg-open index.html` (Linux).
-
-**Option C · Local server** (Python 3): `python -m http.server 8080`, then open `http://localhost:8080`.
-
-**Updating:** run `git pull` (or download the ZIP again) and reload with **Ctrl + F5**.
-
-## `// 05` ARCHITECTURE
-
-The engine (`js/`) contains no course content; everything loads from `content/<language>/`. Topics, study plans, subjects and translations can be added without touching the code. See the Spanish section above for the file map and a new-plan example.
-
-## `// 06` CONTRIBUTING
-
-Open source: add sections, examples, questions with their procedure, graphs, study plans, languages or entire subjects. See [`CONTRIBUTING.md`](CONTRIBUTING.md). Course content is currently Spanish only, so translations are especially welcome.
-
-## `// 07` LICENSE
-
-[MIT](LICENSE): free to use, copy and modify. Workshop exercises are quoted for educational purposes.
