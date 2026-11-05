@@ -1260,3 +1260,21 @@ h4.flash,.ex.flash{background:var(--tint-red);outline:4px solid var(--red);trans
 @media(max-width:820px){.bt-grid{grid-template-columns:1fr}.bt-list{position:static}.bt-log{font-size:11px;white-space:pre-wrap}.br-lad li{grid-template-columns:26px 1fr}.br-lad .lf{grid-column:2;white-space:normal}.bt-term{margin-top:4vh}}
 @media(prefers-reduced-motion:reduce){#boot *{animation:none!important;transition:none!important}}
 @media(max-width:820px){.br-go{position:static;background:none}.bt-keys{display:none}.bt-route{padding:16px 14px}.br-h b{font-size:24px}}
+
+/* ============ SIMULADOR DE PRÁCTICA INFINITA ============ */
+.dr-card{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--red);padding:18px 18px 14px;margin:12px 0}
+.dr-q{font-size:1.35em;min-height:56px;display:flex;align-items:center;justify-content:center}
+.dr-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.dr-in{flex:1 1 200px;font:500 1.05rem 'JetBrains Mono',monospace;padding:10px 12px;border:1px solid var(--ink);background:var(--soft);color:var(--ink)}
+.dr-in:focus{outline:2px solid var(--red);outline-offset:1px}
+.dr-row button{font:600 .9rem Rajdhani,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:10px 14px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer}
+.dr-row .dr-go{background:var(--red);border-color:var(--red);color:#fff}
+.dr-row button:hover{filter:brightness(1.08)}
+.dr-fb{min-height:1.5em;margin-top:10px;font-weight:500}
+.dr-fb.ok{color:var(--green)} .dr-fb.no{color:var(--red)} .dr-fb.warn{color:var(--mut)}
+.dr-steps{margin:10px 0 0;padding-left:22px;border-top:1px dashed var(--line);padding-top:10px}
+.dr-steps li{margin:6px 0} .dr-steps .dr-res{list-style:none;margin-left:-22px;font-weight:600;color:var(--blue)}
+.dr-stat{font:500 .85rem 'JetBrains Mono',monospace;color:var(--mut)}
+.dr-lv button.on{background:var(--ink);color:var(--paper)}
+/* botón instalar */
+#installbtn[hidden]{display:none!important}

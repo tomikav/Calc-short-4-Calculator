@@ -4,10 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cálculo — de cero a multivariable</title>
-<meta name="description" content="Línea de tiempo interactiva del cálculo: de álgebra básica a los teoremas de Green, Stokes y Gauss. Teoría paso a paso, ejemplos, simuladores y evaluación.">
+<meta name="description" content="Matemáticas en orden: de sumar y restar a los teoremas de Green, Stokes y Gauss. Teoría paso a paso, ejemplos, simuladores y evaluación.">
 <meta name="theme-color" content="#0b0b0b">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="docs/icons/app.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="docs/icons/app-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Cálculo">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -19,7 +23,7 @@ window.MathJax = {
 };
 function typeset(el){ if (window.__mj && window.MathJax && MathJax.typesetPromise) { MathJax.typesetClear && MathJax.typesetClear([el]); MathJax.typesetPromise([el]).catch(()=>{}); } }
 </script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<script async src="vendor/mathjax/tex-svg.js"></script>
 </head>
 <body>
 <header class="hud">
@@ -41,6 +45,7 @@ function typeset(el){ if (window.__mj && window.MathJax && MathJax.typesetPromis
       <i class="hic-sep"></i>
       <button class="hic" id="tvbtn" onclick="toggleTV()" data-tip="tv"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="13" rx="1"/><path d="M8 21h8M12 17.5V21"/><path d="M7 8.5v5" class="r"/></svg></button>
       <button class="hic" onclick="goFull()" data-tip="full"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9V3h6M21 9V3h-6M3 15v6h6M21 15v6h-6"/><rect x="8" y="8" width="8" height="8" class="f2"/></svg></button>
+      <button class="hic" id="installbtn" onclick="installApp()" data-tip="install" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11"/><path d="M7.5 9.5L12 14l4.5-4.5"/><path d="M4 15v5.5h16V15" class="r"/></svg></button>
       <button class="hic" id="palbtn" onclick="togglePal(event)" data-tip="pal"><span class="sw"></span></button>
       <label class="hic hic-lang" data-tip="langTip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><select id="lang" onchange="setLang(this.value)" aria-label="Idioma / Language"></select></label>
     </nav>
@@ -55,12 +60,14 @@ function typeset(el){ if (window.__mj && window.MathJax && MathJax.typesetPromis
 <script src="js/i18n.js"></script>
 <script src="js/labs-calc.js"></script>
 <script src="js/labs-graph.js"></script>
+<script src="js/labs-basic.js"></script>
 <script src="js/app.js"></script>
 <script src="js/wiki.js"></script>
 <script src="js/intro.js"></script>
 <script src="js/board.js"></script>
 <script src="js/sketch.js"></script>
 <script src="js/calc.js"></script>
+<script src="js/pwa.js"></script>
 <script src="js/loader.js"></script>
 </body>
 </html>

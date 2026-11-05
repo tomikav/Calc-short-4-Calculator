@@ -7,7 +7,7 @@ const LANGS = { es:'Español', en:'English' };
 
 const I18N = {
  es:{
-  free:'ACCESO LIBRE', calcBtn:'CALCULADORA', langTip:'IDIOMA', freeOn:'Acceso libre activado: todas las secciones abiertas', freeOff:'Acceso libre desactivado', sheet:'HOJA DE APUNTES', tv:'MODO TV', full:'PANTALLA COMPLETA',
+  free:'ACCESO LIBRE', calcBtn:'CALCULADORA', install:'INSTALAR APP', installOk:'App instalada: ábrela desde el escritorio o el menú de inicio', installIOS:'En iPhone: botón Compartir → «Agregar a inicio»', offlineReady:'Listo para usar sin internet', updateReady:'Hay una versión nueva: recarga para usarla', langTip:'IDIOMA', freeOn:'Acceso libre activado: todas las secciones abiertas', freeOff:'Acceso libre desactivado', sheet:'HOJA DE APUNTES', tv:'MODO TV', full:'PANTALLA COMPLETA',
   fullBlocked:'Tu navegador bloqueó la pantalla completa: pulsa F11',
   ranks:[[0,'NIVEL 0 // RECLUTA'],[120,'NIVEL 1 // OPERADOR'],[300,'NIVEL 2 // ANALISTA'],[520,'NIVEL 3 // INGENIERO'],[760,'NIVEL 4 // ESPECIALISTA'],[1000,'NIVEL 5 // EJECUTIVO']],
   openSheet:'VER HOJA DE APUNTES', progress:'PROGRESO', progressHint:'Para saltar a cualquier sección activa ACCESO LIBRE.',
@@ -59,7 +59,7 @@ const I18N = {
   boot:['INICIANDO PROTOCOLO DE ENTRENAMIENTO','CARGANDO 15 ERAS: DE ARQUÍMEDES A STOKES','CARGANDO SIMULADORES','SINCRONIZANDO PROGRESO','ACCESO CONCEDIDO'],
  },
  en:{
-  free:'FREE ACCESS', calcBtn:'CALCULATOR', langTip:'LANGUAGE', freeOn:'Free access on: every section unlocked', freeOff:'Free access off', sheet:'CHEAT SHEET', tv:'TV MODE', full:'FULL SCREEN',
+  free:'FREE ACCESS', calcBtn:'CALCULATOR', install:'INSTALL APP', installOk:'App installed: open it from your desktop or start menu', installIOS:'On iPhone: Share button → “Add to Home Screen”', offlineReady:'Ready to use offline', updateReady:'A new version is available: reload to use it', langTip:'LANGUAGE', freeOn:'Free access on: every section unlocked', freeOff:'Free access off', sheet:'CHEAT SHEET', tv:'TV MODE', full:'FULL SCREEN',
   fullBlocked:'Your browser blocked full screen: press F11',
   ranks:[[0,'LEVEL 0 // RECRUIT'],[120,'LEVEL 1 // OPERATOR'],[300,'LEVEL 2 // ANALYST'],[520,'LEVEL 3 // ENGINEER'],[760,'LEVEL 4 // SPECIALIST'],[1000,'LEVEL 5 // EXECUTIVE']],
   openSheet:'OPEN CHEAT SHEET', progress:'PROGRESS', progressHint:'Turn on FREE ACCESS to jump to any section.',

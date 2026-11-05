@@ -23,6 +23,7 @@ function bootLines(){
     ['chk', `verificando memoria`, `${(s.n*64).toLocaleString('es')} KB`],
     ['mod', `montando /content/${typeof CONTENT_LANG!=='undefined'?CONTENT_LANG:'es'}`, `${s.n} secciones`],
     ['mod', `cargando eras  00 → ${String(s.eras-1).padStart(2,'0')}`, `${s.eras} eras`],
+    ['mod', `módulo aritmetica.ko    a ± b · a/b`, 'OK'],
     ['mod', `módulo limites.ko       lim f(x)`, 'OK'],
     ['mod', `módulo derivada.ko      f′(x)`, 'OK'],
     ['mod', `módulo integral.ko      ∫ f dx`, 'OK'],
@@ -97,7 +98,7 @@ function renderSelector(instant){
   document.getElementById('btmain').innerHTML=`
     <header class="bt-head">
       <div class="bt-logo" data-t="CÁLCULO//">CÁLCULO<b>//</b></div>
-      <div class="bt-sub">Sistema de estudio · de álgebra a cálculo vectorial · ${s.n} secciones · ${s.eras} eras</div>
+      <div class="bt-sub">Sistema de estudio · de sumar y restar a cálculo vectorial · ${s.n} secciones · ${s.eras} eras</div>
       <div class="bt-prompt"><span>calc@estudio:~$</span> ruta --curso <em id="btcur">?</em><i class="cur">_</i></div>
     </header>
     <div class="bt-grid">

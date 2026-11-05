@@ -6,7 +6,7 @@ Las fórmulas se escriben en LaTeX dentro de `R\`...\``: `\(...\)` para fórmula
 
 ## 1. Agregar una sección
 
-Las secciones nuevas van en el archivo de su área (`diferencial.js`, `series.js`, `multivariable.js`, `vectorial.js`, o uno nuevo) con `LV.push({...})`:
+Las secciones nuevas van en el archivo de su área (`aritmetica.js`, `diferencial.js`, `series.js`, `multivariable.js`, `vectorial.js`, o uno nuevo) con `LV.push({...})`:
 
 ```js
 LV.push({ id:'mi-tema', n:'Nombre del tema', sub:'Subtítulo corto', tgt:'NOMBRE_DEL_OBJETIVO',
@@ -15,6 +15,7 @@ LV.push({ id:'mi-tema', n:'Nombre del tema', sub:'Subtítulo corto', tgt:'NOMBRE
   cites:['osc2|§2.3','paul2'],        // bibliografía al final (claves de CITE en glosario.js)
   see:['tfc','riemann'],              // "Ver también" (claves de WIKI)
   lab:'area',                         // opcional: simulador (ver js/labs-*.js)
+  // lab:'drill', drill:'frac',       // o práctica infinita: un generador de DRILL en js/labs-basic.js
   lore: R`
     <div class="why">Por qué importa. Se conecta con la [[derivada]] y la [[tfc|integral]][^osc1|§5.3].</div>
     <h3>Idea</h3>
@@ -28,7 +29,7 @@ LV.push({ id:'mi-tema', n:'Nombre del tema', sub:'Subtítulo corto', tgt:'NOMBRE
 });
 ```
 
-Luego agrega su `id` en `ORDEN` dentro de `content/es/timeline.js`, en la era que corresponda. **No escribas `code` ni `g`**: `timeline.js` numera todas las secciones (`SEC-00`, `SEC-01`…), asigna la era y actualiza cualquier "SEC-xx" que aparezca en los textos.
+Luego agrega su `id` en `ORDEN` dentro de `content/es/timeline.js`, en la era que corresponda. Si creaste un archivo nuevo, agrégalo también en `CONTENT_FILES` (`js/loader.js`). **No escribas `code` ni `g`**: `timeline.js` numera todas las secciones (`SEC-00`, `SEC-01`…), asigna la era y actualiza cualquier "SEC-xx" que aparezca en los textos.
 
 ### Enlaces tipo Wikipedia y citas
 
@@ -163,3 +164,13 @@ Copia la carpeta `content/es/` completa, cambia `course.js` y reemplaza las secc
 - Pasa el mouse por los enlaces azules nuevos: la vista previa debe mostrar la definición y "TEORÍA →" debe llevar al título correcto.
 - Revisa con un ejemplo numérico que los resultados sean correctos.
 - Usa mensajes de commit cortos y claros.
+
+## Antes de subir cambios
+
+La app instalada guarda una copia de los archivos para funcionar sin internet. Después de agregar o cambiar archivos, corre:
+
+```bash
+python tools/precache.py
+```
+
+Eso actualiza la lista de `sw.js` y su versión, y así quien ya tiene la app instalada recibe la actualización.
