@@ -4,6 +4,10 @@
 
 **Sistema de estudio de matemáticas organizado como línea de tiempo: de sumar y restar a los teoremas de Green, Stokes y Gauss. Se instala como app y funciona sin internet.**
 
+<a href="https://tomikav.github.io/Calc-short-4-Calculator/"><img src="https://img.shields.io/badge/▶_ABRIR_E_INSTALAR_LA_APP-e10600?style=for-the-badge&labelColor=0b0b0b" alt="Abrir e instalar la app" height="44"></a>
+
+<sub>Ábrela en Chrome o Edge y pulsa <b>Instalar</b> (en el celular: menú → <i>Instalar aplicación</i> / <i>Agregar a inicio</i>). Funciona sin internet.</sub>
+
 ![secciones](https://img.shields.io/badge/secciones-70-e10600?style=flat-square&labelColor=0b0b0b)
 ![eras](https://img.shields.io/badge/eras-16-2f7bff?style=flat-square&labelColor=0b0b0b)
 ![preguntas](https://img.shields.io/badge/preguntas-450-00a37a?style=flat-square&labelColor=0b0b0b)
