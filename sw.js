@@ -2,7 +2,7 @@
    Al instalarse guarda todos los archivos de PRECACHE. Después responde primero
    desde el caché y actualiza en segundo plano (stale-while-revalidate).
    No edites la lista a mano: corre  python tools/precache.py  después de cambiar archivos. */
-const VERSION = '88bd60d297';
+const VERSION = 'e54a8c3815';
 const CACHE = 'calc-' + VERSION;
 const PRECACHE = [
  "./",
